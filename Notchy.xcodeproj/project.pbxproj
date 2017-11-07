@@ -1,0 +1,430 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9C71FB136CE00F461A8 /* AppDelegate.swift */; };
+		3739C9CA1FB136CE00F461A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9C91FB136CE00F461A8 /* ViewController.swift */; };
+		3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
+		3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */; };
+		3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9D91FB13B9800F461A8 /* GridViewController.swift */; };
+		3739C9DC1FB13BF700F461A8 /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */; };
+		3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9DD1FB13C0C00F461A8 /* GridViewCell.swift */; };
+		3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */; };
+		3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */; };
+		3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */; };
+		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3739C9C41FB136CE00F461A8 /* Notchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3739C9C71FB136CE00F461A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3739C9C91FB136CE00F461A8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3739C9CE1FB136CE00F461A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3739C9D11FB136CE00F461A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3739C9D31FB136CE00F461A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3739C9D91FB13B9800F461A8 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
+		3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
+		3739C9DD1FB13C0C00F461A8 /* GridViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewCell.swift; sourceTree = "<group>"; };
+		3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImageView.swift; sourceTree = "<group>"; };
+		3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImage.swift; sourceTree = "<group>"; };
+		3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAccessViewController.swift; sourceTree = "<group>"; };
+		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
+		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3739C9C11FB136CE00F461A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3739C9BB1FB136CE00F461A8 = {
+			isa = PBXGroup;
+			children = (
+				3739C9C61FB136CE00F461A8 /* Notchy */,
+				3739C9C51FB136CE00F461A8 /* Products */,
+				C4D562C171D92AAB13FC5EAE /* Pods */,
+				D50BA6DF290288D179ECF420 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3739C9C51FB136CE00F461A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3739C9C41FB136CE00F461A8 /* Notchy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3739C9C61FB136CE00F461A8 /* Notchy */ = {
+			isa = PBXGroup;
+			children = (
+				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
+				3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */,
+				3739C9C91FB136CE00F461A8 /* ViewController.swift */,
+				3739C9D91FB13B9800F461A8 /* GridViewController.swift */,
+				3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */,
+				3739C9DD1FB13C0C00F461A8 /* GridViewCell.swift */,
+				3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */,
+				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
+				3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */,
+				3739C9D31FB136CE00F461A8 /* Info.plist */,
+				3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */,
+			);
+			path = Notchy;
+			sourceTree = "<group>";
+		};
+		C4D562C171D92AAB13FC5EAE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */,
+				7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D50BA6DF290288D179ECF420 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3739C9C31FB136CE00F461A8 /* Notchy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3739C9D61FB136CE00F461A8 /* Build configuration list for PBXNativeTarget "Notchy" */;
+			buildPhases = (
+				64810315890C0C0E0F0F7A44 /* [CP] Check Pods Manifest.lock */,
+				3739C9C01FB136CE00F461A8 /* Sources */,
+				3739C9C11FB136CE00F461A8 /* Frameworks */,
+				3739C9C21FB136CE00F461A8 /* Resources */,
+				0E7772E4995A64B131127EB5 /* [CP] Embed Pods Frameworks */,
+				64A6107CED8C131BA353706A /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Notchy;
+			productName = Notchy;
+			productReference = 3739C9C41FB136CE00F461A8 /* Notchy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3739C9BC1FB136CE00F461A8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0910;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = "Lionheart Software LLC";
+				TargetAttributes = {
+					3739C9C31FB136CE00F461A8 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 3739C9BF1FB136CE00F461A8 /* Build configuration list for PBXProject "Notchy" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3739C9BB1FB136CE00F461A8;
+			productRefGroup = 3739C9C51FB136CE00F461A8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3739C9C31FB136CE00F461A8 /* Notchy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3739C9C21FB136CE00F461A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */,
+				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E7772E4995A64B131127EB5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/KeyboardAdjuster/KeyboardAdjuster.framework",
+				"${BUILT_PRODUCTS_DIR}/LionheartExtensions/LionheartExtensions.framework",
+				"${BUILT_PRODUCTS_DIR}/QuickTableView/QuickTableView.framework",
+				"${BUILT_PRODUCTS_DIR}/SuperLayout/SuperLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyboardAdjuster.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LionheartExtensions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickTableView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SuperLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64810315890C0C0E0F0F7A44 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Notchy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64A6107CED8C131BA353706A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3739C9C01FB136CE00F461A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3739C9CA1FB136CE00F461A8 /* ViewController.swift in Sources */,
+				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
+				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
+				3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */,
+				3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */,
+				3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */,
+				3739C9DC1FB13BF700F461A8 /* AssetViewController.swift in Sources */,
+				3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3739C9D11FB136CE00F461A8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3739C9D41FB136CE00F461A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3739C9D51FB136CE00F461A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3739C9D71FB136CE00F461A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = Notchy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3739C9D81FB136CE00F461A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = Notchy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3739C9BF1FB136CE00F461A8 /* Build configuration list for PBXProject "Notchy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3739C9D41FB136CE00F461A8 /* Debug */,
+				3739C9D51FB136CE00F461A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3739C9D61FB136CE00F461A8 /* Build configuration list for PBXNativeTarget "Notchy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3739C9D71FB136CE00F461A8 /* Debug */,
+				3739C9D81FB136CE00F461A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3739C9BC1FB136CE00F461A8 /* Project object */;
+}
