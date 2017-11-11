@@ -7,6 +7,7 @@
 
 import UIKit
 import Photos
+import SuperLayout
 import PhotosUI
 
 private extension UICollectionView {
@@ -24,6 +25,10 @@ class GridViewController: UICollectionViewController {
     fileprivate let imageManager = PHCachingImageManager()
     fileprivate var thumbnailSize: CGSize!
     fileprivate var previousPreheatRect = CGRect.zero
+    private var toolbar: UIView!
+    private var notchifyButton: RoundedButton!
+    private var deleteOriginalLabel: UILabel!
+    private var deleteOriginalSwitch: UISwitch!
 
     // MARK: UIViewController / Lifecycle
 
@@ -31,6 +36,41 @@ class GridViewController: UICollectionViewController {
         super.viewDidLoad()
 
         title = "[Notchy Logo]"
+
+        toolbar = UIView()
+        toolbar.backgroundColor = .white
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+
+        deleteOriginalLabel = UILabel()
+        deleteOriginalLabel.text = "Delete Original?"
+
+        deleteOriginalSwitch = UISwitch()
+        deleteOriginalSwitch.isOn = true
+
+        let deleteOriginalStackView = UIStackView(arrangedSubviews: [deleteOriginalLabel, deleteOriginalSwitch])
+        deleteOriginalStackView.translatesAutoresizingMaskIntoConstraints = false
+        deleteOriginalStackView.axis = .horizontal
+        deleteOriginalStackView.spacing = 15
+
+        notchifyButton = RoundedButton(color: UIColor(0xE74C3B), textColor: .white, padding: 0)
+        notchifyButton.translatesAutoresizingMaskIntoConstraints = false
+        notchifyButton.setTitle("Notchify!", for: .normal)
+
+        let toolbarStackView = UIStackView(arrangedSubviews: [notchifyButton, deleteOriginalStackView])
+        toolbarStackView.translatesAutoresizingMaskIntoConstraints = false
+        toolbarStackView.axis = .vertical
+        toolbarStackView.spacing = 10
+
+        toolbar.addSubview(toolbarStackView)
+        view.addSubview(toolbar)
+
+        let margin: CGFloat = 15
+        toolbar.topAnchor ~~ toolbarStackView.topAnchor - margin
+        toolbarStackView.centerXAnchor ~~ toolbar.centerXAnchor
+        toolbarStackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
+        toolbar.bottomAnchor ~~ view.bottomAnchor
+        toolbar.leadingAnchor ~~ view.leadingAnchor
+        toolbar.trailingAnchor ~~ view.trailingAnchor
 
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barStyle = .default
@@ -43,13 +83,17 @@ class GridViewController: UICollectionViewController {
         // so match the behavior of segue from the default "All Photos" view.
         if fetchResult == nil {
             let allPhotosOptions = PHFetchOptions()
-            allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+            allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
             fetchResult = PHAsset.fetchAssets(with: allPhotosOptions)
         }
 
-        collectionView?.backgroundColor = .white
-        collectionView?.delegate = self
-        collectionView?.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+        guard let collectionView = collectionView else {
+            return
+        }
+
+        collectionView.backgroundColor = .white
+        collectionView.delegate = self
+        collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
     }
 
     deinit {
@@ -95,8 +139,6 @@ class GridViewController: UICollectionViewController {
     private func updateItemSize() {
         let viewWidth = view.bounds.size.width
 
-        let desiredItemWidth: CGFloat = 100
-//        let columns: CGFloat = max(floor(viewWidth / desiredItemWidth), 4)
         let columns: CGFloat = 2
         let padding: CGFloat = 1
         let itemWidth = floor((viewWidth - (columns - 1) * padding) / columns)

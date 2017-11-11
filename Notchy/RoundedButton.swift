@@ -31,6 +31,8 @@ extension UIImage {
 }
 
 final class RoundedButton: UIButton {
+    var textColor: UIColor!
+
     override func setTitle(_ title: String?, for state: UIControlState) {
         guard let title = title else {
             return
@@ -38,26 +40,27 @@ final class RoundedButton: UIButton {
 
         let attributes: [NSAttributedStringKey: Any] = [
             .font: UIFont.systemFont(ofSize: 16, weight: .medium),
-            .foregroundColor: UIColor.black
+            .foregroundColor: textColor
         ]
 
         let attributed = NSAttributedString(string: title, attributes: attributes)
         setAttributedTitle(attributed, for: .normal)
     }
 
-    init() {
+    init(color: UIColor, textColor: UIColor, padding: CGFloat) {
         super.init(frame: .zero)
+
+        self.textColor = textColor
 
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
 
-        layer.cornerRadius = 25
+        layer.cornerRadius = 20 + padding
 
-        contentEdgeInsets = UIEdgeInsets(top: 15, left: 30, bottom: 15, right: 30)
+        contentEdgeInsets = UIEdgeInsets(top: 10 + padding, left: 30, bottom: 10 + padding, right: 30)
 
-        let white = UIColor.white
-        setBackgroundImage(UIImage(color: white), for: .normal)
-        setBackgroundImage(UIImage(color: UIColor.lightGray.lighten(byRatio: 0.5)), for: .highlighted)
+        setBackgroundImage(UIImage(color: color), for: .normal)
+        setBackgroundImage(UIImage(color: color.lighten(byRatio: 0.5)), for: .highlighted)
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -17,6 +17,8 @@
 		3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */; };
 		3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */; };
 		3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */; };
+		374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */; };
+		374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImageView.swift; sourceTree = "<group>"; };
 		3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImage.swift; sourceTree = "<group>"; };
 		3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAccessViewController.swift; sourceTree = "<group>"; };
+		374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */,
 				3739C9DD1FB13C0C00F461A8 /* GridViewCell.swift */,
 				3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */,
+				374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */,
+				374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */,
 				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
 				3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */,
 				3739C9D31FB136CE00F461A8 /* Info.plist */,
@@ -239,6 +245,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */,
+				374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */,
 				3739C9CA1FB136CE00F461A8 /* ViewController.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
 				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
@@ -376,12 +384,14 @@
 			baseConfigurationReference = BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				INFOPLIST_FILE = Notchy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -392,12 +402,14 @@
 			baseConfigurationReference = 7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
 				INFOPLIST_FILE = Notchy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

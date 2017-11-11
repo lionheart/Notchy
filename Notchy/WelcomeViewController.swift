@@ -38,7 +38,7 @@ final class WelcomeViewController: UIViewController {
         topStackView.axis = .vertical
         topStackView.spacing = 8
 
-        let button = RoundedButton()
+        let button = RoundedButton(color: .white, textColor: .black, padding: 5)
         button.addTarget(self, action: #selector(buttonDidTouchUpInside), for: .touchUpInside)
         button.setTitle("Find Screenshots", for: .normal)
 
