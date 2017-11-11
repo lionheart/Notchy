@@ -25,11 +25,15 @@ final class RequestAccessViewController: UIViewController {
                 let collection = screenshotsAlbum.object(at: 0)
                 let layout = UICollectionViewFlowLayout()
                 let gridViewController = GridViewController(collectionViewLayout: layout)
-                gridViewController.fetchResult = PHAsset.fetchAssets(in: collection, options: nil)
+
+                let options = PHFetchOptions()
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                options.predicate = NSPredicate(format: "pixelWidth == %@ && pixelHeight == %@", argumentArray: [375, 812])
+                gridViewController.fetchResult = PHAsset.fetchAssets(in: collection, options: options)
                 gridViewController.assetCollection = collection
 
                 let navigation = UINavigationController(rootViewController: gridViewController)
-                self.present(navigation, animated: false, completion: nil)
+                self.present(gridViewController, animated: false, completion: nil)
             }
         }
     }

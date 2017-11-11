@@ -10,7 +10,6 @@ import SuperLayout
 
 final class GridViewCell: UICollectionViewCell {
     var imageView: UIImageView!
-    var livePhotoBadgeImageView: UIImageView!
 
     var representedAssetIdentifier: String!
 
@@ -20,33 +19,18 @@ final class GridViewCell: UICollectionViewCell {
         }
     }
 
-    var livePhotoBadgeImage: UIImage! {
-        didSet {
-            livePhotoBadgeImageView.image = livePhotoBadgeImage
-        }
-    }
-
     override init(frame: CGRect) {
         super.init(frame: .zero)
 
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        livePhotoBadgeImageView = UIImageView()
-        livePhotoBadgeImageView.translatesAutoresizingMaskIntoConstraints = false
-
         contentView.addSubview(imageView)
-        contentView.addSubview(livePhotoBadgeImageView)
 
         imageView.leftAnchor ~~ contentView.leftAnchor
         imageView.topAnchor ~~ contentView.topAnchor
         imageView.rightAnchor ~~ contentView.rightAnchor
         imageView.bottomAnchor ~~ contentView.bottomAnchor
-
-        livePhotoBadgeImageView.topAnchor ~~ contentView.topAnchor
-        livePhotoBadgeImageView.leftAnchor ~~ contentView.leftAnchor
-        livePhotoBadgeImageView.heightAnchor ~~ 32
-        livePhotoBadgeImageView.widthAnchor ~~ 32
 
         updateConstraintsIfNeeded()
     }
@@ -58,7 +42,6 @@ final class GridViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         thumbnailImage = nil
-        livePhotoBadgeImage = nil
     }
 }
 

@@ -18,7 +18,7 @@ private extension UICollectionView {
 }
 
 let CellIdentifier = "GridViewCellIdentifier"
-class GridViewController: UICollectionViewController {
+final class GridViewController: UICollectionViewController {
     var fetchResult: PHFetchResult<PHAsset>!
     var assetCollection: PHAssetCollection!
 
@@ -29,13 +29,68 @@ class GridViewController: UICollectionViewController {
     private var notchifyButton: RoundedButton!
     private var deleteOriginalLabel: UILabel!
     private var deleteOriginalSwitch: UISwitch!
+    private var statusBarBackground: UIView!
 
-    // MARK: UIViewController / Lifecycle
+    // MARK: - UIViewController / Lifecycle
+
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: layout)
+    }
+
+    convenience init() {
+        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+
+        let screenshotsAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil)
+        let collection = screenshotsAlbum.object(at: 0)
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        options.predicate = NSPredicate(format: "pixelWidth == %@ AND pixelHeight == %@", argumentArray: [1125, 2436])
+
+        fetchResult = PHAsset.fetchAssets(in: collection, options: options)
+        assetCollection = collection
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "[Notchy Logo]"
+//        title = "[Notchy Logo]"
+
+        let logoImage = UIImage(named: "Logo")!
+        let imageView = UIImageView(image: logoImage)
+        imageView.contentMode = .top
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let navigationBar = UINavigationBar()
+        navigationBar.backgroundColor = .clear
+        navigationBar.isHidden = true
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+
+        statusBarBackground = UIView()
+        statusBarBackground.backgroundColor = .clear
+        statusBarBackground.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(statusBarBackground)
+//        view.addSubview(navigationBar)
+
+        statusBarBackground.topAnchor ~~ view.topAnchor
+        statusBarBackground.leadingAnchor ~~ view.leadingAnchor
+        statusBarBackground.trailingAnchor ~~ view.trailingAnchor
+        statusBarBackground.bottomAnchor ~~ view.safeAreaLayoutGuide.topAnchor + 44
+
+//        navigationBar.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor
+//        navigationBar.leadingAnchor ~~ view.leadingAnchor
+//        navigationBar.trailingAnchor ~~ view.trailingAnchor
+//        navigationBar.heightAnchor ~~ 44
+
+        // 424x126
+
+//        navigationItem.titleView = imageView
+//        imageView.heightAnchor ~~ 63
+//        imageView.widthAnchor ~~ 212
 
         toolbar = UIView()
         toolbar.backgroundColor = .white
@@ -51,6 +106,7 @@ class GridViewController: UICollectionViewController {
         deleteOriginalStackView.translatesAutoresizingMaskIntoConstraints = false
         deleteOriginalStackView.axis = .horizontal
         deleteOriginalStackView.spacing = 15
+        deleteOriginalStackView.isHidden = true
 
         notchifyButton = RoundedButton(color: UIColor(0xE74C3B), textColor: .white, padding: 0)
         notchifyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -79,19 +135,11 @@ class GridViewController: UICollectionViewController {
         resetCachedAssets()
         PHPhotoLibrary.shared().register(self)
 
-        // If we get here without a segue, it's because we're visible at app launch,
-        // so match the behavior of segue from the default "All Photos" view.
-        if fetchResult == nil {
-            let allPhotosOptions = PHFetchOptions()
-            allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            allPhotosOptions.predicate = NSPredicate(format: "pixelWidth == $width && pixelHeight == $height", argumentArray: nil)
-            fetchResult = PHAsset.fetchAssets(with: allPhotosOptions)
-        }
-
         guard let collectionView = collectionView else {
             return
         }
 
+        collectionView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: toolbar.frame.height, right: 0)
         collectionView.backgroundColor = .white
         collectionView.delegate = self
         collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
@@ -124,6 +172,13 @@ class GridViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateCachedAssets()
+
+        let gradient = CAGradientLayer()
+        gradient.frame = statusBarBackground.frame
+        gradient.masksToBounds = true
+        gradient.colors = [UIColor(0x4EC8ED).cgColor, UIColor(0x55C229).cgColor]
+
+        statusBarBackground.layer.addSublayer(gradient)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -138,29 +193,25 @@ class GridViewController: UICollectionViewController {
     }
 
     private func updateItemSize() {
-        let viewWidth = view.bounds.size.width
-
-        let columns: CGFloat = 2
-        let padding: CGFloat = 1
-        let itemWidth = floor((viewWidth - (columns - 1) * padding) / columns)
-        let itemSize = CGSize(width: itemWidth, height: itemWidth)
-
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize = itemSize
-            layout.minimumInteritemSpacing = padding
-            layout.minimumLineSpacing = padding
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
         }
+
+        layout.minimumLineSpacing = 10
 
         // Determine the size of the thumbnails to request from the PHCachingImageManager
         let scale = UIScreen.main.scale
-        thumbnailSize = CGSize(width: itemSize.width * scale, height: itemSize.height * scale)
+        thumbnailSize = CGSize(width: 1125 / scale, height: 2436 / scale)
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension GridViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let scale = UIScreen.main.scale
+        return CGSize(width: 1125 / scale, height: 2436 / scale)
         let viewWidth = view.bounds.size.width
-        let columns: CGFloat = 2
+        let columns: CGFloat = 1
         let padding: CGFloat = 1
         let itemWidth = floor((viewWidth - (columns - 1) * padding) / columns)
         let asset = fetchResult.object(at: indexPath.item)
@@ -177,30 +228,22 @@ extension GridViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as! GridViewCell
         let asset = fetchResult.object(at: indexPath.item)
-
-        // Dequeue a GridViewCell.
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier,
-                                                            for: indexPath) as? GridViewCell
-            else { fatalError("unexpected cell in collection view") }
-
-        // Add a badge to the cell if the PHAsset represents a Live Photo.
-        if asset.mediaSubtypes.contains(.photoLive) {
-            cell.livePhotoBadgeImage = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
-        }
 
         // Request an image for the asset from the PHCachingImageManager.
         cell.representedAssetIdentifier = asset.localIdentifier
-        imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+        imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { image, _ in
             // The cell may have been recycled by the time this handler gets called;
             // set the cell's thumbnail image only if it's still showing the same asset.
-            if cell.representedAssetIdentifier == asset.localIdentifier && image != nil {
-                cell.thumbnailImage = image
+            guard cell.representedAssetIdentifier == asset.localIdentifier && image != nil else {
+                return
             }
-        })
+
+            cell.thumbnailImage = image
+        }
 
         return cell
-
     }
 }
 
@@ -220,7 +263,9 @@ extension GridViewController {
 
     fileprivate func updateCachedAssets() {
         // Update only if the view is visible.
-        guard isViewLoaded && view.window != nil else { return }
+        guard view.window != nil && isViewLoaded else {
+            return
+        }
 
         // The preheat window is twice the height of the visible rect.
         let visibleRect = CGRect(origin: collectionView!.contentOffset, size: collectionView!.bounds.size)
@@ -240,10 +285,8 @@ extension GridViewController {
             .map { indexPath in fetchResult.object(at: indexPath.item) }
 
         // Update the assets the PHCachingImageManager is caching.
-        imageManager.startCachingImages(for: addedAssets,
-                                        targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
-        imageManager.stopCachingImages(for: removedAssets,
-                                       targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
+        imageManager.startCachingImages(for: addedAssets, targetSize: thumbnailSize, contentMode: .aspectFit, options: nil)
+        imageManager.stopCachingImages(for: removedAssets, targetSize: thumbnailSize, contentMode: .aspectFit, options: nil)
 
         // Store the preheat rect to compare against in the future.
         previousPreheatRect = preheatRect
@@ -276,37 +319,10 @@ extension GridViewController {
     }
 }
 
-// MARK: - UI Actions
-extension GridViewController {
-    @IBAction func addAsset(_ sender: AnyObject?) {
-
-        // Create a dummy image of a random solid color and random orientation.
-        let size = (arc4random_uniform(2) == 0) ?
-            CGSize(width: 400, height: 300) :
-            CGSize(width: 300, height: 400)
-        let renderer = UIGraphicsImageRenderer(size: size)
-        let image = renderer.image { context in
-            UIColor(hue: CGFloat(arc4random_uniform(100)) / 100,
-                    saturation: 1, brightness: 1, alpha: 1).setFill()
-            context.fill(context.format.bounds)
-        }
-
-        // Add it to the photo library.
-        PHPhotoLibrary.shared().performChanges({
-            let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
-            if let assetCollection = self.assetCollection {
-                let addAssetRequest = PHAssetCollectionChangeRequest(for: assetCollection)
-                addAssetRequest?.addAssets([creationRequest.placeholderForCreatedAsset!] as NSArray)
-            }
-        }, completionHandler: {success, error in
-            if !success { print("error creating asset: \(String(describing: error))") }
-        })
-    }
-}
-
 // MARK: - PHPhotoLibraryChangeObserver
 extension GridViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let collectionView = collectionView else { fatalError() }
 
         guard let changes = changeInstance.changeDetails(for: fetchResult)
             else { return }
@@ -316,32 +332,65 @@ extension GridViewController: PHPhotoLibraryChangeObserver {
         DispatchQueue.main.sync {
             // Hang on to the new fetch result.
             fetchResult = changes.fetchResultAfterChanges
-            if changes.hasIncrementalChanges {
-                // If we have incremental diffs, animate them in the collection view.
-                guard let collectionView = self.collectionView else { fatalError() }
-                collectionView.performBatchUpdates({
-                    // For indexes to make sense, updates must be in this order:
-                    // delete, insert, reload, move
-                    if let removed = changes.removedIndexes, !removed.isEmpty {
-                        collectionView.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
-                    }
-                    if let inserted = changes.insertedIndexes, !inserted.isEmpty {
-                        collectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
-                    }
-                    if let changed = changes.changedIndexes, !changed.isEmpty {
-                        collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
-                    }
-                    changes.enumerateMoves { fromIndex, toIndex in
-                        collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
-                                                to: IndexPath(item: toIndex, section: 0))
-                    }
-                })
-            } else {
-                // Reload the collection view if incremental diffs are not available.
-                collectionView!.reloadData()
+
+            guard changes.hasIncrementalChanges else {
+                collectionView.reloadData()
+                return
             }
+
+            // If we have incremental diffs, animate them in the collection view.
+            collectionView.performBatchUpdates({
+                // For indexes to make sense, updates must be in this order:
+                // delete, insert, reload, move
+                let transform: (Int) -> IndexPath = {
+                    return IndexPath(item: $0, section: 0)
+                }
+
+                if let removed = changes.removedIndexes, !removed.isEmpty {
+                    collectionView.deleteItems(at: removed.map(transform))
+                }
+
+                if let inserted = changes.insertedIndexes, !inserted.isEmpty {
+                    collectionView.insertItems(at: inserted.map(transform))
+                }
+
+                if let changed = changes.changedIndexes, !changed.isEmpty {
+                    collectionView.reloadItems(at: changed.map(transform))
+                }
+
+                changes.enumerateMoves { fromIndex, toIndex in
+                    collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
+                                            to: IndexPath(item: toIndex, section: 0))
+                }
+            })
+
             resetCachedAssets()
         }
     }
 }
 
+extension GridViewController {
+    func scrollToNearestItem() {
+        guard let collectionView = collectionView else {
+            return
+        }
+
+        let point = CGPoint(x: collectionView.center.x + collectionView.contentOffset.x,
+                            y: collectionView.center.y + collectionView.contentOffset.y)
+
+        guard let indexPath = collectionView.indexPathForItem(at: point) else {
+            return
+        }
+
+        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+    }
+
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollToNearestItem()
+    }
+
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
+        scrollToNearestItem()
+    }
+}
