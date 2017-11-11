@@ -376,7 +376,7 @@ extension GridViewController {
         }
 
         let point = CGPoint(x: collectionView.center.x + collectionView.contentOffset.x,
-                            y: collectionView.center.y + collectionView.contentOffset.y)
+                            y: collectionView.center.y + collectionView.contentOffset.y + view.frame.height / 4)
 
         guard let indexPath = collectionView.indexPathForItem(at: point) else {
             return
