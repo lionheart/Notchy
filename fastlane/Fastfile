@@ -1,0 +1,57 @@
+# vim: ft=ruby
+
+fastlane_version "2.64.0"
+
+default_platform :ios
+
+xcode_select "/Applications/Xcode.app"
+project_file = "Notchy.xcodeproj"
+
+app_identifier = "com.lionheartsw.Notchy"
+
+platform :ios do
+  lane :generate_license_json do
+    licenses = Array.new
+    Dir.chdir ".." do
+      Dir.glob("Pods/**/LICENSE").each do |path|
+        licenseText = File.read(path)
+        licenses.push({
+          :projectName => path.match(/^Pods\/([^\/]*)/i).captures[0],
+          :licenseText => licenseText
+        })
+      end
+
+      File.open("attributions.json", 'w') do |f|
+        f.write(JSON.pretty_generate(licenses))
+      end
+    end
+  end
+
+  lane :upload_dsyms do |options|
+    build_number = options[:build_number] || get_build_number(xcodeproj: project_file)
+    download_dsyms(app_identifier: app_identifier, build_number: build_number)
+    sentry_upload_dsym(
+      auth_token: '',
+      org_slug: "lionheart-software",
+      project_slug: ""
+    )
+    clean_build_artifacts
+  end
+
+  desc "Deploy a new version to the App Store"
+  lane :release do
+    ensure_git_status_clean
+    increment_build_number(xcodeproj: project_file)
+    generate_license_json
+    version_number = get_version_number(xcodeproj: project_file, target: "Notchy")
+    build_number = get_build_number(xcodeproj: project_file)
+
+    gym
+    deliver(force: true)
+
+    commit_version_bump(message: "bump to #{build_number}", xcodeproj: "./#{project_file}")
+    add_git_tag tag: "v#{version_number}+#{build_number}"
+    push_to_git_remote
+  end
+end
+

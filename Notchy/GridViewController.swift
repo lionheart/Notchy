@@ -84,6 +84,7 @@ class GridViewController: UICollectionViewController {
         if fetchResult == nil {
             let allPhotosOptions = PHFetchOptions()
             allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            allPhotosOptions.predicate = NSPredicate(format: "pixelWidth == $width && pixelHeight == $height", argumentArray: nil)
             fetchResult = PHAsset.fetchAssets(with: allPhotosOptions)
         }
 
