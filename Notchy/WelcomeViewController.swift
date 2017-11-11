@@ -64,15 +64,8 @@ final class WelcomeViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
 
             case .authorized:
-                let screenshotsAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil)
-                let collection = screenshotsAlbum.object(at: 0)
-                let layout = UICollectionViewFlowLayout()
-                let gridViewController = GridViewController(collectionViewLayout: layout)
-                gridViewController.fetchResult = PHAsset.fetchAssets(in: collection, options: nil)
-                gridViewController.assetCollection = collection
-
-                let navigation = UINavigationController(rootViewController: gridViewController)
-                self.present(navigation, animated: false, completion: nil)
+                let gridViewController = GridViewController()
+                self.present(gridViewController, animated: true, completion: nil)
             }
         }
     }
