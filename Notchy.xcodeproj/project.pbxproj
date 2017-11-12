@@ -20,6 +20,9 @@
 		374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */; };
 		37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */; };
 		37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */; };
+		37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */; };
+		37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */; };
+		37931AD21FB7AC9E00C03BB0 /* NotchyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +42,9 @@
 		374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessDeniedViewController.swift; sourceTree = "<group>"; };
 		37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Notchy.swift"; sourceTree = "<group>"; };
+		37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyToolbar.swift; sourceTree = "<group>"; };
+		37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyGradientView.swift; sourceTree = "<group>"; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,6 +87,9 @@
 				3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */,
 				3739C9D91FB13B9800F461A8 /* GridViewController.swift */,
 				3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */,
+				37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */,
+				37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */,
+				37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */,
 				3739C9DD1FB13C0C00F461A8 /* GridViewCell.swift */,
 				37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */,
 				3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */,
@@ -248,16 +257,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37931AD21FB7AC9E00C03BB0 /* NotchyGradientView.swift in Sources */,
 				374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */,
 				37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */,
 				374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
 				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
 				3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */,
+				37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */,
 				3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */,
 				3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */,
 				3739C9DC1FB13BF700F461A8 /* AssetViewController.swift in Sources */,
 				3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */,
+				37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */,
 				37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

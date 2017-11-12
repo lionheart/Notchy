@@ -10,6 +10,21 @@ import Photos
 import SuperLayout
 import PhotosUI
 
+protocol GridViewControllerDelegate: class {
+    func gridViewControllerUpdatedAsset(_ asset: PHAsset)
+}
+
+extension PHAsset {
+    static var screenshots: PHFetchResult<PHAsset> {
+        let screenshotsAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil)
+        let collection = screenshotsAlbum.object(at: 0)
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        options.predicate = NSPredicate(format: "pixelWidth == %@ AND pixelHeight == %@", argumentArray: [1125, 2436])
+        return fetchAssets(in: collection, options: options)
+    }
+}
+
 private extension UICollectionView {
     func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
         let allLayoutAttributes = collectionViewLayout.layoutAttributesForElements(in: rect)!
@@ -19,17 +34,13 @@ private extension UICollectionView {
 
 let CellIdentifier = "GridViewCellIdentifier"
 final class GridViewController: UICollectionViewController {
+    weak var gridViewControllerDelegate: GridViewControllerDelegate!
     var fetchResult: PHFetchResult<PHAsset>!
-    var assetCollection: PHAssetCollection!
 
     fileprivate let imageManager = PHCachingImageManager()
     fileprivate var thumbnailSize: CGSize!
     fileprivate var previousPreheatRect = CGRect.zero
-    private var toolbar: UIView!
-    private var notchifyButton: RoundedButton!
-    private var deleteOriginalLabel: UILabel!
-    private var deleteOriginalSwitch: UISwitch!
-    private var statusBarBackground: UIView!
+    private var gradientView: NotchyGradientView!
 
     // MARK: - UIViewController / Lifecycle
 
@@ -37,17 +48,11 @@ final class GridViewController: UICollectionViewController {
         super.init(collectionViewLayout: layout)
     }
 
-    convenience init() {
+    convenience init(delegate: GridViewControllerDelegate) {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
 
-        let screenshotsAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil)
-        let collection = screenshotsAlbum.object(at: 0)
-        let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        options.predicate = NSPredicate(format: "pixelWidth == %@ AND pixelHeight == %@", argumentArray: [1125, 2436])
-
-        fetchResult = PHAsset.fetchAssets(in: collection, options: options)
-        assetCollection = collection
+        gridViewControllerDelegate = delegate
+        fetchResult = PHAsset.screenshots
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -57,80 +62,9 @@ final class GridViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        title = "[Notchy Logo]"
+        title = "Screenshots"
 
-        let logoImage = UIImage(named: "Logo")!
-        let imageView = UIImageView(image: logoImage)
-        imageView.contentMode = .top
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        let navigationBar = UINavigationBar()
-        navigationBar.backgroundColor = .clear
-        navigationBar.isHidden = true
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-
-        statusBarBackground = UIView()
-        statusBarBackground.backgroundColor = .clear
-        statusBarBackground.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(statusBarBackground)
-//        view.addSubview(navigationBar)
-
-        statusBarBackground.topAnchor ~~ view.topAnchor
-        statusBarBackground.leadingAnchor ~~ view.leadingAnchor
-        statusBarBackground.trailingAnchor ~~ view.trailingAnchor
-        statusBarBackground.bottomAnchor ~~ view.safeAreaLayoutGuide.topAnchor + 44
-
-//        navigationBar.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor
-//        navigationBar.leadingAnchor ~~ view.leadingAnchor
-//        navigationBar.trailingAnchor ~~ view.trailingAnchor
-//        navigationBar.heightAnchor ~~ 44
-
-        // 424x126
-
-//        navigationItem.titleView = imageView
-//        imageView.heightAnchor ~~ 63
-//        imageView.widthAnchor ~~ 212
-
-        toolbar = UIView()
-        toolbar.backgroundColor = .white
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-
-        deleteOriginalLabel = UILabel()
-        deleteOriginalLabel.text = "Delete Original?"
-
-        deleteOriginalSwitch = UISwitch()
-        deleteOriginalSwitch.isOn = true
-
-        let deleteOriginalStackView = UIStackView(arrangedSubviews: [deleteOriginalLabel, deleteOriginalSwitch])
-        deleteOriginalStackView.translatesAutoresizingMaskIntoConstraints = false
-        deleteOriginalStackView.axis = .horizontal
-        deleteOriginalStackView.spacing = 15
-        deleteOriginalStackView.isHidden = true
-
-        notchifyButton = RoundedButton(color: UIColor(0xE74C3B), textColor: .white, padding: 0)
-        notchifyButton.translatesAutoresizingMaskIntoConstraints = false
-        notchifyButton.setTitle("Notchify!", for: .normal)
-
-        let toolbarStackView = UIStackView(arrangedSubviews: [notchifyButton, deleteOriginalStackView])
-        toolbarStackView.translatesAutoresizingMaskIntoConstraints = false
-        toolbarStackView.axis = .vertical
-        toolbarStackView.spacing = 10
-
-        toolbar.addSubview(toolbarStackView)
-        view.addSubview(toolbar)
-
-        let margin: CGFloat = 15
-        toolbar.topAnchor ~~ toolbarStackView.topAnchor - margin
-        toolbarStackView.centerXAnchor ~~ toolbar.centerXAnchor
-        toolbarStackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
-        toolbar.bottomAnchor ~~ view.bottomAnchor
-        toolbar.leadingAnchor ~~ view.leadingAnchor
-        toolbar.trailingAnchor ~~ view.trailingAnchor
-
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barStyle = .default
-        navigationController?.navigationBar.barTintColor = .white
+        extendedLayoutIncludesOpaqueBars = true
 
         resetCachedAssets()
         PHPhotoLibrary.shared().register(self)
@@ -139,9 +73,16 @@ final class GridViewController: UICollectionViewController {
             return
         }
 
-        collectionView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: toolbar.frame.height, right: 0)
-        collectionView.backgroundColor = .white
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.isTranslucent = false
+            navigationBar.barStyle = .default
+            navigationBar.barTintColor = .white
+        }
+
+        collectionView.bounces = true
+        collectionView.backgroundColor = UIColor(0xe9e9e9)
         collectionView.delegate = self
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
     }
 
@@ -151,14 +92,6 @@ final class GridViewController: UICollectionViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // Add button to the navigation bar if the asset collection supports adding content.
-        if assetCollection == nil || assetCollection.canPerform(.addContent) {
-            // MARK: TODO
-//            navigationItem.rightBarButtonItem = addButtonItem
-        } else {
-            navigationItem.rightBarButtonItem = nil
-        }
 
         updateItemSize()
     }
@@ -172,24 +105,6 @@ final class GridViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateCachedAssets()
-
-        let gradient = CAGradientLayer()
-        gradient.frame = statusBarBackground.frame
-        gradient.masksToBounds = true
-        gradient.colors = [UIColor(0x4EC8ED).cgColor, UIColor(0x55C229).cgColor]
-
-        statusBarBackground.layer.addSublayer(gradient)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = segue.destination as? AssetViewController
-            else { fatalError("unexpected view controller for segue") }
-        guard let cell = sender as? UICollectionViewCell else { fatalError("unexpected sender") }
-
-        if let indexPath = collectionView?.indexPath(for: cell) {
-            destination.asset = fetchResult.object(at: indexPath.item)
-        }
-        destination.assetCollection = assetCollection
     }
 
     private func updateItemSize() {
@@ -197,32 +112,32 @@ final class GridViewController: UICollectionViewController {
             return
         }
 
+        let viewWidth = view.bounds.size.width
+        let columns: CGFloat = 4
+        let padding: CGFloat = 10
+        let itemWidth = floor((viewWidth - (columns - 1) * padding - 20) / columns)
+        let aspect = CGFloat(2436) / CGFloat(1125)
+        let itemHeight = itemWidth * aspect
+
+        thumbnailSize = CGSize(width: itemWidth, height: itemHeight)
+
         layout.minimumLineSpacing = 10
+        layout.itemSize = thumbnailSize
 
         // Determine the size of the thumbnails to request from the PHCachingImageManager
-        let scale = UIScreen.main.scale
-        thumbnailSize = CGSize(width: 1125 / scale, height: 2436 / scale)
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension GridViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let scale = UIScreen.main.scale
-        return CGSize(width: 1125 / scale, height: 2436 / scale)
-        let viewWidth = view.bounds.size.width
-        let columns: CGFloat = 1
-        let padding: CGFloat = 1
-        let itemWidth = floor((viewWidth - (columns - 1) * padding) / columns)
-        let asset = fetchResult.object(at: indexPath.item)
-        let aspect = CGFloat(asset.pixelHeight) / CGFloat(asset.pixelWidth)
-        let itemHeight = itemWidth * aspect
-        return CGSize(width: itemWidth, height: itemHeight)
+//        let scale = UIScreen.main.scale
+//        thumbnailSize = CGSize(width: 1125 / scale, height: 2436 / scale)
     }
 }
 
 // MARK: - UICollectionView
 extension GridViewController {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let asset = fetchResult.object(at: indexPath.item)
+        gridViewControllerDelegate.gridViewControllerUpdatedAsset(asset)
+        dismiss(animated: true, completion: nil)
+    }
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchResult.count
     }
@@ -366,31 +281,5 @@ extension GridViewController: PHPhotoLibraryChangeObserver {
 
             resetCachedAssets()
         }
-    }
-}
-
-extension GridViewController {
-    func scrollToNearestItem() {
-        guard let collectionView = collectionView else {
-            return
-        }
-
-        let point = CGPoint(x: collectionView.center.x + collectionView.contentOffset.x,
-                            y: collectionView.center.y + collectionView.contentOffset.y + view.frame.height / 4)
-
-        guard let indexPath = collectionView.indexPathForItem(at: point) else {
-            return
-        }
-
-        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-    }
-
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollToNearestItem()
-    }
-
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
-        scrollToNearestItem()
     }
 }

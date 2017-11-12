@@ -64,8 +64,8 @@ final class WelcomeViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
 
             case .authorized:
-                let gridViewController = GridViewController()
-                self.present(gridViewController, animated: true, completion: nil)
+                let controller = SingleImageViewController()
+                self.present(controller, animated: true, completion: nil)
             }
         }
     }

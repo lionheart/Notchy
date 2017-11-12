@@ -21,19 +21,8 @@ final class RequestAccessViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
 
             case .authorized:
-                let screenshotsAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil)
-                let collection = screenshotsAlbum.object(at: 0)
-                let layout = UICollectionViewFlowLayout()
-                let gridViewController = GridViewController(collectionViewLayout: layout)
-
-                let options = PHFetchOptions()
-                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-                options.predicate = NSPredicate(format: "pixelWidth == %@ && pixelHeight == %@", argumentArray: [375, 812])
-                gridViewController.fetchResult = PHAsset.fetchAssets(in: collection, options: options)
-                gridViewController.assetCollection = collection
-
-                let navigation = UINavigationController(rootViewController: gridViewController)
-                self.present(gridViewController, animated: false, completion: nil)
+                let controller = SingleImageViewController()
+                self.present(controller, animated: false, completion: nil)
             }
         }
     }
