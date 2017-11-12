@@ -46,6 +46,7 @@ final class SingleImageViewController: UIViewController {
 
         let topImageView = UIImageView(image: UIImage(named: "Logo"))
         topImageView.contentMode = .scaleAspectFit
+        topImageView.isHidden = true
         topImageView.translatesAutoresizingMaskIntoConstraints = false
 
         imageView = UIImageView()
