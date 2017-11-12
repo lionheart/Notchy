@@ -24,6 +24,8 @@
 		37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */; };
 		37931AD21FB7AC9E00C03BB0 /* NotchyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */; };
 		37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37931AD31FB7DB9C00C03BB0 /* NotchMask.png */; };
+		37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37931AD51FB8A8B300C03BB0 /* BlackBackground.png */; };
+		37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,8 @@
 		37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyToolbar.swift; sourceTree = "<group>"; };
 		37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyGradientView.swift; sourceTree = "<group>"; };
 		37931AD31FB7DB9C00C03BB0 /* NotchMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NotchMask.png; path = Assets.xcassets/NotchMask.png; sourceTree = "<group>"; };
+		37931AD51FB8A8B300C03BB0 /* BlackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackBackground.png; sourceTree = "<group>"; };
+		37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Notchy.swift"; sourceTree = "<group>"; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +102,9 @@
 				374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */,
 				37931AD31FB7DB9C00C03BB0 /* NotchMask.png */,
 				374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */,
+				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
 				37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */,
+				37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */,
 				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
 				3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */,
 				3739C9D31FB136CE00F461A8 /* Info.plist */,
@@ -189,6 +195,7 @@
 				37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */,
 				3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */,
 				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
+				37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +209,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/KeyboardAdjuster/KeyboardAdjuster.framework",
 				"${BUILT_PRODUCTS_DIR}/LionheartExtensions/LionheartExtensions.framework",
 				"${BUILT_PRODUCTS_DIR}/QuickTableView/QuickTableView.framework",
@@ -210,6 +218,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyboardAdjuster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LionheartExtensions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickTableView.framework",
@@ -267,6 +276,7 @@
 				374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
 				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
+				37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */,
 				3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */,
 				37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */,
 				3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */,

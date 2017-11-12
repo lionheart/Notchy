@@ -13,6 +13,7 @@ import SuperLayout
     @objc func didToggleDeleteOriginalSwitch(sender: Any)
     @objc func notchifyButtonDidTouchUpInside(sender: Any)
     @objc func screenshotsButtonDidTouchUpInside(sender: Any)
+    @objc func backButtonDidTouchUpInside(sender: Any)
 }
 
 final class NotchyToolbar: UIView {
@@ -22,6 +23,7 @@ final class NotchyToolbar: UIView {
     fileprivate var deleteOriginalLabel: UILabel!
     fileprivate var deleteOriginalSwitch: UISwitch!
     private var screenshotsButton: UIButton!
+    private var backButton: UIButton!
     var stackView: UIStackView!
 
     init(delegate: NotchyToolbarDelegate) {
@@ -41,6 +43,14 @@ final class NotchyToolbar: UIView {
         screenshotsButton.setImage(screenshotsButtonImage?.image(withAlpha: 0.5), for: .highlighted)
         screenshotsButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.screenshotsButtonDidTouchUpInside(sender:)), for: .touchUpInside)
 
+        backButton = UIButton()
+        backButton.isHidden = true
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        let backButtonImage = UIImage(named: "ArrowLeft")?.image(withColor: red)
+        backButton.setImage(backButtonImage, for: .normal)
+        backButton.setImage(backButtonImage?.image(withAlpha: 0.5), for: .highlighted)
+        backButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.backButtonDidTouchUpInside(sender:)), for: .touchUpInside)
+
         deleteOriginalLabel = UILabel()
         deleteOriginalLabel.text = "Delete Original?"
 
@@ -57,13 +67,14 @@ final class NotchyToolbar: UIView {
         notchifyButton = RoundedButton(color: red, textColor: .white, padding: 0)
         notchifyButton.translatesAutoresizingMaskIntoConstraints = false
         notchifyButton.setTitle("Notchify!", for: .normal)
-        notchifyButton.addTarget(self.delegate, action: #selector(NotchyToolbarDelegate.notchifyButtonDidTouchUpInside(sender:)), for: .touchUpInside)
+        notchifyButton.addTarget(self, action: #selector(notchifyButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
         stackView = UIStackView(arrangedSubviews: [notchifyButton, deleteOriginalStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
 
+        addSubview(backButton)
         addSubview(screenshotsButton)
         addSubview(stackView)
 
@@ -72,8 +83,22 @@ final class NotchyToolbar: UIView {
         screenshotsButton.centerYAnchor ~~ notchifyButton.centerYAnchor
         screenshotsButton.trailingAnchor ~~ trailingAnchor - margin
 
+        backButton.centerYAnchor ~~ notchifyButton.centerYAnchor
+        backButton.leadingAnchor ~~ leadingAnchor + margin
+
         stackView.topAnchor ~~ topAnchor + margin
         stackView.centerXAnchor ~~ centerXAnchor
+    }
+
+    func notchingComplete() {
+        notchifyButton.isEnabled = true
+        notchifyButton.setTitle("Notchify!", for: .normal)
+    }
+
+    @objc func notchifyButtonDidTouchUpInside(_ sender: Any) {
+        notchifyButton.isEnabled = false
+        notchifyButton.setTitle("Notching...", for: .normal)
+        delegate.notchifyButtonDidTouchUpInside(sender: sender)
     }
 
     required init?(coder aDecoder: NSCoder) {

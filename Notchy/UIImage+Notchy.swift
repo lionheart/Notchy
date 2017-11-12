@@ -7,36 +7,72 @@
 //
 
 import UIKit
+import CoreImage
 
 enum MaskType {
-    case rounded
-    case notch
+    case v1
+    case v2
 
-    var imageName: String {
+    func applyMask(input: UIImage) -> UIImage? {
         switch self {
-        case .rounded: return "RoundedMask"
-        case .notch: return "NotchMask@3x"
+        case .v1: return input.maskv1
+        case .v2: return input.maskv2
         }
-    }
-
-    var image: CGImage? {
-        guard let url = Bundle.main.url(forResource: "NotchMask", withExtension: "png"),
-            let data = try? Data(contentsOf: url) else {
-            return nil
-        }
-
-        return UIImage(data: data)?.cgImage
     }
 }
 
+let maskFilter: CIFilter? = {
+    guard let mask = UIImage(named: "NotchMask"),
+        let ciImageMask = CIImage(image: mask),
+        let background = UIImage(named: "BlackBackground"),
+        let ciImageMaskBackground = CIImage(image: background) else {
+            return nil
+    }
+
+    let parameters = [
+        kCIInputBackgroundImageKey: ciImageMaskBackground,
+        kCIInputMaskImageKey: ciImageMask
+    ]
+
+    guard let filter = CIFilter(name: "CIBlendWithMask", withInputParameters: parameters) else {
+        return nil
+    }
+
+    return filter
+}()
+
 extension UIImage {
-    func mask(_ maskType: MaskType) -> UIImage? {
+    var forced: UIImage? {
+        UIGraphicsBeginImageContext(size)
+        draw(at: .zero)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+
+    var maskv1: UIImage? {
         guard let cgImage = cgImage,
-            let maskCGImage = maskType.image,
+            let mask = UIImage(named: "NotchMask"),
+            let maskCGImage = mask.cgImage,
             let result = cgImage.masking(maskCGImage) else {
                 return nil
         }
 
         return UIImage(cgImage: result)
+    }
+
+    var maskv2: UIImage? {
+        guard let ciImage = CIImage(image: self),
+            let filter = maskFilter else {
+                return nil
+        }
+
+        filter.setValue(ciImage, forKey: kCIInputImageKey)
+
+        guard let output = filter.outputImage else {
+            return nil
+        }
+
+        return UIImage(ciImage: output)
     }
 }

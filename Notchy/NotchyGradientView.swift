@@ -20,12 +20,16 @@ final class NotchyGradientView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func addGradient() {
-        let gradient = CAGradientLayer()
-        gradient.frame = frame
-        gradient.masksToBounds = true
-        gradient.colors = [UIColor(0x4EC8ED).cgColor, UIColor(0x55C229).cgColor]
-
-        layer.addSublayer(gradient)
+    func applyToNavigationBar(_ navigationBar: UINavigationBar) {
+        let backgroundClassName = "_UIBarBackground"
+        for subview in navigationBar.subviews {
+            if NSStringFromClass(subview.classForCoder) == backgroundClassName {
+                let gradient = CAGradientLayer()
+                gradient.frame = frame
+                gradient.masksToBounds = true
+                gradient.colors = [UIColor(0x007AFF).cgColor, UIColor(0x4CD964).cgColor]
+                subview.layer.insertSublayer(gradient, at: 0)
+            }
+        }
     }
 }

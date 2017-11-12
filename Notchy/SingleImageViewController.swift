@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import SuperLayout
+import Hero
 
 final class SingleImageViewController: UIViewController {
     private var imageView: UIImageView!
@@ -20,16 +21,17 @@ final class SingleImageViewController: UIViewController {
     private var toolbarVisibleConstraint: NSLayoutConstraint!
     private var toolbarHiddenConstraint: NSLayoutConstraint!
 
+    convenience init(asset: PHAsset, image: UIImage) {
+        self.init()
+
+        self.asset = asset
+        self.maskedImage = image
+    }
+
     convenience init(asset: PHAsset) {
         self.init()
 
         self.asset = asset
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        updateImageView()
     }
 
     init() {
@@ -40,51 +42,53 @@ final class SingleImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        asset.image(maskType: .v1) { image in
+            self.imageView.image = image
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Notchy"
-
-        let topImageView = UIImageView(image: UIImage(named: "Logo"))
-        topImageView.contentMode = .scaleAspectFit
-        topImageView.isHidden = true
-        topImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        imageView = UIImageView()
+        imageView = UIImageView(image: maskedImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        guard let navigationController = navigationController else {
-            return
+        isHeroEnabled = true
+        imageView.heroID = asset.localIdentifier
+
+        if let navigationController = navigationController {
+            gradientView = NotchyGradientView()
+
+            let navigationBar = navigationController.navigationBar
+            navigationController.isNavigationBarHidden = true
+
+            navigationBar.setBackgroundImage(UIImage(), for: .default)
+            navigationBar.shadowImage = UIImage()
+            navigationBar.isTranslucent = true
+            navigationBar.barStyle = .default
+            navigationBar.clipsToBounds = false
+            navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white
+            ]
+            navigationBar.addSubview(gradientView)
+
+            gradientView.topAnchor ~~ navigationBar.topAnchor - 44
+            gradientView.leadingAnchor ~~ navigationBar.leadingAnchor
+            gradientView.trailingAnchor ~~ navigationBar.trailingAnchor
+            gradientView.bottomAnchor ~~ navigationBar.bottomAnchor + 44
         }
-
-        let navigationBar = navigationController.navigationBar
-        navigationController.isNavigationBarHidden = true
-
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
-        navigationBar.isTranslucent = true
-        navigationBar.barStyle = .default
-        navigationBar.clipsToBounds = false
-        navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
 
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Pick", style: .done, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(sender:)))
-
-        gradientView = NotchyGradientView()
         
         toolbar = NotchyToolbar(delegate: self)
 
-        navigationBar.addSubview(gradientView)
         view.addSubview(imageView)
         view.addSubview(toolbar)
-        view.addSubview(topImageView)
-
-        topImageView.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor
-        topImageView.centerXAnchor ~~ view.centerXAnchor
-        topImageView.widthAnchor ~~ 160
 
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
@@ -95,51 +99,10 @@ final class SingleImageViewController: UIViewController {
 
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
 
-        gradientView.topAnchor ~~ navigationBar.topAnchor - 44
-        gradientView.leadingAnchor ~~ navigationBar.leadingAnchor
-        gradientView.trailingAnchor ~~ navigationBar.trailingAnchor
-        gradientView.bottomAnchor ~~ navigationBar.bottomAnchor + 44
-
         imageView.leadingAnchor ~~ view.leadingAnchor
         imageView.trailingAnchor ~~ view.trailingAnchor
         imageView.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor
-        imageView.bottomAnchor ~~ view.bottomAnchor
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        guard let navigationBar = navigationController?.navigationBar else {
-            return
-        }
-
-        let backgroundClassName = "_UIBarBackground"
-        for subview in navigationBar.subviews {
-            if NSStringFromClass(subview.classForCoder) == backgroundClassName {
-                let gradient = CAGradientLayer()
-                gradient.frame = gradientView.frame
-                gradient.masksToBounds = true
-                gradient.colors = [UIColor(0x4EC8ED).cgColor, UIColor(0x55C229).cgColor]
-                subview.layer.insertSublayer(gradient, at: 0)
-            }
-        }
-    }
-
-    func updateImageView() {
-        let width: CGFloat = 1125
-        let height: CGFloat = 2436
-        let viewWidth = view.frame.width
-
-        let size = CGSize(width: viewWidth, height: viewWidth * height / width)
-        let options = PHImageRequestOptions()
-        options.version = .current
-        options.deliveryMode = .highQualityFormat
-        options.resizeMode = .exact
-        options.isNetworkAccessAllowed = true
-        PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: options) { image, other in
-            self.maskedImage = image?.mask(.notch)
-            self.imageView.image = self.maskedImage
-        }
+        imageView.bottomAnchor ~~ toolbar.topAnchor
     }
 
     @objc func rightBarButtonItemDidTouchUpInside(sender: Any) {
@@ -149,20 +112,25 @@ final class SingleImageViewController: UIViewController {
 
 extension SingleImageViewController: NotchyToolbarDelegate {
     func notchifyButtonDidTouchUpInside(sender: Any) {
-        guard let image = maskedImage,
-        let data = UIImagePNGRepresentation(image) else {
-            return
+        asset.image(maskType: .v2) { image in
+            guard let image = image?.forced else {
+                return
+            }
+
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Notched!", message: nil, preferredStyle: .alert)
+                alert.addAction(title: "OK", style: .default, handler: nil)
+                self.present(alert, animated: true)
+                self.toolbar.notchingComplete()
+            }
         }
 
+        return;
 
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        let alert = UIAlertController(title: "Saved!", message: nil, preferredStyle: .alert)
-        alert.addAction(title: "OK", style: .default, handler: nil)
-
-        self.present(alert, animated: true)
-
-        return
-        let controller = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+        /*
+        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         controller.completionWithItemsHandler = { (activity, completed, items, error) in
             // MARK: TODO
             guard let activity = activity else {
@@ -176,25 +144,46 @@ extension SingleImageViewController: NotchyToolbarDelegate {
                 self.present(alert, animated: true)
             }
         }
-
         present(controller, animated: true)
+
+        return;
+
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
+        return;
+
+        DispatchQueue.global(qos: .default).async {
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
+            }) { (success, error) in
+                print(success)
+                print(error)
+
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Saved!", message: nil, preferredStyle: .alert)
+                    alert.addAction(title: "OK", style: .default, handler: nil)
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+
+        return
+
+        return
+        #if false
+
+
+        #endif
+ */
+    }
+
+    func backButtonDidTouchUpInside(sender: Any) {
+        hero_dismissViewController()
     }
 
     func screenshotsButtonDidTouchUpInside(sender: Any) {
-        let controller = GridViewController(delegate: self)
-        let navigation = UINavigationController(rootViewController: controller)
-        present(navigation, animated: true)
+        hero_dismissViewController()
     }
 
-    func didToggleDeleteOriginalSwitch(sender: Any) {
-
-    }
-}
-
-extension SingleImageViewController: GridViewControllerDelegate {
-    func gridViewControllerUpdatedAsset(_ asset: PHAsset) {
-        self.asset = asset
-
-        updateImageView()
-    }
+    func didToggleDeleteOriginalSwitch(sender: Any) { }
 }

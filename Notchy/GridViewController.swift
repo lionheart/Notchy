@@ -9,6 +9,8 @@ import UIKit
 import Photos
 import SuperLayout
 import PhotosUI
+import GameplayKit
+import Hero
 
 protocol GridViewControllerDelegate: class {
     func gridViewControllerUpdatedAsset(_ asset: PHAsset)
@@ -34,7 +36,7 @@ private extension UICollectionView {
 
 let CellIdentifier = "GridViewCellIdentifier"
 final class GridViewController: UICollectionViewController {
-    weak var gridViewControllerDelegate: GridViewControllerDelegate!
+    weak var gridViewControllerDelegate: GridViewControllerDelegate?
     var fetchResult: PHFetchResult<PHAsset>!
 
     fileprivate let imageManager = PHCachingImageManager()
@@ -44,11 +46,15 @@ final class GridViewController: UICollectionViewController {
 
     // MARK: - UIViewController / Lifecycle
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
     }
 
-    convenience init(delegate: GridViewControllerDelegate) {
+    convenience init(delegate: GridViewControllerDelegate? = nil) {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
 
         gridViewControllerDelegate = delegate
@@ -62,8 +68,6 @@ final class GridViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Screenshots"
-
         extendedLayoutIncludesOpaqueBars = true
 
         resetCachedAssets()
@@ -73,11 +77,77 @@ final class GridViewController: UICollectionViewController {
             return
         }
 
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.isTranslucent = false
-            navigationBar.barStyle = .default
-            navigationBar.barTintColor = .white
+        guard let navigationController = navigationController else {
+            return
         }
+
+        let width: CGFloat = view.frame.width
+        let height: CGFloat = view.frame.height
+        let tileMap: SKTileMapNode = {
+            let source = GKCheckerboardNoiseSource(squareSize: 10)
+            let noise = GKNoise(source)
+            noise.gradientColors = [
+                -1: UIColor(0xe9e9e9),
+                1: .white
+            ]
+            let map = GKNoiseMap(noise, size: vector_double2([Double(width), Double(height)]), origin: vector_double2([0, 0]), sampleCount: ([Int32(width), Int32(height)]), seamless: true)
+
+            let texture = SKTexture(noiseMap: map)
+            let definition = SKTileDefinition(texture: texture)
+            let group = SKTileGroup(tileDefinition: definition)
+            let set = SKTileSet(tileGroups: [group])
+            let size = CGSize(width: width, height: height)
+
+            let _tileMap = SKTileMapNode(tileSet: set, columns: 100, rows: 100, tileSize: size)
+            _tileMap.fill(with: group)
+            return _tileMap
+        }()
+
+        let scene = SKScene(size: CGSize(width: width, height: height))
+        scene.addChild(tileMap)
+
+        let sceneView = SKView()
+        sceneView.translatesAutoresizingMaskIntoConstraints = false
+        sceneView.presentScene(scene)
+
+        collectionView.backgroundView = sceneView
+//        view.addSubview(sceneView)
+
+//        sceneView.heightAnchor ~~ height
+//        sceneView.widthAnchor ~~ width
+//        sceneView.centerXAnchor ~~ view.centerXAnchor
+//        sceneView.centerYAnchor ~~ view.centerYAnchor
+
+        let image = UIImage(named: "LogoTextOnly")
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+
+//        navigationItem.titleView = imageView
+        let navigationBar = navigationController.navigationBar
+
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = true
+        navigationBar.barStyle = .default
+        navigationBar.clipsToBounds = false
+        navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+
+        navigationBar.addSubview(imageView)
+        imageView.centerXAnchor ~~ navigationBar.centerXAnchor
+        imageView.centerYAnchor ~~ navigationBar.centerYAnchor
+        imageView.heightAnchor ~~ navigationBar.heightAnchor * 0.6
+
+        gradientView = NotchyGradientView()
+
+        navigationBar.addSubview(gradientView)
+
+        gradientView.topAnchor ~~ navigationBar.topAnchor - 44
+        gradientView.leadingAnchor ~~ navigationBar.leadingAnchor
+        gradientView.trailingAnchor ~~ navigationBar.trailingAnchor
+        gradientView.bottomAnchor ~~ navigationBar.bottomAnchor + 44
 
         collectionView.bounces = true
         collectionView.backgroundColor = UIColor(0xe9e9e9)
@@ -100,6 +170,12 @@ final class GridViewController: UICollectionViewController {
         super.viewWillLayoutSubviews()
 
         updateItemSize()
+
+        guard let navigationBar = navigationController?.navigationBar else {
+            return
+        }
+
+        gradientView.applyToNavigationBar(navigationBar)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -123,10 +199,6 @@ final class GridViewController: UICollectionViewController {
 
         layout.minimumLineSpacing = 10
         layout.itemSize = thumbnailSize
-
-        // Determine the size of the thumbnails to request from the PHCachingImageManager
-//        let scale = UIScreen.main.scale
-//        thumbnailSize = CGSize(width: 1125 / scale, height: 2436 / scale)
     }
 }
 
@@ -134,8 +206,54 @@ final class GridViewController: UICollectionViewController {
 extension GridViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = fetchResult.object(at: indexPath.item)
-        gridViewControllerDelegate.gridViewControllerUpdatedAsset(asset)
-        dismiss(animated: true, completion: nil)
+        let cell = collectionView.cellForItem(at: indexPath)
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activity.startAnimating()
+        activity.translatesAutoresizingMaskIntoConstraints = false
+
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activity)
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+
+        guard let contentView = cell?.contentView else {
+            return
+        }
+
+        contentView.addSubview(view)
+
+        view.heightAnchor ~~ 40
+        view.widthAnchor ~~ 40
+        view.centerXAnchor ~~ contentView.centerXAnchor
+        view.centerYAnchor ~~ contentView.centerYAnchor
+        activity.centerXAnchor ~~ view.centerXAnchor
+        activity.centerYAnchor ~~ view.centerYAnchor
+
+        asset.image(maskType: .v1) { (theImage) in
+            activity.stopAnimating()
+            view.removeFromSuperview()
+
+            guard let theImage = theImage else {
+                return
+            }
+
+            print(asset.localIdentifier)
+            let controller = SingleImageViewController(asset: asset, image: theImage)
+            self.present(controller, animated: true)
+        }
+
+        return;
+
+        asset.image(maskType: .v2) { image in
+            guard let image = image?.forced else {
+                return
+            }
+
+            DispatchQueue.main.async {
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            }
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -148,6 +266,9 @@ extension GridViewController {
 
         // Request an image for the asset from the PHCachingImageManager.
         cell.representedAssetIdentifier = asset.localIdentifier
+        cell.imageView.heroID = asset.localIdentifier
+//        cell.imageView.heroModifiers = [.fade, .scale(0.8)]
+
         imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { image, _ in
             // The cell may have been recycled by the time this handler gets called;
             // set the cell's thumbnail image only if it's still showing the same asset.
@@ -169,6 +290,7 @@ extension GridViewController {
     }
 }
 
+// From Apple Sample Code
 // MARK: - Asset Caching
 extension GridViewController {
     fileprivate func resetCachedAssets() {

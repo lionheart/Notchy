@@ -15,10 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let _window = UIWindow(frame: UIScreen.main.bounds)
-        let navigation = UINavigationController(rootViewController: WelcomeViewController())
-
-        let asset = PHAsset.screenshots.object(at: 0)
-        _window.rootViewController = UINavigationController(rootViewController: SingleImageViewController(asset: asset))
+        _window.rootViewController = UINavigationController(rootViewController: GridViewController())
         _window.makeKeyAndVisible()
         window = _window
         return true
