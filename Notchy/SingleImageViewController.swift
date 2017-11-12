@@ -156,6 +156,10 @@ extension SingleImageViewController: NotchyToolbarDelegate {
 
 
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        let alert = UIAlertController(title: "Saved!", message: nil, preferredStyle: .alert)
+        alert.addAction(title: "OK", style: .default, handler: nil)
+
+        self.present(alert, animated: true)
 
         return
         let controller = UIActivityViewController(activityItems: [data], applicationActivities: nil)
