@@ -12,6 +12,7 @@ import SuperLayout
 
 final class SingleImageViewController: UIViewController {
     private var imageView: UIImageView!
+    fileprivate var maskedImage: UIImage?
     private var asset: PHAsset!
     private var toolbar: NotchyToolbar!
     private var gradientView: NotchyGradientView!
@@ -132,11 +133,12 @@ final class SingleImageViewController: UIViewController {
         let size = CGSize(width: viewWidth, height: viewWidth * height / width)
         let options = PHImageRequestOptions()
         options.version = .current
-        options.deliveryMode = .opportunistic
+        options.deliveryMode = .highQualityFormat
         options.resizeMode = .exact
         options.isNetworkAccessAllowed = true
         PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: options) { image, other in
-            self.imageView.image = image?.mask(.notch)
+            self.maskedImage = image?.mask(.notch)
+            self.imageView.image = self.maskedImage
         }
     }
 
@@ -147,11 +149,16 @@ final class SingleImageViewController: UIViewController {
 
 extension SingleImageViewController: NotchyToolbarDelegate {
     func notchifyButtonDidTouchUpInside(sender: Any) {
-        guard let image = imageView.image else {
+        guard let image = maskedImage,
+        let data = UIImagePNGRepresentation(image) else {
             return
         }
 
-        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
+        return
+        let controller = UIActivityViewController(activityItems: [data], applicationActivities: nil)
         controller.completionWithItemsHandler = { (activity, completed, items, error) in
             // MARK: TODO
             guard let activity = activity else {
@@ -161,6 +168,8 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             if activity == .saveToCameraRoll {
                 let alert = UIAlertController(title: "Saved!", message: nil, preferredStyle: .alert)
                 alert.addAction(title: "OK", style: .default, handler: nil)
+
+                self.present(alert, animated: true)
             }
         }
 

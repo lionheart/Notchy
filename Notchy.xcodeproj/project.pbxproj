@@ -23,6 +23,7 @@
 		37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */; };
 		37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */; };
 		37931AD21FB7AC9E00C03BB0 /* NotchyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */; };
+		37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37931AD31FB7DB9C00C03BB0 /* NotchMask.png */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyToolbar.swift; sourceTree = "<group>"; };
 		37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyGradientView.swift; sourceTree = "<group>"; };
+		37931AD31FB7DB9C00C03BB0 /* NotchMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NotchMask.png; path = Assets.xcassets/NotchMask.png; sourceTree = "<group>"; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */,
 				3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */,
 				374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */,
+				37931AD31FB7DB9C00C03BB0 /* NotchMask.png */,
 				374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */,
 				37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */,
 				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
@@ -183,6 +186,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */,
 				3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */,
 				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
 			);

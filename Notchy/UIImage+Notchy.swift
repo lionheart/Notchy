@@ -15,12 +15,17 @@ enum MaskType {
     var imageName: String {
         switch self {
         case .rounded: return "RoundedMask"
-        case .notch: return "NotchMask"
+        case .notch: return "NotchMask@3x"
         }
     }
 
     var image: CGImage? {
-        return UIImage(named: imageName)?.cgImage
+        guard let url = Bundle.main.url(forResource: "NotchMask", withExtension: "png"),
+            let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+
+        return UIImage(data: data)?.cgImage
     }
 }
 
