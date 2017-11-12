@@ -9,4 +9,5 @@ target 'Notchy' do
   pod 'QuickTableView', '~> 2'
   pod 'SwiftyUserDefaults', '~> 3'
   pod 'SuperLayout'
+  pod 'Hero'
 end
