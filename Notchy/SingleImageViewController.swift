@@ -93,7 +93,7 @@ final class SingleImageViewController: UIViewController {
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
 
-        toolbar.stackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor - 15
+        toolbar.stackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
         toolbar.leadingAnchor ~~ view.leadingAnchor
         toolbar.trailingAnchor ~~ view.trailingAnchor
 
@@ -111,6 +111,10 @@ final class SingleImageViewController: UIViewController {
 }
 
 extension SingleImageViewController: NotchyToolbarDelegate {
+    func addDeviceButtonDidTouchUpInside(_ sender: Any) {
+
+    }
+
     func notchifyButtonDidTouchUpInside(sender: Any) {
         asset.image(maskType: .v2) { image in
             guard let image = image?.forced else {
@@ -175,6 +179,10 @@ extension SingleImageViewController: NotchyToolbarDelegate {
 
         #endif
  */
+    }
+
+    func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
+
     }
 
     func backButtonDidTouchUpInside(sender: Any) {
