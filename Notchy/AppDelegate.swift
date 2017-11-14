@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let _window = UIWindow(frame: UIScreen.main.bounds)
-        _window.rootViewController = UINavigationController(rootViewController: GridViewController())
+        _window.rootViewController = WelcomeViewController()
         _window.makeKeyAndVisible()
         window = _window
         return true
