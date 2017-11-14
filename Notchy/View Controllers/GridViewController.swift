@@ -42,7 +42,6 @@ final class GridViewController: UICollectionViewController {
     fileprivate let imageManager = PHCachingImageManager()
     fileprivate var thumbnailSize: CGSize!
     fileprivate var previousPreheatRect = CGRect.zero
-    private var gradientView: NotchyGradientView!
 
     // MARK: - UIViewController / Lifecycle
 
@@ -65,6 +64,16 @@ final class GridViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc func refreshControlValueChanged(_ sender: Any) {
+        guard let refresh = sender as? UIRefreshControl else {
+            return
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            refresh.endRefreshing()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -77,18 +86,14 @@ final class GridViewController: UICollectionViewController {
             return
         }
 
-        guard let navigationController = navigationController else {
-            return
-        }
-
         let width: CGFloat = view.frame.width
         let height: CGFloat = view.frame.height
         let tileMap: SKTileMapNode = {
             let source = GKCheckerboardNoiseSource(squareSize: 10)
             let noise = GKNoise(source)
             noise.gradientColors = [
-                -1: UIColor(0xe9e9e9),
-                1: .white
+                -1: UIColor(0x000000),
+                1: UIColor(0x4a4a4a)
             ]
             let map = GKNoiseMap(noise, size: vector_double2([Double(width), Double(height)]), origin: vector_double2([0, 0]), sampleCount: ([Int32(width), Int32(height)]), seamless: true)
 
@@ -110,7 +115,7 @@ final class GridViewController: UICollectionViewController {
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         sceneView.presentScene(scene)
 
-        collectionView.backgroundView = sceneView
+//        collectionView.backgroundView = sceneView
 //        view.addSubview(sceneView)
 
 //        sceneView.heightAnchor ~~ height
@@ -118,39 +123,13 @@ final class GridViewController: UICollectionViewController {
 //        sceneView.centerXAnchor ~~ view.centerXAnchor
 //        sceneView.centerYAnchor ~~ view.centerYAnchor
 
-        let image = UIImage(named: "LogoTextOnly")
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-
-//        navigationItem.titleView = imageView
-        let navigationBar = navigationController.navigationBar
-
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
-        navigationBar.isTranslucent = true
-        navigationBar.barStyle = .default
-        navigationBar.clipsToBounds = false
-        navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
-
-        navigationBar.addSubview(imageView)
-        imageView.centerXAnchor ~~ navigationBar.centerXAnchor
-        imageView.centerYAnchor ~~ navigationBar.centerYAnchor
-        imageView.heightAnchor ~~ navigationBar.heightAnchor * 0.6
-
-        gradientView = NotchyGradientView()
-
-        navigationBar.addSubview(gradientView)
-
-        gradientView.topAnchor ~~ navigationBar.topAnchor - 44
-        gradientView.leadingAnchor ~~ navigationBar.leadingAnchor
-        gradientView.trailingAnchor ~~ navigationBar.trailingAnchor
-        gradientView.bottomAnchor ~~ navigationBar.bottomAnchor + 44
+        let refresh = UIRefreshControl()
+        refresh.tintColor = .white
+        refresh.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
+        collectionView.refreshControl = refresh
 
         collectionView.bounces = true
-        collectionView.backgroundColor = UIColor(0xe9e9e9)
+        collectionView.backgroundColor = .black
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
@@ -170,12 +149,6 @@ final class GridViewController: UICollectionViewController {
         super.viewWillLayoutSubviews()
 
         updateItemSize()
-
-        guard let navigationBar = navigationController?.navigationBar else {
-            return
-        }
-
-        gradientView.applyToNavigationBar(navigationBar)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -240,7 +213,8 @@ extension GridViewController {
 
             print(asset.localIdentifier)
             let controller = SingleImageViewController(asset: asset, image: theImage)
-            self.present(controller, animated: true)
+            let navigation = NotchyNavigationController(rootViewController: controller)
+            self.present(navigation, animated: true)
         }
 
         return;

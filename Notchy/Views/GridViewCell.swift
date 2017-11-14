@@ -24,6 +24,8 @@ final class GridViewCell: UICollectionViewCell {
 
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.layer.borderWidth = 0.5
 
         contentView.addSubview(imageView)
 
