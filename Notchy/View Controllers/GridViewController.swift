@@ -214,19 +214,7 @@ extension GridViewController {
             print(asset.localIdentifier)
             let controller = SingleImageViewController(asset: asset, image: theImage)
             let navigation = NotchyNavigationController(rootViewController: controller)
-            self.present(navigation, animated: true)
-        }
-
-        return;
-
-        asset.image(maskType: .v2) { image in
-            guard let image = image?.forced else {
-                return
-            }
-
-            DispatchQueue.main.async {
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-            }
+            self.present(controller, animated: true)
         }
     }
 
