@@ -86,43 +86,6 @@ final class GridViewController: UICollectionViewController {
             return
         }
 
-        let width: CGFloat = view.frame.width
-        let height: CGFloat = view.frame.height
-        let tileMap: SKTileMapNode = {
-            let source = GKCheckerboardNoiseSource(squareSize: 10)
-            let noise = GKNoise(source)
-            noise.gradientColors = [
-                -1: UIColor(0x000000),
-                1: UIColor(0x4a4a4a)
-            ]
-            let map = GKNoiseMap(noise, size: vector_double2([Double(width), Double(height)]), origin: vector_double2([0, 0]), sampleCount: ([Int32(width), Int32(height)]), seamless: true)
-
-            let texture = SKTexture(noiseMap: map)
-            let definition = SKTileDefinition(texture: texture)
-            let group = SKTileGroup(tileDefinition: definition)
-            let set = SKTileSet(tileGroups: [group])
-            let size = CGSize(width: width, height: height)
-
-            let _tileMap = SKTileMapNode(tileSet: set, columns: 100, rows: 100, tileSize: size)
-            _tileMap.fill(with: group)
-            return _tileMap
-        }()
-
-        let scene = SKScene(size: CGSize(width: width, height: height))
-        scene.addChild(tileMap)
-
-        let sceneView = SKView()
-        sceneView.translatesAutoresizingMaskIntoConstraints = false
-        sceneView.presentScene(scene)
-
-//        collectionView.backgroundView = sceneView
-//        view.addSubview(sceneView)
-
-//        sceneView.heightAnchor ~~ height
-//        sceneView.widthAnchor ~~ width
-//        sceneView.centerXAnchor ~~ view.centerXAnchor
-//        sceneView.centerYAnchor ~~ view.centerYAnchor
-
         let refresh = UIRefreshControl()
         refresh.tintColor = .white
         refresh.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
@@ -213,7 +176,7 @@ extension GridViewController {
 
             print(asset.localIdentifier)
             let controller = SingleImageViewController(asset: asset, image: theImage)
-            let navigation = NotchyNavigationController(rootViewController: controller)
+//            let navigation = NotchyNavigationController(rootViewController: controller)
             self.present(controller, animated: true)
         }
     }
