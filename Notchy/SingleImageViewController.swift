@@ -17,6 +17,14 @@ final class SingleImageViewController: UIViewController {
     private var asset: PHAsset!
     private var toolbar: NotchyToolbar!
     private var gradientView: NotchyGradientView!
+    private var screenshotLabel: UILabel!
+
+    private var backButton: UIButton!
+
+    private var imageContainerView: UIView!
+
+    private var addPhoneButton: ShortPlainAlternateButton!
+    private var removeWatermarkButton: ShortPlainAlternateButton!
 
     private var toolbarVisibleConstraint: NSLayoutConstraint!
     private var toolbarHiddenConstraint: NSLayoutConstraint!
@@ -53,12 +61,36 @@ final class SingleImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .black
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Pick", style: .done, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(sender:)))
+
+        isHeroEnabled = true
+
+        imageContainerView = UIView()
+        imageContainerView.translatesAutoresizingMaskIntoConstraints = false
+
+        backButton = UIButton()
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(UIImage(named: "CircleClose")?.image(withColor: .white), for: .normal)
+        backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
+        backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
+
         imageView = UIImageView(image: maskedImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        isHeroEnabled = true
         imageView.heroID = asset.localIdentifier
+
+        addPhoneButton = ShortPlainAlternateButton()
+        addPhoneButton.setTitle("Add iPhone X", for: .normal)
+
+        removeWatermarkButton = ShortPlainAlternateButton()
+        removeWatermarkButton.setTitle("Remove Mark", for: .normal)
+
+        screenshotLabel = UILabel()
+        screenshotLabel.translatesAutoresizingMaskIntoConstraints = false
+        screenshotLabel.font = UIFont.systemFont(ofSize: 12)
+        screenshotLabel.textColor = .lightGray
+        screenshotLabel.text = "Preview"
 
         if let navigationController = navigationController {
             gradientView = NotchyGradientView()
@@ -81,14 +113,19 @@ final class SingleImageViewController: UIViewController {
             gradientView.trailingAnchor ~~ navigationBar.trailingAnchor
             gradientView.bottomAnchor ~~ navigationBar.bottomAnchor + 44
         }
-
-        view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Pick", style: .done, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(sender:)))
         
         toolbar = NotchyToolbar(delegate: self)
 
-        view.addSubview(imageView)
+        imageContainerView.addSubview(imageView)
+
+        view.addSubview(imageContainerView)
+        view.addSubview(screenshotLabel)
         view.addSubview(toolbar)
+        view.addSubview(removeWatermarkButton)
+        view.addSubview(addPhoneButton)
+        view.addSubview(backButton)
+
+        let margin: CGFloat = 15
 
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
@@ -97,12 +134,30 @@ final class SingleImageViewController: UIViewController {
         toolbar.leadingAnchor ~~ view.leadingAnchor
         toolbar.trailingAnchor ~~ view.trailingAnchor
 
+        backButton.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor - margin
+        backButton.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor - margin
+
+        removeWatermarkButton.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor - margin
+        removeWatermarkButton.bottomAnchor ~~ toolbar.topAnchor - margin
+        addPhoneButton.bottomAnchor ~~ toolbar.topAnchor - margin
+        addPhoneButton.leadingAnchor ~~ view.safeAreaLayoutGuide.leadingAnchor + margin
+
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
 
-        imageView.leadingAnchor ~~ view.leadingAnchor
-        imageView.trailingAnchor ~~ view.trailingAnchor
-        imageView.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor
-        imageView.bottomAnchor ~~ toolbar.topAnchor
+        // 2436/1125
+        imageView.centerYAnchor ~~ imageContainerView.centerYAnchor
+        imageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.6
+        imageView.heightAnchor ~~ imageView.widthAnchor * 2.1653
+//        imageView.heightAnchor ~~ 500
+        imageView.centerXAnchor ~~ imageContainerView.centerXAnchor
+
+        imageContainerView.leadingAnchor ~~ view.leadingAnchor
+        imageContainerView.trailingAnchor ~~ view.trailingAnchor
+        imageContainerView.bottomAnchor ~~ toolbar.topAnchor
+        imageContainerView.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor
+
+        screenshotLabel.topAnchor ~~ imageView.bottomAnchor + 5
+        screenshotLabel.centerXAnchor ~~ view.centerXAnchor
     }
 
     @objc func rightBarButtonItemDidTouchUpInside(sender: Any) {
@@ -111,11 +166,35 @@ final class SingleImageViewController: UIViewController {
 }
 
 extension SingleImageViewController: NotchyToolbarDelegate {
-    func addDeviceButtonDidTouchUpInside(_ sender: Any) {
+    func copyButtonDidTouchUpInside(_ sender: Any) {
+        asset.image(maskType: .v2) { image in
+            guard let image = image?.forced else {
+                return
+            }
 
+            UIPasteboard.general.setObjects([image])
+
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Copied!", message: nil, preferredStyle: .alert)
+                alert.addAction(title: "OK", style: .default, handler: nil)
+                self.present(alert, animated: true)
+                self.toolbar.notchingComplete()
+            }
+        }
     }
 
-    func notchifyButtonDidTouchUpInside(sender: Any) {
+    func shareButtonDidTouchUpInside(_ sender: Any) {
+        asset.image(maskType: .v2) { image in
+            guard let image = image?.forced else {
+                return
+            }
+
+            let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            self.present(controller, animated: true)
+        }
+    }
+
+    func saveButtonDidTouchUpInside(_ sender: Any) {
         asset.image(maskType: .v2) { image in
             guard let image = image?.forced else {
                 return
@@ -130,62 +209,17 @@ extension SingleImageViewController: NotchyToolbarDelegate {
                 self.toolbar.notchingComplete()
             }
         }
+    }
 
-        return;
+    func addDeviceButtonDidTouchUpInside(_ sender: Any) {
 
-        /*
-        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        controller.completionWithItemsHandler = { (activity, completed, items, error) in
-            // MARK: TODO
-            guard let activity = activity else {
-                return
-            }
-
-            if activity == .saveToCameraRoll {
-                let alert = UIAlertController(title: "Saved!", message: nil, preferredStyle: .alert)
-                alert.addAction(title: "OK", style: .default, handler: nil)
-
-                self.present(alert, animated: true)
-            }
-        }
-        present(controller, animated: true)
-
-        return;
-
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-
-        return;
-
-        DispatchQueue.global(qos: .default).async {
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAsset(from: image)
-            }) { (success, error) in
-                print(success)
-                print(error)
-
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Saved!", message: nil, preferredStyle: .alert)
-                    alert.addAction(title: "OK", style: .default, handler: nil)
-                    self.present(alert, animated: true)
-                }
-            }
-        }
-
-        return
-
-        return
-        #if false
-
-
-        #endif
- */
     }
 
     func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
 
     }
 
-    func backButtonDidTouchUpInside(sender: Any) {
+    func backButtonDidTouchUpInside(_ sender: Any) {
         hero_dismissViewController()
     }
 

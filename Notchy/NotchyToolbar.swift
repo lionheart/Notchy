@@ -11,10 +11,11 @@ import SuperLayout
 import LionheartExtensions
 
 @objc protocol NotchyToolbarDelegate {
-    @objc func didToggleDeleteOriginalSwitch(sender: Any)
-    @objc func notchifyButtonDidTouchUpInside(sender: Any)
-    @objc func screenshotsButtonDidTouchUpInside(sender: Any)
-    @objc func backButtonDidTouchUpInside(sender: Any)
+    @objc func saveButtonDidTouchUpInside(_ sender: Any)
+    @objc func backButtonDidTouchUpInside(_ sender: Any)
+    @objc func copyButtonDidTouchUpInside(_ sender: Any)
+    @objc func shareButtonDidTouchUpInside(_ sender: Any)
+
     @objc func addDeviceButtonDidTouchUpInside(_ sender: Any)
     @objc func removeWatermarkButtonDidTouchUpInside(_ sender: Any)
 }
@@ -87,11 +88,9 @@ final class CheckmarkView: UIStackView {
 final class NotchyToolbar: UIView {
     @objc private var delegate: NotchyToolbarDelegate!
 
-    fileprivate var notchifyButton: RoundedButton!
-    fileprivate var deleteOriginalLabel: UILabel!
-    fileprivate var deleteOriginalSwitch: UISwitch!
-    private var screenshotsButton: UIButton!
-    private var backButton: UIButton!
+    private var saveButton: PlainButton!
+    private var copyButton: ShortPlainButton!
+    private var shareButton: ShortPlainButton!
     var stackView: UIStackView!
 
     var addDeviceCheckmarkView: CheckmarkButton!
@@ -106,81 +105,49 @@ final class NotchyToolbar: UIView {
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
 
-        let red = UIColor(0xE74C3B)
-        screenshotsButton = UIButton()
-        screenshotsButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton = PlainButton()
+        saveButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.saveButtonDidTouchUpInside(_:)), for: .touchUpInside)
+        saveButton.setTitle("Save", for: .normal)
 
-        let screenshotsButtonImage = UIImage(named: "Cards")?.image(withColor: red)
-        screenshotsButton.setImage(screenshotsButtonImage, for: .normal)
-        screenshotsButton.setImage(screenshotsButtonImage?.image(withAlpha: 0.5), for: .highlighted)
-        screenshotsButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.screenshotsButtonDidTouchUpInside(sender:)), for: .touchUpInside)
+        copyButton = ShortPlainButton()
+        copyButton.setTitle("Copy", for: .normal)
+        copyButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.copyButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        backButton = UIButton()
-        backButton.isHidden = true
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        let backButtonImage = UIImage(named: "ArrowLeft")?.image(withColor: red)
-        backButton.setImage(backButtonImage, for: .normal)
-        backButton.setImage(backButtonImage?.image(withAlpha: 0.5), for: .highlighted)
-        backButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.backButtonDidTouchUpInside(sender:)), for: .touchUpInside)
+        shareButton = ShortPlainButton()
+        shareButton.setTitle("Share", for: .normal)
+        shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        deleteOriginalLabel = UILabel()
-        deleteOriginalLabel.text = "Delete Original?"
-
-        deleteOriginalSwitch = UISwitch()
-        deleteOriginalSwitch.isOn = true
-        deleteOriginalSwitch.addTarget(delegate, action: #selector(NotchyToolbarDelegate.didToggleDeleteOriginalSwitch(sender:)), for: .valueChanged)
-
-        let deleteOriginalStackView = UIStackView(arrangedSubviews: [deleteOriginalLabel, deleteOriginalSwitch])
-        deleteOriginalStackView.translatesAutoresizingMaskIntoConstraints = false
-        deleteOriginalStackView.axis = .horizontal
-        deleteOriginalStackView.spacing = 15
-        deleteOriginalStackView.isHidden = true
+        let shortButtonStackView = UIStackView(arrangedSubviews: [copyButton, shareButton])
+        shortButtonStackView.axis = .horizontal
+        shortButtonStackView.spacing = 0
+        shortButtonStackView.distribution = .equalSpacing
 
         addDeviceCheckmarkView = CheckmarkButton(title: "Add Device")
         addDeviceCheckmarkView.addTarget(self, action: #selector(addDeviceButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        deleteCheckmarkView = CheckmarkButton(title: "Delete Original")
-        deleteCheckmarkView.addTarget(self, action: #selector(deleteButtonDidTouchUpInside(_:)), for: .touchUpInside)
-
         removeWatermarkCheckmarkView = CheckmarkButton(title: "Remove Watermark")
         removeWatermarkCheckmarkView.addTarget(self, action: #selector(removeWatermarkButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        notchifyButton = RoundedButton(color: red, textColor: .white, padding: 0)
-        notchifyButton.translatesAutoresizingMaskIntoConstraints = false
-        notchifyButton.setTitle("Notchify!", for: .normal)
-        notchifyButton.addTarget(self, action: #selector(notchifyButtonDidTouchUpInside(_:)), for: .touchUpInside)
-
-        stackView = UIStackView(arrangedSubviews: [addDeviceCheckmarkView, deleteCheckmarkView, removeWatermarkCheckmarkView, notchifyButton, deleteOriginalStackView])
+        stackView = UIStackView(arrangedSubviews: [saveButton, shortButtonStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
+        stackView.alignment = .fill
 
-        addSubview(backButton)
-        addSubview(screenshotsButton)
         addSubview(stackView)
-
-        stackView.setCustomSpacing(2, after: addDeviceCheckmarkView)
-        stackView.setCustomSpacing(2, after: deleteCheckmarkView)
 
         let margin: CGFloat = 15
 
-        deleteCheckmarkView.heightAnchor ~~ 30
-        addDeviceCheckmarkView.heightAnchor ~~ 30
-        removeWatermarkCheckmarkView.heightAnchor ~~ 30
+        shortButtonStackView.widthAnchor ~~ stackView.widthAnchor * 0.8
+        shortButtonStackView.centerXAnchor ~~ stackView.centerXAnchor
 
-        screenshotsButton.centerYAnchor ~~ notchifyButton.centerYAnchor
-        screenshotsButton.trailingAnchor ~~ trailingAnchor - margin
-
-        backButton.centerYAnchor ~~ notchifyButton.centerYAnchor
-        backButton.leadingAnchor ~~ leadingAnchor + margin
-
+        stackView.widthAnchor ~~ widthAnchor * 0.4
         stackView.topAnchor ~~ topAnchor + margin
         stackView.centerXAnchor ~~ centerXAnchor
     }
 
     func notchingComplete() {
-        notchifyButton.isEnabled = true
-        notchifyButton.setTitle("Notchify!", for: .normal)
+        // MARK: TODO
     }
 
     @objc func deleteButtonDidTouchUpInside(_ sender: Any) {
@@ -193,12 +160,6 @@ final class NotchyToolbar: UIView {
 
     @objc func addDeviceButtonDidTouchUpInside(_ sender: Any) {
         addDeviceCheckmarkView.isSelected = !addDeviceCheckmarkView.isSelected
-    }
-
-    @objc func notchifyButtonDidTouchUpInside(_ sender: Any) {
-        notchifyButton.isEnabled = false
-        notchifyButton.setTitle("Notching...", for: .normal)
-        delegate.notchifyButtonDidTouchUpInside(sender: sender)
     }
 
     required init?(coder aDecoder: NSCoder) {

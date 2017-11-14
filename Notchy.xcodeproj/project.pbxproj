@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37119B1E1FBA771300322F63 /* PlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1D1FBA771300322F63 /* PlainButton.swift */; };
+		37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1F1FBA791200322F63 /* ShortPlainButton.swift */; };
+		37119B221FBA7B6300322F63 /* ShortPlainAlternateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */; };
 		3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9C71FB136CE00F461A8 /* AppDelegate.swift */; };
 		3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
 		3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */; };
@@ -30,6 +33,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37119B1D1FBA771300322F63 /* PlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainButton.swift; sourceTree = "<group>"; };
+		37119B1F1FBA791200322F63 /* ShortPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainButton.swift; sourceTree = "<group>"; };
+		37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainAlternateButton.swift; sourceTree = "<group>"; };
 		3739C9C41FB136CE00F461A8 /* Notchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3739C9C71FB136CE00F461A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3739C9CE1FB136CE00F461A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +74,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37119B1C1FBA770A00322F63 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				37119B1D1FBA771300322F63 /* PlainButton.swift */,
+				37119B1F1FBA791200322F63 /* ShortPlainButton.swift */,
+				37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */,
+				374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		3739C9BB1FB136CE00F461A8 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +106,7 @@
 		3739C9C61FB136CE00F461A8 /* Notchy */ = {
 			isa = PBXGroup;
 			children = (
+				37119B1C1FBA770A00322F63 /* Views */,
 				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
 				3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */,
 				3739C9D91FB13B9800F461A8 /* GridViewController.swift */,
@@ -101,7 +119,6 @@
 				3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */,
 				374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */,
 				37931AD31FB7DB9C00C03BB0 /* NotchMask.png */,
-				374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */,
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
 				37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */,
 				37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */,
@@ -282,8 +299,11 @@
 				3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */,
 				3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */,
 				3739C9DC1FB13BF700F461A8 /* AssetViewController.swift in Sources */,
+				37119B1E1FBA771300322F63 /* PlainButton.swift in Sources */,
 				3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */,
+				37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */,
 				37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */,
+				37119B221FBA7B6300322F63 /* ShortPlainAlternateButton.swift in Sources */,
 				37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
