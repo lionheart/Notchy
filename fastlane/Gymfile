@@ -1,0 +1,12 @@
+# vim: set ft=ruby:
+
+scheme "Notchy"
+include_bitcode true
+workspace "Notchy.xcworkspace"
+clean true
+
+for_platform :ios do
+  for_lane :release do
+    configuration "Release"
+  end
+end
