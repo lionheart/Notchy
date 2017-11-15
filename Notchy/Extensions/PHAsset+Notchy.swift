@@ -30,7 +30,7 @@ extension PHAsset {
 
                 print(other[PHImageResultIsDegradedKey])
 
-                completion(maskType.applyMask(input: image))
+                completion(maskType.applyMask(input: image, watermark: true))
             }
         }
     }

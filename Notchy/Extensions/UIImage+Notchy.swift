@@ -13,10 +13,10 @@ enum MaskType {
     case v1
     case v2
 
-    func applyMask(input: UIImage) -> UIImage? {
+    func applyMask(input: UIImage, watermark: Bool) -> UIImage? {
         switch self {
-        case .v1: return input.maskv1
-        case .v2: return input.maskv2
+        case .v1: return input.maskv1(watermark: watermark)
+        case .v2: return input.maskv2(watermark: watermark)
         }
     }
 }
@@ -41,6 +41,8 @@ let maskFilter: CIFilter? = {
     return filter
 }()
 
+let watermarkImage = UIImage(named: "blackcenter-Watermark")!
+
 extension UIImage {
     var forced: UIImage? {
         UIGraphicsBeginImageContext(size)
@@ -50,7 +52,7 @@ extension UIImage {
         return newImage
     }
 
-    var maskv1: UIImage? {
+    func maskv1(watermark: Bool) -> UIImage? {
         guard let cgImage = cgImage,
             let mask = UIImage(named: "NotchMask"),
             let maskCGImage = mask.cgImage,
@@ -61,7 +63,7 @@ extension UIImage {
         return UIImage(cgImage: result)
     }
 
-    var maskv2: UIImage? {
+    func maskv2(watermark: Bool) -> UIImage? {
         guard let ciImage = CIImage(image: self),
             let filter = maskFilter else {
                 return nil
@@ -73,6 +75,14 @@ extension UIImage {
             return nil
         }
 
-        return UIImage(ciImage: output)
+        guard watermark,
+            let watermarkCIImage = CIImage(image: watermarkImage) else {
+                return UIImage(ciImage: output)
+        }
+
+        let transform = CGAffineTransform(scaleX: 1/watermarkImage.scale, y: 1/watermarkImage.scale)
+        let newWatermarkCIImage = watermarkCIImage.transformed(by: transform)
+
+        return UIImage(ciImage: newWatermarkCIImage.composited(over: output))
     }
 }

@@ -75,6 +75,10 @@ final class SingleImageViewController: UIViewController {
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
         backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
+        let phoneImageView = UIImageView(image: UIImage(named: "iPhoneXSpaceGrey"))
+        phoneImageView.translatesAutoresizingMaskIntoConstraints = false
+        phoneImageView.contentMode = .scaleAspectFit
+
         imageView = UIImageView(image: maskedImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -117,6 +121,7 @@ final class SingleImageViewController: UIViewController {
         toolbar = NotchyToolbar(delegate: self)
 
         imageContainerView.addSubview(imageView)
+        imageContainerView.addSubview(phoneImageView)
 
         view.addSubview(imageContainerView)
         view.addSubview(screenshotLabel)
@@ -145,11 +150,15 @@ final class SingleImageViewController: UIViewController {
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
 
         // 2436/1125
-        imageView.centerYAnchor ~~ imageContainerView.centerYAnchor
+        imageView.centerXAnchor ~~ imageContainerView.centerXAnchor
+        imageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
         imageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.6
         imageView.heightAnchor ~~ imageView.widthAnchor * 2.1653
 //        imageView.heightAnchor ~~ 500
-        imageView.centerXAnchor ~~ imageContainerView.centerXAnchor
+
+        phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
+        phoneImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
+        phoneImageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.8
 
         imageContainerView.leadingAnchor ~~ view.leadingAnchor
         imageContainerView.trailingAnchor ~~ view.trailingAnchor

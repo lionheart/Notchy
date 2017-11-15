@@ -11,6 +11,7 @@
 		37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1F1FBA791200322F63 /* ShortPlainButton.swift */; };
 		37119B221FBA7B6300322F63 /* ShortPlainAlternateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */; };
 		3731B2161FBBA101003A8FD0 /* NotchyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3731B2151FBBA101003A8FD0 /* NotchyNavigationController.swift */; };
+		3731B21A1FBBD431003A8FD0 /* iPhoneXSpaceGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731B2191FBBD431003A8FD0 /* iPhoneXSpaceGrey.png */; };
 		3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9C71FB136CE00F461A8 /* AppDelegate.swift */; };
 		3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
 		3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */; };
@@ -38,6 +39,7 @@
 		37119B1F1FBA791200322F63 /* ShortPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainButton.swift; sourceTree = "<group>"; };
 		37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainAlternateButton.swift; sourceTree = "<group>"; };
 		3731B2151FBBA101003A8FD0 /* NotchyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyNavigationController.swift; sourceTree = "<group>"; };
+		3731B2191FBBD431003A8FD0 /* iPhoneXSpaceGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneXSpaceGrey.png; sourceTree = "<group>"; };
 		3739C9C41FB136CE00F461A8 /* Notchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3739C9C71FB136CE00F461A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3739C9CE1FB136CE00F461A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
 				37931AD31FB7DB9C00C03BB0 /* NotchMask.png */,
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
+				3731B2191FBBD431003A8FD0 /* iPhoneXSpaceGrey.png */,
 				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
 				3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */,
 				3739C9D31FB136CE00F461A8 /* Info.plist */,
@@ -239,6 +242,7 @@
 				37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */,
 				3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */,
 				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
+				3731B21A1FBBD431003A8FD0 /* iPhoneXSpaceGrey.png in Resources */,
 				37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
