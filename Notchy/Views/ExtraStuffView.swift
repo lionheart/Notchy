@@ -18,6 +18,7 @@ final class ExtraStuffItemView: UIStackView {
         spacing = 10
 
         let imageView = UIImageView(image: UIImage(named: imageName))
+        imageView.contentMode = .scaleAspectFit
 
         let label = UILabel()
         label.text = text
@@ -25,6 +26,8 @@ final class ExtraStuffItemView: UIStackView {
 
         addArrangedSubview(imageView)
         addArrangedSubview(label)
+
+        imageView.widthAnchor ~~ 30
     }
 
     required init(coder: NSCoder) {
@@ -48,9 +51,9 @@ final class ExtraStuffView: UIView {
         topLabel.text = "Extra Stuff!"
         topLabel.font = NotchyTheme.systemFont(ofSize: 24, weight: .medium)
 
-        let item1 = ExtraStuffItemView(imageName: "IAP-AddiPhone", text: "Add iPhone X")
-        let item2 = ExtraStuffItemView(imageName: "IAP-RemoveWatermark", text: "Remove Watermark")
-        let item3 = ExtraStuffItemView(imageName: "IAP-IconOptions", text: "8 Icon Options")
+        let item1 = ExtraStuffItemView(imageName: "iPhoneXIcon", text: "Add iPhone X")
+        let item2 = ExtraStuffItemView(imageName: "WatermarkIcon", text: "Remove Watermark")
+        let item3 = ExtraStuffItemView(imageName: "IconsIcon", text: "8 Icon Options")
 
         let optionsStackView = UIStackView(arrangedSubviews: [item1, item2, item3])
         optionsStackView.translatesAutoresizingMaskIntoConstraints = false

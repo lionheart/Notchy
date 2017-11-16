@@ -10,8 +10,31 @@ import UIKit
 import Photos
 import SuperLayout
 import Hero
+import Presentr
 
 final class SingleImageViewController: UIViewController {
+    lazy var extraStuffPresenter: Presentr = {
+        let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
+        let height = ModalSize.custom(size: 300)
+        let center = ModalCenterPosition.custom(centerPoint: view.center)
+        let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
+        presenter.backgroundOpacity = 0
+        presenter.transitionType = TransitionType.crossDissolve
+        presenter.dismissTransitionType = TransitionType.crossDissolve
+        return presenter
+    }()
+
+    lazy var modalPresenter: Presentr = {
+        let size = ModalSize.custom(size: 120)
+        let center = ModalCenterPosition.custom(centerPoint: view.center)
+        let presenter = Presentr(presentationType: .custom(width: size, height: size, center: center))
+        let animation = NotchyAlertAnimation(duration: 0.5)
+        presenter.backgroundOpacity = 0
+        presenter.transitionType = .custom(animation)
+        presenter.dismissTransitionType = .custom(animation)
+        return presenter
+    }()
+
     private var imageView: UIImageView!
     fileprivate var maskedImage: UIImage?
     private var asset: PHAsset!
@@ -183,14 +206,10 @@ final class SingleImageViewController: UIViewController {
 
 extension SingleImageViewController: NotchyToolbarDelegate {
     func copyButtonDidTouchUpInside(_ sender: Any) {
-        let alertView = NotchyAlertView(type: .loading("Notching…"))
-
-        imageContainerView.addSubview(alertView)
-
-        alertView.centerXAnchor ~~ imageContainerView.centerXAnchor
-        alertView.centerYAnchor ~~ imageContainerView.centerYAnchor
-        alertView.widthAnchor ~~ 120
-        alertView.widthAnchor ~~ alertView.heightAnchor
+        let controller = NotchyAlertViewController(type: .loading("Notching…"))
+        controller.transitioningDelegate = modalPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: false, completion: nil)
 
         asset.image(maskType: .v2) { image in
             guard let image = image?.forced else {
@@ -200,57 +219,45 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             UIPasteboard.general.setObjects([image])
 
             DispatchQueue.main.async {
-                alertView.removeFromSuperview()
-
-                let alertView = NotchyAlertView(type: .success("Copied!"))
-
-                self.imageContainerView.addSubview(alertView)
-
-                alertView.centerXAnchor ~~ self.imageContainerView.centerXAnchor
-                alertView.centerYAnchor ~~ self.imageContainerView.centerYAnchor
-                alertView.widthAnchor ~~ 120
-                alertView.widthAnchor ~~ alertView.heightAnchor
-
-                UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
-                    alertView.alpha = 0
-                }, completion: { _ in
-                    self.toolbar.notchingComplete()
-                })
+                controller.dismiss(animated: false) {
+                    let controller = NotchyAlertViewController(type: .success("Copied!"))
+                    controller.transitioningDelegate = self.modalPresenter
+                    controller.modalPresentationStyle = .custom
+                    self.present(controller, animated: false) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                            controller.dismiss(animated: true)
+                            self.toolbar.notchingComplete()
+                        }
+                    }
+                }
             }
         }
     }
 
     func shareButtonDidTouchUpInside(_ sender: Any) {
-        let alertView = NotchyAlertView(type: .loading("Notching…"))
-
-        imageContainerView.addSubview(alertView)
-
-        alertView.centerXAnchor ~~ imageContainerView.centerXAnchor
-        alertView.centerYAnchor ~~ imageContainerView.centerYAnchor
-        alertView.widthAnchor ~~ 120
-        alertView.widthAnchor ~~ alertView.heightAnchor
+        let controller = NotchyAlertViewController(type: .loading("Notching…"))
+        controller.transitioningDelegate = modalPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: false, completion: nil)
 
         asset.image(maskType: .v2) { image in
-            alertView.removeFromSuperview()
-
             guard let image = image?.forced else {
+                controller.dismiss(animated: true)
                 return
             }
 
-            let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-            self.present(controller, animated: true)
+            controller.dismiss(animated: true) {
+                let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                self.present(activity, animated: true)
+            }
         }
     }
 
     func saveButtonDidTouchUpInside(_ sender: Any) {
-        let alertView = NotchyAlertView(type: .loading("Notching…"))
-
-        imageContainerView.addSubview(alertView)
-
-        alertView.centerXAnchor ~~ imageContainerView.centerXAnchor
-        alertView.centerYAnchor ~~ imageContainerView.centerYAnchor
-        alertView.widthAnchor ~~ 120
-        alertView.widthAnchor ~~ alertView.heightAnchor
+        let controller = NotchyAlertViewController(type: .loading("Notching…"))
+        controller.transitioningDelegate = modalPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: false, completion: nil)
 
         asset.image(maskType: .v2) { image in
             guard let image = image?.forced else {
@@ -260,22 +267,17 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
 
             DispatchQueue.main.async {
-                alertView.removeFromSuperview()
-
-                let alertView = NotchyAlertView(type: .success("Notched!"))
-
-                self.imageContainerView.addSubview(alertView)
-
-                alertView.centerXAnchor ~~ self.imageContainerView.centerXAnchor
-                alertView.centerYAnchor ~~ self.imageContainerView.centerYAnchor
-                alertView.widthAnchor ~~ 120
-                alertView.widthAnchor ~~ alertView.heightAnchor
-
-                UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
-                    alertView.alpha = 0
-                }, completion: { _ in
-                    self.toolbar.notchingComplete()
-                })
+                controller.dismiss(animated: false) {
+                    let controller = NotchyAlertViewController(type: .success("Notched!"))
+                    controller.transitioningDelegate = self.modalPresenter
+                    controller.modalPresentationStyle = .custom
+                    self.present(controller, animated: false) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                            controller.dismiss(animated: true)
+                            self.toolbar.notchingComplete()
+                        }
+                    }
+                }
             }
         }
     }
@@ -290,15 +292,10 @@ extension SingleImageViewController: NotchyToolbarDelegate {
     }
 
     func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
-        extraStuffView = ExtraStuffView()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideFreeStuff))
-        extraStuffView.addGestureRecognizer(tapGestureRecognizer)
-
-        view.addSubview(extraStuffView)
-
-        extraStuffView.widthAnchor ~~ view.widthAnchor * 0.7
-        extraStuffView.centerXAnchor ~~ view.centerXAnchor
-        extraStuffView.centerYAnchor ~~ view.centerYAnchor
+        let controller = ExtraStuffViewController()
+        controller.transitioningDelegate = extraStuffPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: true, completion: nil)
     }
 
     func backButtonDidTouchUpInside(_ sender: Any) {

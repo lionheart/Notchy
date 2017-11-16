@@ -27,6 +27,8 @@
 		373FA06C1FBD065E00C29902 /* UIFont+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */; };
 		373FA06E1FBD077F00C29902 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */; };
 		373FA0721FBD118400C29902 /* ExtraStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0711FBD118400C29902 /* ExtraStuffView.swift */; };
+		373FA0741FBE283000C29902 /* ExtraStuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */; };
+		373FA0761FBE2BFD00C29902 /* NotchyAlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */; };
 		374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */; };
 		374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */; };
 		37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */; };
@@ -63,6 +65,8 @@
 		373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Notchy.swift"; sourceTree = "<group>"; };
 		373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		373FA0711FBD118400C29902 /* ExtraStuffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraStuffView.swift; sourceTree = "<group>"; };
+		373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraStuffViewController.swift; sourceTree = "<group>"; };
+		373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotchyAlertAnimation.swift; path = Notchy/NotchyAlertAnimation.swift; sourceTree = SOURCE_ROOT; };
 		374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessDeniedViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 			children = (
 				3731B2151FBBA101003A8FD0 /* NotchyNavigationController.swift */,
 				373FA0671FBD018100C29902 /* NotchyAlertViewController.swift */,
+				373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */,
 				3739C9D91FB13B9800F461A8 /* GridViewController.swift */,
 				3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */,
 				3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */,
@@ -167,6 +172,7 @@
 				3731B2171FBBA104003A8FD0 /* View Controllers */,
 				37119B1C1FBA770A00322F63 /* Views */,
 				3731B2181FBBA12C003A8FD0 /* Extensions */,
+				373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */,
 				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
 				37931AD31FB7DB9C00C03BB0 /* NotchMask.png */,
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
@@ -280,6 +286,7 @@
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/KeyboardAdjuster/KeyboardAdjuster.framework",
 				"${BUILT_PRODUCTS_DIR}/LionheartExtensions/LionheartExtensions.framework",
+				"${BUILT_PRODUCTS_DIR}/Presentr/Presentr.framework",
 				"${BUILT_PRODUCTS_DIR}/QuickTableView/QuickTableView.framework",
 				"${BUILT_PRODUCTS_DIR}/SuperLayout/SuperLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
@@ -289,6 +296,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeyboardAdjuster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LionheartExtensions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Presentr.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickTableView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SuperLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
@@ -342,12 +350,14 @@
 				374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */,
 				37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */,
 				373FA0721FBD118400C29902 /* ExtraStuffView.swift in Sources */,
+				373FA0741FBE283000C29902 /* ExtraStuffViewController.swift in Sources */,
 				374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */,
 				373FA0681FBD018100C29902 /* NotchyAlertViewController.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
 				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
 				37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */,
 				3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */,
+				373FA0761FBE2BFD00C29902 /* NotchyAlertAnimation.swift in Sources */,
 				37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */,
 				3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */,
 				3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */,
@@ -493,7 +503,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBlack;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
@@ -511,7 +521,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBlack;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
