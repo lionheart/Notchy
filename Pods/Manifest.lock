@@ -4,6 +4,7 @@ PODS:
   - LionheartExtensions (3.7.2):
     - LionheartExtensions/Core (= 3.7.2)
   - LionheartExtensions/Core (3.7.2)
+  - Presentr (1.3)
   - QuickTableView (2.5.1):
     - KeyboardAdjuster (~> 2)
   - SuperLayout (1.0.0):
@@ -14,18 +15,24 @@ PODS:
 DEPENDENCIES:
   - Hero
   - LionheartExtensions (~> 3)
+  - Presentr (from `../Presentr`)
   - QuickTableView (~> 2)
   - SuperLayout
   - SwiftyUserDefaults (~> 3)
+
+EXTERNAL SOURCES:
+  Presentr:
+    :path: ../Presentr
 
 SPEC CHECKSUMS:
   Hero: 18e7cf8af41c04c8532d1430ac174004a9365c87
   KeyboardAdjuster: a3f140638b2a0a3e930a3e21b5ffca7e29ae0d58
   LionheartExtensions: e1935805729302edd3d0ea811e6f1aa5f43c8f1b
+  Presentr: 4104c1f891b61a9f8ab7c434ef6b8cbc92c0d890
   QuickTableView: 42cdcf1924049ce99d46fd53dc5cef984cbb71b0
   SuperLayout: 1c273e339a8f0b98ee33f5504e1a81a95108d7fd
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
 
-PODFILE CHECKSUM: 515822e4a09ed170ecffbfdee2bbcf043a976e00
+PODFILE CHECKSUM: 57de8c2188a4e81572cb5d825eaf1b811f7a15f3
 
 COCOAPODS: 1.3.1
