@@ -10,4 +10,5 @@ target 'Notchy' do
   pod 'SwiftyUserDefaults', '~> 3'
   pod 'SuperLayout'
   pod 'Hero'
+  pod 'Presentr', :path => "../Presentr"
 end
