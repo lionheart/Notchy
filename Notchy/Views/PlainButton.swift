@@ -10,13 +10,13 @@ import UIKit
 import LionheartExtensions
 
 final class PlainButton: UIButton {
-    override func setTitle(_ title: String?, for state: UIControlState) {
+    func setTitle(_ title: String?, for state: UIControlState, size: CGFloat = 20) {
         guard let title = title else {
             return
         }
 
         let attributes: [NSAttributedStringKey: Any] = [
-            .font: NotchyTheme.systemFont(ofSize: 20, weight: .medium),
+            .font: NotchyTheme.systemFont(ofSize: size, weight: .medium),
             .foregroundColor: UIColor.white
         ]
 

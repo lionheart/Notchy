@@ -31,6 +31,8 @@ final class SingleImageViewController: UIViewController {
 
     private var phoneImageView: UIImageView!
 
+    var extraStuffView: ExtraStuffView!
+
     convenience init(asset: PHAsset, image: UIImage) {
         self.init()
 
@@ -94,6 +96,7 @@ final class SingleImageViewController: UIViewController {
 
         removeWatermarkButton = ShortPlainAlternateButton()
         removeWatermarkButton.setTitle("Remove Mark", for: .normal)
+        removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
         screenshotLabel = UILabel()
         screenshotLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -282,8 +285,20 @@ extension SingleImageViewController: NotchyToolbarDelegate {
         addPhoneButton.isSelected = !phoneImageView.isHidden
     }
 
-    func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
+    @objc func hideFreeStuff() {
+        extraStuffView.removeFromSuperview()
+    }
 
+    func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
+        extraStuffView = ExtraStuffView()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideFreeStuff))
+        extraStuffView.addGestureRecognizer(tapGestureRecognizer)
+
+        view.addSubview(extraStuffView)
+
+        extraStuffView.widthAnchor ~~ view.widthAnchor * 0.7
+        extraStuffView.centerXAnchor ~~ view.centerXAnchor
+        extraStuffView.centerYAnchor ~~ view.centerYAnchor
     }
 
     func backButtonDidTouchUpInside(_ sender: Any) {
