@@ -22,7 +22,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>22</string>
+	<string>23</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Notchy uses photo library access to let you to edit your screenshots.</string>
 	<key>LSRequiresIPhoneOS</key>
