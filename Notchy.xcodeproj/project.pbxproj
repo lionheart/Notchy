@@ -21,6 +21,11 @@
 		3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */; };
 		3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */; };
 		3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */; };
+		373FA05F1FBCD8F100C29902 /* NotchyAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA05E1FBCD8F100C29902 /* NotchyAlertView.swift */; };
+		373FA0681FBD018100C29902 /* NotchyAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0671FBD018100C29902 /* NotchyAlertViewController.swift */; };
+		373FA06A1FBD05FC00C29902 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA0691FBD05FC00C29902 /* Montserrat-Regular.otf */; };
+		373FA06C1FBD065E00C29902 /* UIFont+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */; };
+		373FA06E1FBD077F00C29902 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */; };
 		374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */; };
 		374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */; };
 		37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */; };
@@ -51,6 +56,11 @@
 		3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImageView.swift; sourceTree = "<group>"; };
 		3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImage.swift; sourceTree = "<group>"; };
 		3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAccessViewController.swift; sourceTree = "<group>"; };
+		373FA05E1FBCD8F100C29902 /* NotchyAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyAlertView.swift; sourceTree = "<group>"; };
+		373FA0671FBD018100C29902 /* NotchyAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyAlertViewController.swift; sourceTree = "<group>"; };
+		373FA0691FBD05FC00C29902 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
+		373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Notchy.swift"; sourceTree = "<group>"; };
+		373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessDeniedViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +100,7 @@
 				3739C9DD1FB13C0C00F461A8 /* GridViewCell.swift */,
 				3739C9E11FB13C4D00F461A8 /* AnimatedImage.swift */,
 				3739C9DF1FB13C3600F461A8 /* AnimatedImageView.swift */,
+				373FA05E1FBCD8F100C29902 /* NotchyAlertView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -97,6 +108,8 @@
 		3731B2141FBB913B003A8FD0 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				373FA0691FBD05FC00C29902 /* Montserrat-Regular.otf */,
+				373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -105,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				3731B2151FBBA101003A8FD0 /* NotchyNavigationController.swift */,
+				373FA0671FBD018100C29902 /* NotchyAlertViewController.swift */,
 				3739C9D91FB13B9800F461A8 /* GridViewController.swift */,
 				3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */,
 				3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */,
@@ -118,6 +132,7 @@
 		3731B2181FBBA12C003A8FD0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */,
 				37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */,
 				37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */,
 			);
@@ -244,6 +259,8 @@
 				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
 				3731B21A1FBBD431003A8FD0 /* iPhoneXSpaceGrey.png in Resources */,
 				37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */,
+				373FA06E1FBD077F00C29902 /* Montserrat-Medium.otf in Resources */,
+				373FA06A1FBD05FC00C29902 /* Montserrat-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +339,7 @@
 				374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */,
 				37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */,
 				374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */,
+				373FA0681FBD018100C29902 /* NotchyAlertViewController.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
 				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
 				37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */,
@@ -334,6 +352,8 @@
 				3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */,
 				37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */,
 				37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */,
+				373FA06C1FBD065E00C29902 /* UIFont+Notchy.swift in Sources */,
+				373FA05F1FBCD8F100C29902 /* NotchyAlertView.swift in Sources */,
 				37119B221FBA7B6300322F63 /* ShortPlainAlternateButton.swift in Sources */,
 				3731B2161FBBA101003A8FD0 /* NotchyNavigationController.swift in Sources */,
 				37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */,

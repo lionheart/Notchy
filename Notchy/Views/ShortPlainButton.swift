@@ -16,12 +16,12 @@ final class ShortPlainButton: UIButton {
         }
 
         let attributes: [NSAttributedStringKey: Any] = [
-            .font: UIFont.systemFont(ofSize: 16, weight: .medium),
+            .font: NotchyTheme.systemFont(ofSize: 16, weight: .medium),
             .foregroundColor: UIColor.black
         ]
 
         let attributed = NSAttributedString(string: title, attributes: attributes)
-        setAttributedTitle(attributed, for: .normal)
+        setAttributedTitle(attributed, for: state)
     }
 
     init() {

@@ -34,7 +34,7 @@ final class CheckmarkButton: UIButton {
         setImage(UIImage(named: "CircleCheckmark"), for: .selected)
 
         let attributes: [NSAttributedStringKey: Any] = [
-            .font: UIFont.systemFont(ofSize: 15),
+            .font: NotchyTheme.systemFont(ofSize: 15),
             .foregroundColor: UIColor.black
         ]
         let string = NSAttributedString(string: title, attributes: attributes)
@@ -67,7 +67,7 @@ final class CheckmarkView: UIStackView {
         button.setImage(checkmark, for: .selected)
 
         label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = NotchyTheme.systemFont(ofSize: 14)
         label.text = title
 
         addArrangedSubview(button)
@@ -132,15 +132,16 @@ final class NotchyToolbar: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
-        stackView.alignment = .fill
+        stackView.alignment = .center
 
         addSubview(stackView)
 
         let margin: CGFloat = 15
 
         shortButtonStackView.widthAnchor ~~ stackView.widthAnchor * 0.8
-        shortButtonStackView.centerXAnchor ~~ stackView.centerXAnchor
 
+        saveButton.leadingAnchor ~~ stackView.leadingAnchor
+        saveButton.trailingAnchor ~~ stackView.trailingAnchor
         stackView.widthAnchor ~~ widthAnchor * 0.4
         stackView.topAnchor ~~ topAnchor + margin
         stackView.centerXAnchor ~~ centerXAnchor

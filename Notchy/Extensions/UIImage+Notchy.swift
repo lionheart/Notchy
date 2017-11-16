@@ -41,7 +41,7 @@ let maskFilter: CIFilter? = {
     return filter
 }()
 
-let watermarkImage = UIImage(named: "blackcenter-Watermark")!
+let watermarkImage = UIImage(named: "WatermarkCorner")!
 
 extension UIImage {
     var forced: UIImage? {

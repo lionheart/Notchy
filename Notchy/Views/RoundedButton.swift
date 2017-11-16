@@ -40,12 +40,12 @@ final class RoundedButton: UIButton {
         }
 
         let attributes: [NSAttributedStringKey: Any] = [
-            .font: UIFont.systemFont(ofSize: 16, weight: .medium),
+            .font: NotchyTheme.systemFont(ofSize: 16, weight: .medium),
             .foregroundColor: textColor
         ]
 
         let attributed = NSAttributedString(string: title, attributes: attributes)
-        setAttributedTitle(attributed, for: .normal)
+        setAttributedTitle(attributed, for: state)
     }
 
     init(color: UIColor, textColor: UIColor, padding: CGFloat) {

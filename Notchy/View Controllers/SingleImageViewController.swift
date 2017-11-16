@@ -29,6 +29,8 @@ final class SingleImageViewController: UIViewController {
     private var toolbarVisibleConstraint: NSLayoutConstraint!
     private var toolbarHiddenConstraint: NSLayoutConstraint!
 
+    private var phoneImageView: UIImageView!
+
     convenience init(asset: PHAsset, image: UIImage) {
         self.init()
 
@@ -75,9 +77,10 @@ final class SingleImageViewController: UIViewController {
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
         backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        let phoneImageView = UIImageView(image: UIImage(named: "iPhoneXSpaceGrey"))
+        phoneImageView = UIImageView(image: UIImage(named: "iPhoneXSpaceGrey"))
         phoneImageView.translatesAutoresizingMaskIntoConstraints = false
         phoneImageView.contentMode = .scaleAspectFit
+        phoneImageView.isHidden = true
 
         imageView = UIImageView(image: maskedImage)
         imageView.contentMode = .scaleAspectFit
@@ -85,14 +88,16 @@ final class SingleImageViewController: UIViewController {
         imageView.heroID = asset.localIdentifier
 
         addPhoneButton = ShortPlainAlternateButton()
+        addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchUpInside(_:)), for: .touchUpInside)
         addPhoneButton.setTitle("Add iPhone X", for: .normal)
+        addPhoneButton.setTitle("Remove iPhone X", for: .selected)
 
         removeWatermarkButton = ShortPlainAlternateButton()
         removeWatermarkButton.setTitle("Remove Mark", for: .normal)
 
         screenshotLabel = UILabel()
         screenshotLabel.translatesAutoresizingMaskIntoConstraints = false
-        screenshotLabel.font = UIFont.systemFont(ofSize: 12)
+        screenshotLabel.font = NotchyTheme.systemFont(ofSize: 12)
         screenshotLabel.textColor = .lightGray
         screenshotLabel.text = "Preview"
 
@@ -154,18 +159,17 @@ final class SingleImageViewController: UIViewController {
         imageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
         imageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.6
         imageView.heightAnchor ~~ imageView.widthAnchor * 2.1653
-//        imageView.heightAnchor ~~ 500
 
         phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
         phoneImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
-        phoneImageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.8
+        phoneImageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.75
 
         imageContainerView.leadingAnchor ~~ view.leadingAnchor
         imageContainerView.trailingAnchor ~~ view.trailingAnchor
         imageContainerView.bottomAnchor ~~ toolbar.topAnchor
         imageContainerView.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor
 
-        screenshotLabel.topAnchor ~~ imageView.bottomAnchor + 5
+        screenshotLabel.topAnchor ~~ phoneImageView.bottomAnchor + 5
         screenshotLabel.centerXAnchor ~~ view.centerXAnchor
     }
 
@@ -176,6 +180,15 @@ final class SingleImageViewController: UIViewController {
 
 extension SingleImageViewController: NotchyToolbarDelegate {
     func copyButtonDidTouchUpInside(_ sender: Any) {
+        let alertView = NotchyAlertView(type: .loading("Notching…"))
+
+        imageContainerView.addSubview(alertView)
+
+        alertView.centerXAnchor ~~ imageContainerView.centerXAnchor
+        alertView.centerYAnchor ~~ imageContainerView.centerYAnchor
+        alertView.widthAnchor ~~ 120
+        alertView.widthAnchor ~~ alertView.heightAnchor
+
         asset.image(maskType: .v2) { image in
             guard let image = image?.forced else {
                 return
@@ -184,16 +197,39 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             UIPasteboard.general.setObjects([image])
 
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Copied!", message: nil, preferredStyle: .alert)
-                alert.addAction(title: "OK", style: .default, handler: nil)
-                self.present(alert, animated: true)
-                self.toolbar.notchingComplete()
+                alertView.removeFromSuperview()
+
+                let alertView = NotchyAlertView(type: .success("Copied!"))
+
+                self.imageContainerView.addSubview(alertView)
+
+                alertView.centerXAnchor ~~ self.imageContainerView.centerXAnchor
+                alertView.centerYAnchor ~~ self.imageContainerView.centerYAnchor
+                alertView.widthAnchor ~~ 120
+                alertView.widthAnchor ~~ alertView.heightAnchor
+
+                UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
+                    alertView.alpha = 0
+                }, completion: { _ in
+                    self.toolbar.notchingComplete()
+                })
             }
         }
     }
 
     func shareButtonDidTouchUpInside(_ sender: Any) {
+        let alertView = NotchyAlertView(type: .loading("Notching…"))
+
+        imageContainerView.addSubview(alertView)
+
+        alertView.centerXAnchor ~~ imageContainerView.centerXAnchor
+        alertView.centerYAnchor ~~ imageContainerView.centerYAnchor
+        alertView.widthAnchor ~~ 120
+        alertView.widthAnchor ~~ alertView.heightAnchor
+
         asset.image(maskType: .v2) { image in
+            alertView.removeFromSuperview()
+
             guard let image = image?.forced else {
                 return
             }
@@ -204,6 +240,15 @@ extension SingleImageViewController: NotchyToolbarDelegate {
     }
 
     func saveButtonDidTouchUpInside(_ sender: Any) {
+        let alertView = NotchyAlertView(type: .loading("Notching…"))
+
+        imageContainerView.addSubview(alertView)
+
+        alertView.centerXAnchor ~~ imageContainerView.centerXAnchor
+        alertView.centerYAnchor ~~ imageContainerView.centerYAnchor
+        alertView.widthAnchor ~~ 120
+        alertView.widthAnchor ~~ alertView.heightAnchor
+
         asset.image(maskType: .v2) { image in
             guard let image = image?.forced else {
                 return
@@ -212,16 +257,29 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
 
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Notched!", message: nil, preferredStyle: .alert)
-                alert.addAction(title: "OK", style: .default, handler: nil)
-                self.present(alert, animated: true)
-                self.toolbar.notchingComplete()
+                alertView.removeFromSuperview()
+
+                let alertView = NotchyAlertView(type: .success("Notched!"))
+
+                self.imageContainerView.addSubview(alertView)
+
+                alertView.centerXAnchor ~~ self.imageContainerView.centerXAnchor
+                alertView.centerYAnchor ~~ self.imageContainerView.centerYAnchor
+                alertView.widthAnchor ~~ 120
+                alertView.widthAnchor ~~ alertView.heightAnchor
+
+                UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
+                    alertView.alpha = 0
+                }, completion: { _ in
+                    self.toolbar.notchingComplete()
+                })
             }
         }
     }
 
     func addDeviceButtonDidTouchUpInside(_ sender: Any) {
-
+        phoneImageView.isHidden = !phoneImageView.isHidden
+        addPhoneButton.isSelected = !phoneImageView.isHidden
     }
 
     func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {

@@ -16,7 +16,7 @@ final class PlainButton: UIButton {
         }
 
         let attributes: [NSAttributedStringKey: Any] = [
-            .font: UIFont.systemFont(ofSize: 20, weight: .medium),
+            .font: NotchyTheme.systemFont(ofSize: 20, weight: .medium),
             .foregroundColor: UIColor.white
         ]
 
