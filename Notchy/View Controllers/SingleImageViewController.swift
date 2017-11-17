@@ -13,6 +13,8 @@ import Hero
 import Presentr
 
 final class SingleImageViewController: UIViewController {
+    let hapticFeedbackGenerator = UISelectionFeedbackGenerator()
+
     lazy var extraStuffPresenter: Presentr = {
         let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
         let height = ModalSize.custom(size: 300)
@@ -95,7 +97,7 @@ final class SingleImageViewController: UIViewController {
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
         backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        phoneImageView = UIImageView(image: UIImage(named: "iPhoneXSpaceGrey"))
+        phoneImageView = UIImageView(image: UIImage(named: "iPhoneXSpaceGray2"))
         phoneImageView.translatesAutoresizingMaskIntoConstraints = false
         phoneImageView.contentMode = .scaleAspectFit
         phoneImageView.isHidden = true
@@ -107,12 +109,14 @@ final class SingleImageViewController: UIViewController {
 
         addPhoneButton = ShortPlainAlternateButton()
         addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchUpInside(_:)), for: .touchUpInside)
+        addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchDown), for: .touchDown)
         addPhoneButton.setTitle("Add iPhone X", for: .normal)
         addPhoneButton.setTitle("Remove iPhone X", for: .selected)
 
         removeWatermarkButton = ShortPlainAlternateButton()
         removeWatermarkButton.setTitle("Remove Mark", for: .normal)
         removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchUpInside(_:)), for: .touchUpInside)
+        removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchDown), for: .touchDown)
 
         screenshotLabel = UILabel()
         screenshotLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -255,12 +259,17 @@ extension SingleImageViewController: NotchyToolbarDelegate {
         }
     }
 
+    @objc func addDeviceButtonDidTouchDown() {
+        hapticFeedbackGenerator.prepare()
+    }
+
     func addDeviceButtonDidTouchUpInside(_ sender: Any) {
+        hapticFeedbackGenerator.selectionChanged()
         let controller = ExtraStuffViewController()
         controller.transitioningDelegate = extraStuffPresenter
         controller.modalPresentationStyle = .custom
         present(controller, animated: true, completion: nil)
-        return;
+         return;
         phoneImageView.isHidden = !phoneImageView.isHidden
         addPhoneButton.isSelected = !phoneImageView.isHidden
     }
@@ -269,7 +278,13 @@ extension SingleImageViewController: NotchyToolbarDelegate {
         extraStuffView.removeFromSuperview()
     }
 
+
+    @objc func removeWatermarkButtonDidTouchDown() {
+        hapticFeedbackGenerator.prepare()
+    }
+
     func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
+        hapticFeedbackGenerator.selectionChanged()
         let controller = ExtraStuffViewController()
         controller.transitioningDelegate = extraStuffPresenter
         controller.modalPresentationStyle = .custom
