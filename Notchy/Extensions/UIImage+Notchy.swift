@@ -9,21 +9,25 @@
 import UIKit
 import CoreImage
 
+typealias MaskCallback = (UIImage?) -> ()
+
 enum MaskType {
     case v1
     case v2
 
-    func applyMask(input: UIImage, watermark: Bool) -> UIImage? {
+    func applyMask(input: UIImage, watermark: Bool, completion: @escaping MaskCallback) {
         switch self {
-        case .v1: return input.maskv1(watermark: watermark)
-        case .v2: return input.maskv2(watermark: watermark)
+        case .v1: return input.maskv1(watermark: watermark, completion: completion)
+        case .v2: return input.maskv2(watermark: watermark, completion: completion)
         }
     }
 }
 
+let notchMask = UIImage(named: "NotchMask")!
+let watermarkImage = UIImage(named: "WatermarkCorner3g")!
+
 let maskFilter: CIFilter? = {
-    guard let mask = UIImage(named: "NotchMask"),
-        let ciImageMask = CIImage(image: mask),
+    guard let ciImageMask = CIImage(image: notchMask),
         let background = UIImage(named: "BlackBackground"),
         let ciImageMaskBackground = CIImage(image: background) else {
             return nil
@@ -41,48 +45,62 @@ let maskFilter: CIFilter? = {
     return filter
 }()
 
-let watermarkImage = UIImage(named: "WatermarkCorner3g")!
+extension CIImage {
+    var forced: UIImage? {
+        UIGraphicsBeginImageContextWithOptions(extent.size, false, 1)
+        guard let cgContext = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        let context = CIContext(cgContext: cgContext, options: nil)
+        context.draw(self, in: extent, from: extent)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+}
 
 extension UIImage {
     var forced: UIImage? {
-        UIGraphicsBeginImageContext(size)
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
         draw(at: .zero)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
     }
 
-    func maskv1(watermark: Bool) -> UIImage? {
+    func maskv1(watermark: Bool, completion: @escaping MaskCallback) {
         guard let cgImage = cgImage,
-            let mask = UIImage(named: "NotchMask"),
-            let maskCGImage = mask.cgImage,
+            let maskCGImage = notchMask.cgImage,
             let result = cgImage.masking(maskCGImage) else {
-                return nil
+                completion(nil)
+                return
         }
 
-        return UIImage(cgImage: result)
+        completion(UIImage(cgImage: result))
     }
 
-    func maskv2(watermark: Bool) -> UIImage? {
-        guard let ciImage = CIImage(image: self),
-            let filter = maskFilter else {
-                return nil
+    func maskv2(watermark: Bool, completion: @escaping MaskCallback) {
+        guard let filter = maskFilter,
+            let ciImage = CIImage(image: self) else {
+            completion(nil)
+            return
         }
 
         filter.setValue(ciImage, forKey: kCIInputImageKey)
 
         guard let output = filter.outputImage else {
-            return nil
+            completion(nil)
+            return
         }
 
-        guard watermark,
-            let watermarkCIImage = CIImage(image: watermarkImage) else {
-                return UIImage(ciImage: output)
+        guard let watermarkCIImage = CIImage(image: watermarkImage) else {
+            completion(UIImage(ciImage: output))
+            return
         }
 
         let transform = CGAffineTransform(scaleX: 1/watermarkImage.scale, y: 1/watermarkImage.scale)
         let newWatermarkCIImage = watermarkCIImage.transformed(by: transform)
-
-        return UIImage(ciImage: newWatermarkCIImage.composited(over: output))
+//        completion(newWatermarkCIImage.composited(over: output).forced)
+        completion(UIImage(ciImage: newWatermarkCIImage.composited(over: output)))
     }
 }

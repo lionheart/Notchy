@@ -48,7 +48,7 @@ final class ExtraStuffView: UIView {
 
         let topLabel = UILabel()
         topLabel.translatesAutoresizingMaskIntoConstraints = false
-        topLabel.text = "Extra Stuff!"
+        topLabel.text = "EXTRA STUFF"
         topLabel.font = NotchyTheme.systemFont(ofSize: 24, weight: .medium)
 
         let item1 = ExtraStuffItemView(imageName: "iPhoneXIcon", text: "Add iPhone X")
@@ -62,7 +62,7 @@ final class ExtraStuffView: UIView {
         optionsStackView.alignment = .leading
 
         let getStuffButton = PlainButton()
-        getStuffButton.setTitle("Get Extra Stuff - $1.99", for: .normal, size: 14)
+        getStuffButton.setTitle("Add Extra Stuff - $1.99", for: .normal, size: 14)
 
         let restorePurchasesButton = UIButton(type: .system)
         restorePurchasesButton.translatesAutoresizingMaskIntoConstraints = false

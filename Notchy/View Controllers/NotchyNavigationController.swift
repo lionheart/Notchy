@@ -21,7 +21,7 @@ final class NotchyNavigationController: UINavigationController {
         navigationBar.addSubview(imageView)
 
         imageView.centerXAnchor ~~ navigationBar.centerXAnchor
-        imageView.centerYAnchor ~~ navigationBar.centerYAnchor
+        imageView.bottomAnchor ≤≤ navigationBar.bottomAnchor - 15
         imageView.heightAnchor ~~ navigationBar.heightAnchor * 0.6
 
         navigationBar.isTranslucent = false

@@ -138,11 +138,11 @@ final class NotchyToolbar: UIView {
 
         let margin: CGFloat = 15
 
-        shortButtonStackView.widthAnchor ~~ stackView.widthAnchor * 0.8
+        shortButtonStackView.widthAnchor ~~ 125
 
         saveButton.leadingAnchor ~~ stackView.leadingAnchor
         saveButton.trailingAnchor ~~ stackView.trailingAnchor
-        stackView.widthAnchor ~~ widthAnchor * 0.4
+        stackView.widthAnchor ~~ widthAnchor * 0.6
         stackView.topAnchor ~~ topAnchor + margin
         stackView.centerXAnchor ~~ centerXAnchor
     }

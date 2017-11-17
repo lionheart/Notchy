@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 extension PHAsset {
-    func image(maskType: MaskType, _ completion: @escaping ((UIImage?) -> Void)) {
+    func image(maskType: MaskType, _ completion: @escaping MaskCallback) {
         DispatchQueue.global(qos: .default).async {
 //            [1125, 2436]
             let size = CGSize(width: 1125, height: 2436)
@@ -30,7 +30,9 @@ extension PHAsset {
 
                 print(other[PHImageResultIsDegradedKey])
 
-                completion(maskType.applyMask(input: image, watermark: true))
+                DispatchQueue.global(qos: .default).async {
+                    maskType.applyMask(input: image, watermark: true, completion: completion)
+                }
             }
         }
     }

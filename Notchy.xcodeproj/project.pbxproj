@@ -29,6 +29,7 @@
 		373FA0721FBD118400C29902 /* ExtraStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0711FBD118400C29902 /* ExtraStuffView.swift */; };
 		373FA0741FBE283000C29902 /* ExtraStuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */; };
 		373FA0761FBE2BFD00C29902 /* NotchyAlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */; };
+		373FA0781FBE67D700C29902 /* ClearBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 373FA0771FBE67D600C29902 /* ClearBackground.png */; };
 		374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */; };
 		374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */; };
 		37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */; };
@@ -67,6 +68,7 @@
 		373FA0711FBD118400C29902 /* ExtraStuffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraStuffView.swift; sourceTree = "<group>"; };
 		373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraStuffViewController.swift; sourceTree = "<group>"; };
 		373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotchyAlertAnimation.swift; path = Notchy/NotchyAlertAnimation.swift; sourceTree = SOURCE_ROOT; };
+		373FA0771FBE67D600C29902 /* ClearBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearBackground.png; sourceTree = "<group>"; };
 		374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessDeniedViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
 				37931AD31FB7DB9C00C03BB0 /* NotchMask.png */,
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
+				373FA0771FBE67D600C29902 /* ClearBackground.png */,
 				3731B2191FBBD431003A8FD0 /* iPhoneXSpaceGrey.png */,
 				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
 				3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */,
@@ -266,6 +269,7 @@
 				37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */,
 				3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */,
 				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
+				373FA0781FBE67D700C29902 /* ClearBackground.png in Resources */,
 				3731B21A1FBBD431003A8FD0 /* iPhoneXSpaceGrey.png in Resources */,
 				37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */,
 				373FA06E1FBD077F00C29902 /* Montserrat-Medium.otf in Resources */,

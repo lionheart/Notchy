@@ -17,7 +17,7 @@ final class ShortPlainAlternateButton: UIButton {
 
         let attributes: [NSAttributedStringKey: Any] = [
             .font: NotchyTheme.systemFont(ofSize: 13, weight: .medium),
-            .foregroundColor: UIColor.white
+            .foregroundColor: UIColor.black
         ]
 
         let attributed = NSAttributedString(string: title, attributes: attributes)
@@ -36,8 +36,8 @@ final class ShortPlainAlternateButton: UIButton {
 
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
 
-        setBackgroundImage(UIImage(color: .black), for: .normal)
-        setBackgroundImage(UIImage(color: .darkGray), for: .highlighted)
+        setBackgroundImage(UIImage(color: .white), for: .normal)
+        setBackgroundImage(UIImage(color: .lightGray), for: .highlighted)
     }
 
     required init?(coder aDecoder: NSCoder) {

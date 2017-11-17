@@ -77,14 +77,6 @@ final class SingleImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        asset.image(maskType: .v1) { image in
-            self.imageView.image = image
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,6 +89,7 @@ final class SingleImageViewController: UIViewController {
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
 
         backButton = UIButton()
+        backButton.contentEdgeInsets = UIEdgeInsetsMake(40, 0, 0, 0 )
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.setImage(UIImage(named: "CircleClose")?.image(withColor: .white), for: .normal)
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
@@ -206,12 +199,7 @@ final class SingleImageViewController: UIViewController {
 
 extension SingleImageViewController: NotchyToolbarDelegate {
     func copyButtonDidTouchUpInside(_ sender: Any) {
-        let controller = NotchyAlertViewController(type: .loading("Notching…"))
-        controller.transitioningDelegate = modalPresenter
-        controller.modalPresentationStyle = .custom
-        present(controller, animated: false, completion: nil)
-
-        asset.image(maskType: .v2) { image in
+        asset.image(maskType: .v2) { [unowned self] image in
             guard let image = image?.forced else {
                 return
             }
@@ -219,15 +207,13 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             UIPasteboard.general.setObjects([image])
 
             DispatchQueue.main.async {
-                controller.dismiss(animated: false) {
-                    let controller = NotchyAlertViewController(type: .success("Copied!"))
-                    controller.transitioningDelegate = self.modalPresenter
-                    controller.modalPresentationStyle = .custom
-                    self.present(controller, animated: false) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                            controller.dismiss(animated: true)
-                            self.toolbar.notchingComplete()
-                        }
+                let controller = NotchyAlertViewController(type: .success("Copied"))
+                controller.transitioningDelegate = self.modalPresenter
+                controller.modalPresentationStyle = .custom
+                self.present(controller, animated: false) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                        controller.dismiss(animated: true)
+                        self.toolbar.notchingComplete()
                     }
                 }
             }
@@ -235,18 +221,12 @@ extension SingleImageViewController: NotchyToolbarDelegate {
     }
 
     func shareButtonDidTouchUpInside(_ sender: Any) {
-        let controller = NotchyAlertViewController(type: .loading("Notching…"))
-        controller.transitioningDelegate = modalPresenter
-        controller.modalPresentationStyle = .custom
-        present(controller, animated: false, completion: nil)
-
-        asset.image(maskType: .v2) { image in
+        asset.image(maskType: .v2) { [unowned self] image in
             guard let image = image?.forced else {
-                controller.dismiss(animated: true)
                 return
             }
 
-            controller.dismiss(animated: true) {
+            DispatchQueue.main.async {
                 let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                 self.present(activity, animated: true)
             }
@@ -254,12 +234,7 @@ extension SingleImageViewController: NotchyToolbarDelegate {
     }
 
     func saveButtonDidTouchUpInside(_ sender: Any) {
-        let controller = NotchyAlertViewController(type: .loading("Notching…"))
-        controller.transitioningDelegate = modalPresenter
-        controller.modalPresentationStyle = .custom
-        present(controller, animated: false, completion: nil)
-
-        asset.image(maskType: .v2) { image in
+        asset.image(maskType: .v2) { [unowned self] image in
             guard let image = image?.forced else {
                 return
             }
@@ -267,15 +242,13 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
 
             DispatchQueue.main.async {
-                controller.dismiss(animated: false) {
-                    let controller = NotchyAlertViewController(type: .success("Notched!"))
-                    controller.transitioningDelegate = self.modalPresenter
-                    controller.modalPresentationStyle = .custom
-                    self.present(controller, animated: false) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                            controller.dismiss(animated: true)
-                            self.toolbar.notchingComplete()
-                        }
+                let controller = NotchyAlertViewController(type: .success("Saved"))
+                controller.transitioningDelegate = self.modalPresenter
+                controller.modalPresentationStyle = .custom
+                self.present(controller, animated: false) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                        controller.dismiss(animated: true)
+                        self.toolbar.notchingComplete()
                     }
                 }
             }
@@ -283,6 +256,11 @@ extension SingleImageViewController: NotchyToolbarDelegate {
     }
 
     func addDeviceButtonDidTouchUpInside(_ sender: Any) {
+        let controller = ExtraStuffViewController()
+        controller.transitioningDelegate = extraStuffPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: true, completion: nil)
+        return;
         phoneImageView.isHidden = !phoneImageView.isHidden
         addPhoneButton.isSelected = !phoneImageView.isHidden
     }

@@ -152,6 +152,7 @@ extension GridViewController {
         view.addSubview(activity)
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
+        view.isHidden = true
 
         guard let contentView = cell?.contentView else {
             return
@@ -166,18 +167,18 @@ extension GridViewController {
         activity.centerXAnchor ~~ view.centerXAnchor
         activity.centerYAnchor ~~ view.centerYAnchor
 
-        asset.image(maskType: .v1) { (theImage) in
-            activity.stopAnimating()
-            view.removeFromSuperview()
+        asset.image(maskType: .v2) { (theImage) in
+            DispatchQueue.main.async {
+                activity.stopAnimating()
+                view.removeFromSuperview()
 
-            guard let theImage = theImage else {
-                return
+                guard let theImage = theImage else {
+                    return
+                }
+
+                let controller = SingleImageViewController(asset: asset, image: theImage)
+                self.present(controller, animated: true)
             }
-
-            print(asset.localIdentifier)
-            let controller = SingleImageViewController(asset: asset, image: theImage)
-//            let navigation = NotchyNavigationController(rootViewController: controller)
-            self.present(controller, animated: true)
         }
     }
 
@@ -192,7 +193,6 @@ extension GridViewController {
         // Request an image for the asset from the PHCachingImageManager.
         cell.representedAssetIdentifier = asset.localIdentifier
         cell.imageView.heroID = asset.localIdentifier
-//        cell.imageView.heroModifiers = [.fade, .scale(0.8)]
 
         imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { image, _ in
             // The cell may have been recycled by the time this handler gets called;
