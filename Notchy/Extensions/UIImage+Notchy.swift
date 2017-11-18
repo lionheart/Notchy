@@ -60,6 +60,22 @@ extension CIImage {
 }
 
 extension UIImage {
+    var urlForTransparentVersion: URL? {
+        guard let image = forced,
+            let data = UIImagePNGRepresentation(image) else {
+                return nil
+        }
+
+        let url = FileManager.temporaryURL(forFileName: "screenshot.png")
+        do {
+            try data.write(to: url)
+        } catch {
+            return nil
+        }
+
+        return url
+    }
+
     var forced: UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 1)
         draw(at: .zero)

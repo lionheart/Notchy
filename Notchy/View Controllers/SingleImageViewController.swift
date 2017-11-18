@@ -12,6 +12,7 @@ import SuperLayout
 import Hero
 import Presentr
 import LionheartExtensions
+import MobileCoreServices
 
 final class SingleImageViewController: UIViewController {
     let hapticFeedbackGenerator = UISelectionFeedbackGenerator()
@@ -83,7 +84,7 @@ final class SingleImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
+        view.backgroundColor = .darkGray
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Pick", style: .done, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(sender:)))
 
         isHeroEnabled = true
@@ -205,11 +206,12 @@ final class SingleImageViewController: UIViewController {
 extension SingleImageViewController: NotchyToolbarDelegate {
     func copyButtonDidTouchUpInside(_ sender: Any) {
         asset.image(maskType: .v2) { [unowned self] image in
-            guard let image = image?.forced else {
-                return
+            guard let url = image?.urlForTransparentVersion,
+                let data = try? Data(contentsOf: url) else {
+                    return
             }
 
-            UIPasteboard.general.setObjects([image])
+            UIPasteboard.general.setData(data, forPasteboardType: kUTTypePNG as String)
 
             DispatchQueue.main.async {
                 let controller = NotchyAlertViewController(type: .success("Copied"))
@@ -227,12 +229,13 @@ extension SingleImageViewController: NotchyToolbarDelegate {
 
     func shareButtonDidTouchUpInside(_ sender: Any) {
         asset.image(maskType: .v2) { [unowned self] image in
-            guard let image = image?.forced else {
-                return
+            guard let url = image?.urlForTransparentVersion,
+                let data = try? Data(contentsOf: url) else {
+                    return
             }
 
             DispatchQueue.main.async {
-                let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                let activity = UIActivityViewController(activityItems: [data], applicationActivities: nil)
                 self.present(activity, animated: true)
             }
         }
@@ -240,15 +243,7 @@ extension SingleImageViewController: NotchyToolbarDelegate {
 
     func saveButtonDidTouchUpInside(_ sender: Any) {
         asset.image(maskType: .v2) { [unowned self] image in
-            guard let image = image?.forced,
-                let data = UIImagePNGRepresentation(image) else {
-                return
-            }
-
-            let url = FileManager.temporaryURL(forFileName: "screenshot.png")
-            do {
-                try data.write(to: url)
-            } catch {
+            guard let url = image?.urlForTransparentVersion else {
                 return
             }
 
