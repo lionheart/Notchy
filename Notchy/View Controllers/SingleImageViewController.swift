@@ -81,10 +81,14 @@ final class SingleImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .darkGray
+        view.backgroundColor = UIColor(0x2a2f33)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Pick", style: .done, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(sender:)))
 
         isHeroEnabled = true

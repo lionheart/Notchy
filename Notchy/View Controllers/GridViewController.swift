@@ -92,7 +92,7 @@ final class GridViewController: UICollectionViewController {
         collectionView.refreshControl = refresh
 
         collectionView.bounces = true
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = UIColor(0x2a2f33)
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)

@@ -18,6 +18,8 @@ final class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = UIColor(0x2a2f33)
+
         selectScreenshotButton = ShortPlainAlternateButton()
         selectScreenshotButton.setTitle("Select Screenshot", for: .normal)
         selectScreenshotButton.addTarget(self, action: #selector(selectScreenshotButtonDidTouchUpInside(_:)), for: .touchUpInside)
