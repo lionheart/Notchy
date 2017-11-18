@@ -28,7 +28,7 @@ let watermarkImage = UIImage(named: "WatermarkCorner3g")!
 
 let maskFilter: CIFilter? = {
     guard let ciImageMask = CIImage(image: notchMask),
-        let background = UIImage(named: "BlackBackground"),
+        let background = UIImage(named: "ClearBackground"),
         let ciImageMaskBackground = CIImage(image: background) else {
             return nil
     }
@@ -98,9 +98,6 @@ extension UIImage {
             return
         }
 
-        let transform = CGAffineTransform(scaleX: 1/watermarkImage.scale, y: 1/watermarkImage.scale)
-        let newWatermarkCIImage = watermarkCIImage.transformed(by: transform)
-//        completion(newWatermarkCIImage.composited(over: output).forced)
-        completion(UIImage(ciImage: newWatermarkCIImage.composited(over: output)))
+        completion(UIImage(ciImage: watermarkCIImage.composited(over: output)))
     }
 }

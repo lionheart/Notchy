@@ -11,6 +11,7 @@ import Photos
 import SuperLayout
 import Hero
 import Presentr
+import LionheartExtensions
 
 final class SingleImageViewController: UIViewController {
     let hapticFeedbackGenerator = UISelectionFeedbackGenerator()
@@ -239,23 +240,37 @@ extension SingleImageViewController: NotchyToolbarDelegate {
 
     func saveButtonDidTouchUpInside(_ sender: Any) {
         asset.image(maskType: .v2) { [unowned self] image in
-            guard let image = image?.forced else {
+            guard let image = image?.forced,
+                let data = UIImagePNGRepresentation(image) else {
                 return
             }
 
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            let url = FileManager.temporaryURL(forFileName: "screenshot.png")
+            do {
+                try data.write(to: url)
+            } catch {
+                return
+            }
 
-            DispatchQueue.main.async {
-                let controller = NotchyAlertViewController(type: .success("Saved"))
-                controller.transitioningDelegate = self.modalPresenter
-                controller.modalPresentationStyle = .custom
-                self.present(controller, animated: false) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                        controller.dismiss(animated: true)
-                        self.toolbar.notchingComplete()
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
+            }, completionHandler: { success, error in
+                if let error = error {
+                    print("error creating asset: \(error)")
+                }
+
+                DispatchQueue.main.async {
+                    let controller = NotchyAlertViewController(type: .success("Saved"))
+                    controller.transitioningDelegate = self.modalPresenter
+                    controller.modalPresentationStyle = .custom
+                    self.present(controller, animated: false) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                            controller.dismiss(animated: true)
+                            self.toolbar.notchingComplete()
+                        }
                     }
                 }
-            }
+            })
         }
     }
 
