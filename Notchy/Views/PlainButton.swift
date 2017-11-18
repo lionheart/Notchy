@@ -12,6 +12,7 @@ import LionheartExtensions
 final class PlainButton: UIButton {
     func setTitle(_ title: String?, for state: UIControlState, size: CGFloat = 20) {
         guard let title = title else {
+            setAttributedTitle(nil, for: state)
             return
         }
 
@@ -21,7 +22,7 @@ final class PlainButton: UIButton {
         ]
 
         let attributed = NSAttributedString(string: title, attributes: attributes)
-        setAttributedTitle(attributed, for: .normal)
+        setAttributedTitle(attributed, for: state)
     }
 
     init() {

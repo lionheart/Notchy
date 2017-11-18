@@ -9,6 +9,11 @@
 import UIKit
 import SuperLayout
 
+@objc protocol ExtraStuffViewDelegate: class {
+    @objc func getStuffButtonDidTouchUpInside(_ sender: Any)
+    @objc func restoreButtonDidTouchUpInside(_ sender: Any)
+}
+
 final class ExtraStuffItemView: UIStackView {
     init(imageName: String, text: String) {
         super.init(frame: .zero)
@@ -36,8 +41,17 @@ final class ExtraStuffItemView: UIStackView {
 }
 
 final class ExtraStuffView: UIView {
-    init() {
+    weak var delegate: ExtraStuffViewDelegate!
+
+    private var getStuffButton: PlainButton!
+    private var restorePurchasesButton: UIButton!
+
+    private var activity: UIActivityIndicatorView?
+
+    init(delegate: ExtraStuffViewDelegate) {
         super.init(frame: .zero)
+
+        self.delegate = delegate
 
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
@@ -61,10 +75,13 @@ final class ExtraStuffView: UIView {
         optionsStackView.spacing = 10
         optionsStackView.alignment = .leading
 
-        let getStuffButton = PlainButton()
+        getStuffButton = PlainButton()
+        getStuffButton.addTarget(self, action: #selector(getStuffButtonDidTouchUpInside(_:)), for: .touchUpInside)
         getStuffButton.setTitle("Add Extra Stuff - $1.99", for: .normal, size: 14)
+        getStuffButton.setTitle(nil, for: .selected, size: 14)
 
-        let restorePurchasesButton = UIButton(type: .system)
+        restorePurchasesButton = UIButton(type: .system)
+        restorePurchasesButton.addTarget(self, action: #selector(restoreButtonDidTouchUpInside(_:)), for: .touchUpInside)
         restorePurchasesButton.translatesAutoresizingMaskIntoConstraints = false
         restorePurchasesButton.titleLabel?.font = NotchyTheme.systemFont(ofSize: 12, weight: .medium)
         restorePurchasesButton.setTitle("Restore Purchase", for: .normal)
@@ -88,5 +105,41 @@ final class ExtraStuffView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func transactionCompleted() {
+        activity?.removeFromSuperview()
+        getStuffButton.isEnabled = true
+        restorePurchasesButton.isEnabled = true
+        getStuffButton.isSelected = false
+    }
+
+    private func transactionStarted() {
+        getStuffButton.isSelected = true
+        getStuffButton.isEnabled = false
+        restorePurchasesButton.isEnabled = false
+
+        activity = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        guard let activity = activity else {
+            return
+        }
+
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        activity.startAnimating()
+
+        getStuffButton.addSubview(activity)
+
+        activity.centerXAnchor ~~ getStuffButton.centerXAnchor
+        activity.centerYAnchor ~~ getStuffButton.centerYAnchor
+    }
+
+    @objc func getStuffButtonDidTouchUpInside(_ sender: Any) {
+        transactionStarted()
+        delegate.getStuffButtonDidTouchUpInside(sender)
+    }
+
+    @objc func restoreButtonDidTouchUpInside(_ sender: Any) {
+        transactionStarted()
+        delegate.restoreButtonDidTouchUpInside(sender)
     }
 }

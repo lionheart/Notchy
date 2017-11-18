@@ -21,7 +21,7 @@ final class SingleImageViewController: UIViewController {
         let height = ModalSize.custom(size: 300)
         let center = ModalCenterPosition.custom(centerPoint: view.center)
         let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
-        presenter.backgroundOpacity = 0
+        presenter.backgroundOpacity = 0.2
         presenter.transitionType = TransitionType.crossDissolve
         presenter.dismissTransitionType = TransitionType.crossDissolve
         return presenter
