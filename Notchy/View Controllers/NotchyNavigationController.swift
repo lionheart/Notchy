@@ -10,11 +10,21 @@ import UIKit
 import SuperLayout
 
 final class NotchyNavigationController: UINavigationController {
+    var imageView: UIImageView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if imageView != nil {
+            return
+        }
+
         let image = UIImage(named: "LogoBlack")
-        let imageView = UIImageView(image: image)
+        imageView = UIImageView(image: image)
+        guard let imageView = imageView else {
+            return
+        }
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
 

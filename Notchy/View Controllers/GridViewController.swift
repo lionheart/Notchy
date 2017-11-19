@@ -167,18 +167,17 @@ extension GridViewController {
         activity.centerXAnchor ~~ view.centerXAnchor
         activity.centerYAnchor ~~ view.centerYAnchor
 
-        asset.image(maskType: .v2) { (theImage) in
-            DispatchQueue.main.async {
-                activity.stopAnimating()
-                view.removeFromSuperview()
+        let manager = PHImageManager.default()
+        manager.image(asset: asset, maskType: .v2) { [unowned self] (theImage) in
+            activity.stopAnimating()
+            view.removeFromSuperview()
 
-                guard let theImage = theImage else {
-                    return
-                }
-
-                let controller = SingleImageViewController(asset: asset, image: theImage)
-                self.present(controller, animated: true)
+            guard let theImage = theImage else {
+                return
             }
+
+            let controller = SingleImageViewController(asset: asset, image: theImage)
+            self.present(controller, animated: true)
         }
     }
 
