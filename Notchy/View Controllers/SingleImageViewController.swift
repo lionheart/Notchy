@@ -60,6 +60,10 @@ final class SingleImageViewController: UIViewController {
 
     var extraStuffView: ExtraStuffView!
 
+    deinit {
+        asset = nil
+    }
+
     convenience init(asset: PHAsset, image: UIImage) {
         self.init()
 
