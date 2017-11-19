@@ -213,16 +213,52 @@ final class SingleImageViewController: UIViewController {
 
 extension SingleImageViewController: NotchyToolbarDelegate {
     func copyButtonDidTouchUpInside(_ sender: Any) {
-        asset.image(maskType: .v2) { [unowned self] image in
-            guard let url = image?.urlForTransparentVersion,
-                let data = try? Data(contentsOf: url) else {
-                    return
+        guard let url = maskedImage?.urlForTransparentVersion,
+            let data = try? Data(contentsOf: url) else {
+                return
+        }
+
+        UIPasteboard.general.setData(data, forPasteboardType: kUTTypePNG as String)
+
+        DispatchQueue.main.async {
+            let controller = NotchyAlertViewController(type: .success("Copied"))
+            controller.transitioningDelegate = self.modalPresenter
+            controller.modalPresentationStyle = .custom
+            self.present(controller, animated: false) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    controller.dismiss(animated: true)
+                    self.toolbar.notchingComplete()
+                }
+            }
+        }
+    }
+
+    func shareButtonDidTouchUpInside(_ sender: Any) {
+        guard let url = maskedImage?.urlForTransparentVersion,
+            let data = try? Data(contentsOf: url) else {
+                return
+        }
+
+        DispatchQueue.main.async {
+            let activity = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+            self.present(activity, animated: true)
+        }
+    }
+
+    func saveButtonDidTouchUpInside(_ sender: Any) {
+        guard let url = maskedImage?.urlForTransparentVersion else {
+            return
+        }
+
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
+        }, completionHandler: { success, error in
+            if let error = error {
+                print("error creating asset: \(error)")
             }
 
-            UIPasteboard.general.setData(data, forPasteboardType: kUTTypePNG as String)
-
             DispatchQueue.main.async {
-                let controller = NotchyAlertViewController(type: .success("Copied"))
+                let controller = NotchyAlertViewController(type: .success("Saved"))
                 controller.transitioningDelegate = self.modalPresenter
                 controller.modalPresentationStyle = .custom
                 self.present(controller, animated: false) {
@@ -232,49 +268,7 @@ extension SingleImageViewController: NotchyToolbarDelegate {
                     }
                 }
             }
-        }
-    }
-
-    func shareButtonDidTouchUpInside(_ sender: Any) {
-        asset.image(maskType: .v2) { [unowned self] image in
-            guard let url = image?.urlForTransparentVersion,
-                let data = try? Data(contentsOf: url) else {
-                    return
-            }
-
-            DispatchQueue.main.async {
-                let activity = UIActivityViewController(activityItems: [data], applicationActivities: nil)
-                self.present(activity, animated: true)
-            }
-        }
-    }
-
-    func saveButtonDidTouchUpInside(_ sender: Any) {
-        asset.image(maskType: .v2) { [unowned self] image in
-            guard let url = image?.urlForTransparentVersion else {
-                return
-            }
-
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
-            }, completionHandler: { success, error in
-                if let error = error {
-                    print("error creating asset: \(error)")
-                }
-
-                DispatchQueue.main.async {
-                    let controller = NotchyAlertViewController(type: .success("Saved"))
-                    controller.transitioningDelegate = self.modalPresenter
-                    controller.modalPresentationStyle = .custom
-                    self.present(controller, animated: false) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                            controller.dismiss(animated: true)
-                            self.toolbar.notchingComplete()
-                        }
-                    }
-                }
-            })
-        }
+        })
     }
 
     @objc func addDeviceButtonDidTouchDown() {

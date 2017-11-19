@@ -31,7 +31,7 @@ final class WelcomeViewController: UIViewController {
     }
 
     @objc func selectScreenshotButtonDidTouchUpInside(_ sender: Any) {
-        PHPhotoLibrary.requestAuthorization { status in
+        PHPhotoLibrary.requestAuthorization { [unowned self] status in
             switch status {
             case .notDetermined, .restricted, .denied:
                 let alert = UIAlertController(title: "Photo Library Inaccessible", message: "Notchy couldn't read your photo library.", preferredStyle: .alert)
