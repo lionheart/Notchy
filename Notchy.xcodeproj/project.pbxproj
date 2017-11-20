@@ -41,6 +41,8 @@
 		37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37931AD31FB7DB9C00C03BB0 /* NotchMask.png */; };
 		37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37931AD51FB8A8B300C03BB0 /* BlackBackground.png */; };
 		37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
+		37AA9EE71FC263C200B20697 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
+		37AA9EE91FC2757200B20697 /* ClearMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37AA9EE81FC2757100B20697 /* ClearMask.png */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		37931AD31FB7DB9C00C03BB0 /* NotchMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NotchMask.png; path = Assets.xcassets/NotchMask.png; sourceTree = "<group>"; };
 		37931AD51FB8A8B300C03BB0 /* BlackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackBackground.png; sourceTree = "<group>"; };
 		37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Notchy.swift"; sourceTree = "<group>"; };
+		37AA9EE61FC263C200B20697 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		37AA9EE81FC2757100B20697 /* ClearMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearMask.png; sourceTree = "<group>"; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -178,7 +182,9 @@
 				3731B2181FBBA12C003A8FD0 /* Extensions */,
 				373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */,
 				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
+				37AA9EE61FC263C200B20697 /* Defaults.swift */,
 				37931AD31FB7DB9C00C03BB0 /* NotchMask.png */,
+				37AA9EE81FC2757100B20697 /* ClearMask.png */,
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
 				373FA0771FBE67D600C29902 /* ClearBackground.png */,
 				373FA0791FBE7AB500C29902 /* iPhoneXSpaceGray2.png */,
@@ -270,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37931AD41FB7DB9C00C03BB0 /* NotchMask.png in Resources */,
+				37AA9EE91FC2757200B20697 /* ClearMask.png in Resources */,
 				3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */,
 				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
 				373FA0781FBE67D700C29902 /* ClearBackground.png in Resources */,
@@ -355,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37931AD21FB7AC9E00C03BB0 /* NotchyGradientView.swift in Sources */,
+				37AA9EE71FC263C200B20697 /* Defaults.swift in Sources */,
 				374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */,
 				37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */,
 				373FA0721FBD118400C29902 /* ExtraStuffView.swift in Sources */,

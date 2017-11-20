@@ -12,17 +12,19 @@ import SuperLayout
 import Hero
 import Presentr
 import LionheartExtensions
+import SwiftyUserDefaults
 import MobileCoreServices
 
 final class SingleImageViewController: UIViewController {
-    let hapticFeedbackGenerator = UISelectionFeedbackGenerator()
+    let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
 
     lazy var extraStuffPresenter: Presentr = {
         let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
         let height = ModalSize.custom(size: 300)
         let center = ModalCenterPosition.custom(centerPoint: view.center)
         let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
-        presenter.backgroundOpacity = 0.2
+        presenter.backgroundOpacity = 0.5
         presenter.transitionType = TransitionType.crossDissolve
         presenter.dismissTransitionType = TransitionType.crossDissolve
         return presenter
@@ -40,7 +42,10 @@ final class SingleImageViewController: UIViewController {
     }()
 
     private var imageView: UIImageView!
-    fileprivate var maskedImage: UIImage?
+
+    fileprivate var originalImage: UIImage!
+    fileprivate var maskedImage: UIImage!
+
     private var asset: PHAsset!
     private var toolbar: NotchyToolbar!
     private var gradientView: NotchyGradientView!
@@ -57,18 +62,23 @@ final class SingleImageViewController: UIViewController {
     private var toolbarHiddenConstraint: NSLayoutConstraint!
 
     private var phoneImageView: UIImageView!
+    private var watermarkImageView: UIImageView!
+    private var maskImageView: UIImageView!
 
     var extraStuffView: ExtraStuffView!
+
+    // MARK: - Initialization
 
     deinit {
         asset = nil
     }
 
-    convenience init(asset: PHAsset, image: UIImage) {
+    convenience init(asset: PHAsset, original: UIImage, masked: UIImage) {
         self.init()
 
         self.asset = asset
-        self.maskedImage = image
+        self.originalImage = original
+        self.maskedImage = original.maskv2(watermark: true)
     }
 
     convenience init(asset: PHAsset) {
@@ -85,9 +95,7 @@ final class SingleImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,21 +120,25 @@ final class SingleImageViewController: UIViewController {
         phoneImageView.contentMode = .scaleAspectFit
         phoneImageView.isHidden = true
 
+        maskImageView = UIImageView(image: UIImage(named: "ClearMask"))
+
         imageView = UIImageView(image: maskedImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heroID = asset.localIdentifier
 
-        addPhoneButton = ShortPlainAlternateButton()
-        addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchUpInside(_:)), for: .touchUpInside)
-        addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchDown), for: .touchDown)
-        addPhoneButton.setTitle("Add iPhone X", for: .normal)
-        addPhoneButton.setTitle("Remove iPhone X", for: .selected)
+        watermarkImageView = UIImageView(image: watermarkImage)
+        watermarkImageView.translatesAutoresizingMaskIntoConstraints = false
+        watermarkImageView.contentMode = .scaleAspectFit
+        watermarkImageView.isHidden = true
 
-        removeWatermarkButton = ShortPlainAlternateButton()
-        removeWatermarkButton.setTitle("Remove Mark", for: .normal)
+        addPhoneButton = ShortPlainAlternateButton(normalTitle: "Add iPhone", selectedTitle: "Remove iPhone")
+        addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchUpInside(_:)), for: .touchUpInside)
+        addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchDown(_:)), for: .touchDown)
+
+        removeWatermarkButton = ShortPlainAlternateButton(normalTitle: "Remove Watermark", selectedTitle: "Add Watermark")
         removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchUpInside(_:)), for: .touchUpInside)
-        removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchDown), for: .touchDown)
+        removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchDown(_:)), for: .touchDown)
 
         screenshotLabel = UILabel()
         screenshotLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -160,6 +172,7 @@ final class SingleImageViewController: UIViewController {
 
         imageContainerView.addSubview(imageView)
         imageContainerView.addSubview(phoneImageView)
+        imageContainerView.addSubview(watermarkImageView)
 
         view.addSubview(imageContainerView)
         view.addSubview(screenshotLabel)
@@ -193,6 +206,9 @@ final class SingleImageViewController: UIViewController {
         imageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.6
         imageView.heightAnchor ~~ imageView.widthAnchor * 2.1653
 
+        watermarkImageView.bottomAnchor ~~ imageView.bottomAnchor
+        watermarkImageView.rightAnchor ~~ imageView.rightAnchor
+
         phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
         phoneImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
         phoneImageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.75
@@ -206,21 +222,77 @@ final class SingleImageViewController: UIViewController {
         screenshotLabel.centerXAnchor ~~ view.centerXAnchor
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        maskImageView.frame = imageView.bounds
+        imageView.mask = maskImageView
+    }
+
+    // MARK: - View Options
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     @objc func rightBarButtonItemDidTouchUpInside(sender: Any) {
-        print("HI")
+
+    }
+
+    // MARK: - Misc
+
+    @objc func removeWatermarkButtonDidTouchDown(_ sender: Any) {
+        selectionFeedbackGenerator.prepare()
+    }
+
+    @objc func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
+        if UserDefaults.purchased {
+            selectionFeedbackGenerator.selectionChanged()
+
+            maskedImage = MaskType.v2.applyMask(input: originalImage, watermark: removeWatermarkButton.isSelected)
+            imageView.image = maskedImage
+
+            removeWatermarkButton.isSelected = !removeWatermarkButton.isSelected
+        } else {
+            displayExtraStuffViewController()
+        }
+    }
+
+    @objc func addDeviceButtonDidTouchDown(_ sender: Any) {
+        selectionFeedbackGenerator.prepare()
+    }
+
+    @objc func addDeviceButtonDidTouchUpInside(_ sender: Any) {
+        if UserDefaults.purchased {
+            selectionFeedbackGenerator.selectionChanged()
+
+            phoneImageView.isHidden = !phoneImageView.isHidden
+            addPhoneButton.isSelected = !addPhoneButton.isSelected
+        } else {
+            displayExtraStuffViewController()
+        }
+    }
+
+    func backButtonDidTouchUpInside(_ sender: Any) {
+        hero_dismissViewController()
     }
 }
 
+// MARK: - NotchyToolbarDelegate
 extension SingleImageViewController: NotchyToolbarDelegate {
     func copyButtonDidTouchUpInside(_ sender: Any) {
-        guard let url = maskedImage?.urlForTransparentVersion,
+        notificationFeedbackGenerator.prepare()
+
+        guard let url = maskedImage.urlForTransparentVersion,
             let data = try? Data(contentsOf: url) else {
+                notificationFeedbackGenerator.notificationOccurred(.error)
                 return
         }
 
         UIPasteboard.general.setData(data, forPasteboardType: kUTTypePNG as String)
 
         DispatchQueue.main.async {
+            self.notificationFeedbackGenerator.notificationOccurred(.success)
             let controller = NotchyAlertViewController(type: .success("Copied"))
             controller.transitioningDelegate = self.modalPresenter
             controller.modalPresentationStyle = .custom
@@ -234,19 +306,27 @@ extension SingleImageViewController: NotchyToolbarDelegate {
     }
 
     func shareButtonDidTouchUpInside(_ sender: Any) {
-        guard let url = maskedImage?.urlForTransparentVersion,
+        notificationFeedbackGenerator.prepare()
+
+        guard let url = maskedImage.urlForTransparentVersion,
             let data = try? Data(contentsOf: url) else {
+                notificationFeedbackGenerator.notificationOccurred(.error)
                 return
         }
 
         DispatchQueue.main.async {
             let activity = UIActivityViewController(activityItems: [data], applicationActivities: nil)
-            self.present(activity, animated: true)
+            self.present(activity, animated: true) {
+                self.notificationFeedbackGenerator.notificationOccurred(.success)
+            }
         }
     }
 
     func saveButtonDidTouchUpInside(_ sender: Any) {
-        guard let url = maskedImage?.urlForTransparentVersion else {
+        notificationFeedbackGenerator.prepare()
+
+        guard let url = maskedImage.urlForTransparentVersion else {
+            notificationFeedbackGenerator.notificationOccurred(.error)
             return
         }
 
@@ -254,10 +334,14 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
         }, completionHandler: { success, error in
             if let error = error {
+                self.notificationFeedbackGenerator.notificationOccurred(.error)
+
                 print("error creating asset: \(error)")
+                return
             }
 
             DispatchQueue.main.async {
+                self.notificationFeedbackGenerator.notificationOccurred(.success)
                 let controller = NotchyAlertViewController(type: .success("Saved"))
                 controller.transitioningDelegate = self.modalPresenter
                 controller.modalPresentationStyle = .custom
@@ -271,45 +355,12 @@ extension SingleImageViewController: NotchyToolbarDelegate {
         })
     }
 
-    @objc func addDeviceButtonDidTouchDown() {
-        hapticFeedbackGenerator.prepare()
-    }
 
-    func addDeviceButtonDidTouchUpInside(_ sender: Any) {
-        hapticFeedbackGenerator.selectionChanged()
-        let controller = ExtraStuffViewController()
-        controller.transitioningDelegate = extraStuffPresenter
-        controller.modalPresentationStyle = .custom
-        present(controller, animated: true, completion: nil)
-         return;
-        phoneImageView.isHidden = !phoneImageView.isHidden
-        addPhoneButton.isSelected = !phoneImageView.isHidden
-    }
-
-    @objc func hideFreeStuff() {
-        extraStuffView.removeFromSuperview()
-    }
-
-
-    @objc func removeWatermarkButtonDidTouchDown() {
-        hapticFeedbackGenerator.prepare()
-    }
-
-    func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
-        hapticFeedbackGenerator.selectionChanged()
+    func displayExtraStuffViewController() {
+        selectionFeedbackGenerator.selectionChanged()
         let controller = ExtraStuffViewController()
         controller.transitioningDelegate = extraStuffPresenter
         controller.modalPresentationStyle = .custom
         present(controller, animated: true, completion: nil)
     }
-
-    func backButtonDidTouchUpInside(_ sender: Any) {
-        hero_dismissViewController()
-    }
-
-    func screenshotsButtonDidTouchUpInside(sender: Any) {
-        hero_dismissViewController()
-    }
-
-    func didToggleDeleteOriginalSwitch(sender: Any) { }
 }

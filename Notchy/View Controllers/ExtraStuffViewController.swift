@@ -9,6 +9,7 @@
 import UIKit
 import SuperLayout
 import StoreKit
+import SwiftyUserDefaults
 
 final class ExtraStuffViewController: UIViewController {
     var product: SKProduct?
@@ -70,11 +71,19 @@ extension ExtraStuffViewController: SKPaymentTransactionObserver {
             case .purchased, .restored:
                 // Finish the transaction if deferred, purchased, or restored
                 queue.finishTransaction(transaction)
-                extraStuffView.transactionCompleted()
+                extraStuffView.transactionCompleted(status: .success)
+                Defaults[.purchased] = true
+
+                let alert = UIAlertController(title: "Thanks!", message: "Thanks for your purchase.", preferredStyle: .alert)
+                present(alert, animated: true) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                        alert.dismiss(animated: true)
+                    }
+                }
 
             case .failed:
                 queue.finishTransaction(transaction)
-                extraStuffView.transactionCompleted()
+                extraStuffView.transactionCompleted(status: .failure)
 
                 guard let error = transaction.error as? SKError else {
                     return
@@ -109,6 +118,10 @@ extension ExtraStuffViewController: SKPaymentTransactionObserver {
 }
 
 extension ExtraStuffViewController: ExtraStuffViewDelegate {
+    func thanksButtonDidTouchUpInside(_ sender: Any) {
+        dismiss(animated: true)
+    }
+
     func getStuffButtonDidTouchUpInside(_ sender: Any) {
         guard let product = product else {
             return

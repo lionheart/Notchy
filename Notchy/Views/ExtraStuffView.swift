@@ -12,27 +12,67 @@ import SuperLayout
 @objc protocol ExtraStuffViewDelegate: class {
     @objc func getStuffButtonDidTouchUpInside(_ sender: Any)
     @objc func restoreButtonDidTouchUpInside(_ sender: Any)
+    @objc func thanksButtonDidTouchUpInside(_ sender: Any)
+}
+
+enum ExtraStuffInfo {
+    case addPhone
+    case removeWatermark
+    case icons
+
+    var imageName: String {
+        switch self {
+        case .addPhone: return "iPhoneXIcon"
+        case .removeWatermark: return "WatermarkIcon"
+        case .icons: return "IconsIcon"
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .addPhone: return "Add iPhone X"
+        case .removeWatermark: return "Remove Watermark"
+        case .icons: return "8 Icon Options"
+        }
+    }
+
+    var imageWidth: CGFloat {
+        switch self {
+        case .addPhone: return 15
+        case .removeWatermark: return 30
+        case .icons: return 30
+        }
+    }
 }
 
 final class ExtraStuffItemView: UIStackView {
-    init(imageName: String, text: String) {
+    init(info: ExtraStuffInfo) {
         super.init(frame: .zero)
 
         translatesAutoresizingMaskIntoConstraints = false
         axis = .horizontal
-        spacing = 10
 
-        let imageView = UIImageView(image: UIImage(named: imageName))
+        let imageView = UIImageView(image: UIImage(named: info.imageName))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
 
+        let imageContainer = UIView()
+        imageContainer.addSubview(imageView)
+
+        imageView.widthAnchor ~~ info.imageWidth
+        imageView.leadingAnchor ~~ imageContainer.leadingAnchor
+        imageView.trailingAnchor ≤≤ imageContainer.trailingAnchor
+        imageView.topAnchor ~~ imageContainer.topAnchor
+        imageView.bottomAnchor ~~ imageContainer.bottomAnchor
+
         let label = UILabel()
-        label.text = text
+        label.text = info.title
         label.font = NotchyTheme.systemFont(ofSize: 15, weight: .medium)
 
-        addArrangedSubview(imageView)
+        addArrangedSubview(imageContainer)
         addArrangedSubview(label)
 
-        imageView.widthAnchor ~~ 30
+        imageContainer.widthAnchor ~~ 40
     }
 
     required init(coder: NSCoder) {
@@ -44,6 +84,7 @@ final class ExtraStuffView: UIView {
     weak var delegate: ExtraStuffViewDelegate!
 
     private var getStuffButton: PlainButton!
+    private var thanksButton: PlainButton!
     private var restorePurchasesButton: UIButton!
 
     private var activity: UIActivityIndicatorView?
@@ -65,9 +106,9 @@ final class ExtraStuffView: UIView {
         topLabel.text = "EXTRA STUFF"
         topLabel.font = NotchyTheme.systemFont(ofSize: 24, weight: .medium)
 
-        let item1 = ExtraStuffItemView(imageName: "iPhoneXIcon", text: "Add iPhone X")
-        let item2 = ExtraStuffItemView(imageName: "WatermarkIcon", text: "Remove Watermark")
-        let item3 = ExtraStuffItemView(imageName: "IconsIcon", text: "8 Icon Options")
+        let item1 = ExtraStuffItemView(info: .addPhone)
+        let item2 = ExtraStuffItemView(info: .removeWatermark)
+        let item3 = ExtraStuffItemView(info: .icons)
 
         let optionsStackView = UIStackView(arrangedSubviews: [item1, item2, item3])
         optionsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +127,12 @@ final class ExtraStuffView: UIView {
         restorePurchasesButton.titleLabel?.font = NotchyTheme.systemFont(ofSize: 12, weight: .medium)
         restorePurchasesButton.setTitle("Restore Purchase", for: .normal)
 
-        let stackView = UIStackView(arrangedSubviews: [topLabel, optionsStackView, getStuffButton, restorePurchasesButton])
+        thanksButton = PlainButton()
+        thanksButton.isHidden = true
+        thanksButton.setTitle("Thanks!", for: .normal, size: 14)
+        thanksButton.addTarget(self, action: #selector(thanksButtonDidTouchUpInside(_:)), for: .touchUpInside)
+
+        let stackView = UIStackView(arrangedSubviews: [topLabel, optionsStackView, getStuffButton, restorePurchasesButton, thanksButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 5
@@ -107,11 +153,26 @@ final class ExtraStuffView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func transactionCompleted() {
-        activity?.removeFromSuperview()
-        getStuffButton.isEnabled = true
-        restorePurchasesButton.isEnabled = true
-        getStuffButton.isSelected = false
+    enum TransactionStatus {
+        case success
+        case failure
+    }
+
+    @objc func thanksButtonDidTouchUpInside(_ sender: Any) {
+        delegate.thanksButtonDidTouchUpInside(sender)
+    }
+
+    func transactionCompleted(status: TransactionStatus) {
+        switch status {
+        case .success:
+            break
+
+        case .failure:
+            activity?.removeFromSuperview()
+            getStuffButton.isEnabled = true
+            restorePurchasesButton.isEnabled = true
+            getStuffButton.isSelected = false
+        }
     }
 
     private func transactionStarted() {

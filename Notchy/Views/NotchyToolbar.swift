@@ -15,9 +15,6 @@ import LionheartExtensions
     @objc func backButtonDidTouchUpInside(_ sender: Any)
     @objc func copyButtonDidTouchUpInside(_ sender: Any)
     @objc func shareButtonDidTouchUpInside(_ sender: Any)
-
-    @objc func addDeviceButtonDidTouchUpInside(_ sender: Any)
-    @objc func removeWatermarkButtonDidTouchUpInside(_ sender: Any)
 }
 
 final class CheckmarkButton: UIButton {

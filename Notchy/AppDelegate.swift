@@ -9,6 +9,17 @@
 import UIKit
 import Photos
 import StoreKit
+import SwiftyUserDefaults
+
+extension UserDefaults {
+    static var purchased: Bool {
+        #if DEBUG
+            return true
+        #else
+            return Defaults[.purchased]
+        #endif
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,8 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         SKPaymentQueue.default().add(self)
 
+        let controller: UIViewController
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            controller = GridViewController()
+
+        // MARK: TODO
+        case .denied, .notDetermined, .restricted:
+            controller = WelcomeViewController()
+        }
+
         let _window = UIWindow(frame: UIScreen.main.bounds)
-        _window.rootViewController = NotchyNavigationController(rootViewController: WelcomeViewController())
+        _window.rootViewController = NotchyNavigationController(rootViewController: controller)
         _window.makeKeyAndVisible()
         window = _window
         return true
@@ -33,7 +54,11 @@ extension AppDelegate: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             switch transaction.transactionState {
-            case .purchased, .restored, .failed:
+            case .purchased, .restored:
+                Defaults[.purchased] = true
+                queue.finishTransaction(transaction)
+
+            case .failed:
                 queue.finishTransaction(transaction)
 
             case .deferred, .purchasing:

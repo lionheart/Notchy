@@ -15,17 +15,28 @@ final class ShortPlainAlternateButton: UIButton {
             return
         }
 
+        let color: UIColor
+        switch state {
+        case .normal: color = .white
+        default: color = .black
+        }
+
         let attributes: [NSAttributedStringKey: Any] = [
             .font: NotchyTheme.systemFont(ofSize: 13, weight: .medium),
-            .foregroundColor: UIColor.black
+            .foregroundColor: color
         ]
 
         let attributed = NSAttributedString(string: title, attributes: attributes)
         setAttributedTitle(attributed, for: state)
     }
 
-    init() {
+    init(normalTitle: String, selectedTitle: String) {
         super.init(frame: .zero)
+
+        setTitle(normalTitle, for: .normal)
+        setTitle(normalTitle, for: .highlighted)
+        setTitle(selectedTitle, for: UIControlState(rawValue: 5))
+        setTitle(selectedTitle, for: .selected)
 
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
@@ -36,8 +47,10 @@ final class ShortPlainAlternateButton: UIButton {
 
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
 
-        setBackgroundImage(UIImage(color: .white), for: .normal)
+        setBackgroundImage(UIImage(color: .black), for: .normal)
         setBackgroundImage(UIImage(color: .lightGray), for: .highlighted)
+        setBackgroundImage(UIImage(color: .lightGray), for: UIControlState(rawValue: 5))
+        setBackgroundImage(UIImage(color: .white), for: .selected)
     }
 
     required init?(coder aDecoder: NSCoder) {

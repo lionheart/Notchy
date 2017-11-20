@@ -20,8 +20,8 @@ final class WelcomeViewController: UIViewController {
 
         view.backgroundColor = UIColor(0x2a2f33)
 
-        selectScreenshotButton = ShortPlainAlternateButton()
-        selectScreenshotButton.setTitle("Select Screenshot", for: .normal)
+        selectScreenshotButton = ShortPlainAlternateButton(normalTitle: "Import Screenshots", selectedTitle: "Import Screenshots")
+        selectScreenshotButton.setTitle("Import Screenshots", for: .normal)
         selectScreenshotButton.addTarget(self, action: #selector(selectScreenshotButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
         view.addSubview(selectScreenshotButton)

@@ -70,6 +70,7 @@ final class GridViewController: UICollectionViewController {
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            self.collectionView?.reloadData()
             refresh.endRefreshing()
         }
     }
@@ -168,15 +169,16 @@ extension GridViewController {
         activity.centerYAnchor ~~ view.centerYAnchor
 
         let manager = PHImageManager.default()
-        manager.image(asset: asset, maskType: .v2) { [unowned self] (theImage) in
+        manager.image(asset: asset) { [unowned self] (theImage) in
             activity.stopAnimating()
             view.removeFromSuperview()
 
-            guard let theImage = theImage else {
+            guard let theImage = theImage,
+                let maskedImage = MaskType.v2.applyMask(input: theImage, watermark: true) else {
                 return
             }
 
-            let controller = SingleImageViewController(asset: asset, image: theImage)
+            let controller = SingleImageViewController(asset: asset, original: theImage, masked: theImage)
             self.present(controller, animated: true)
         }
     }

@@ -15,35 +15,45 @@ enum MaskType {
     case v1
     case v2
 
-    func applyMask(input: UIImage, watermark: Bool, completion: @escaping MaskCallback) {
+    func applyMask(input: UIImage, watermark: Bool) -> UIImage? {
         switch self {
-        case .v1: return input.maskv1(watermark: watermark, completion: completion)
-        case .v2: return input.maskv2(watermark: watermark, completion: completion)
+        case .v1: return input.maskv1(watermark: watermark)
+        case .v2: return input.maskv2(watermark: watermark)
         }
     }
 }
 
+let background = UIImage(named: "ClearBackground")!
+let ciImageMaskBackground = CIImage(image: background)!
 let notchMask = UIImage(named: "NotchMask")!
 let watermarkImage = UIImage(named: "WatermarkCorner3g")!
+let ciImageMask = CIImage(image: notchMask)!
 
-let maskFilter: CIFilter? = {
-    guard let ciImageMask = CIImage(image: notchMask),
-        let background = UIImage(named: "ClearBackground"),
-        let ciImageMaskBackground = CIImage(image: background) else {
-            return nil
+let maskFilterParameters: [String: Any] = [
+    kCIInputBackgroundImageKey: ciImageMaskBackground,
+    kCIInputMaskImageKey: ciImageMask,
+]
+
+let maskFilter: CIFilter = {
+    guard let _filter = CIFilter(name: "CIBlendWithMask", withInputParameters: maskFilterParameters) else {
+        fatalError()
     }
 
-    let parameters = [
-        kCIInputBackgroundImageKey: ciImageMaskBackground,
-        kCIInputMaskImageKey: ciImageMask
-    ]
-
-    guard let filter = CIFilter(name: "CIBlendWithMask", withInputParameters: parameters) else {
-        return nil
-    }
-
-    return filter
+    return _filter
 }()
+
+func maskedImage(image: UIImage) -> CIImage {
+    // Memory leak?!
+    let inputImage = CIImage(image: image)!
+
+    // Memory leak?!
+    #if false
+        return inputImage.applyingFilter("CIBlendWithMask", parameters: maskFilterParameters)
+    #else
+        maskFilter.setValue(inputImage, forKey: kCIInputImageKey)
+        return maskFilter.outputImage!
+    #endif
+}
 
 extension CIImage {
     var forced: UIImage? {
@@ -84,36 +94,27 @@ extension UIImage {
         return newImage
     }
 
-    func maskv1(watermark: Bool, completion: @escaping MaskCallback) {
+    func maskv1(watermark: Bool) -> UIImage? {
         guard let cgImage = cgImage,
             let maskCGImage = notchMask.cgImage,
             let result = cgImage.masking(maskCGImage) else {
-                completion(nil)
-                return
+                return nil
         }
 
-        completion(UIImage(cgImage: result))
+        return UIImage(cgImage: result)
     }
 
-    func maskv2(watermark: Bool, completion: @escaping MaskCallback) {
-        guard let filter = maskFilter,
-            let ciImage = CIImage(image: self) else {
-            completion(nil)
-            return
-        }
-
-        filter.setValue(ciImage, forKey: kCIInputImageKey)
-
-        guard let output = filter.outputImage else {
-            completion(nil)
-            return
-        }
+    func maskv2(watermark: Bool) -> UIImage? {
+        let outputImage = maskedImage(image: self)
 
         guard let watermarkCIImage = CIImage(image: watermarkImage) else {
-            completion(UIImage(ciImage: output))
-            return
+            return UIImage(ciImage: outputImage)
         }
 
-        completion(UIImage(ciImage: watermarkCIImage.composited(over: output)))
+        if watermark {
+            return UIImage(ciImage: watermarkCIImage.composited(over: outputImage))
+        } else {
+            return UIImage(ciImage: outputImage)
+        }
     }
 }
