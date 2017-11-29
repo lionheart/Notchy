@@ -26,7 +26,7 @@ enum MaskType {
 let background = UIImage(named: "ClearBackground")!
 let ciImageMaskBackground = CIImage(image: background)!
 let notchMask = UIImage(named: "NotchMask")!
-let watermarkImage = UIImage(named: "WatermarkCorner3g")!
+let watermarkImage = UIImage(named: "Watermark4")!
 let ciImageMask = CIImage(image: notchMask)!
 
 let maskFilterParameters: [String: Any] = [
