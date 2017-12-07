@@ -1864,7 +1864,7 @@
 			};
 			name = Debug;
 		};
-		DE8B646A43FDF3D873C200A9DD195E2B /* Debug */ = {
+		E96A3C52908E370CDB914C9C56622BF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC61719E2BD3671111B37D37D9D1EF75 /* KeyboardAdjuster.xcconfig */;
 			buildSettings = {
@@ -1880,7 +1880,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/KeyboardAdjuster/KeyboardAdjuster-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/KeyboardAdjuster/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/KeyboardAdjuster/KeyboardAdjuster.modulemap";
 				PRODUCT_NAME = KeyboardAdjuster;
@@ -1895,7 +1895,7 @@
 			};
 			name = Debug;
 		};
-		FF4D9E31D1892B89FFFBC3D0BA1324C1 /* Release */ = {
+		F3334012B17421A1E69A2F88EEA17F3A /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC61719E2BD3671111B37D37D9D1EF75 /* KeyboardAdjuster.xcconfig */;
 			buildSettings = {
@@ -1911,7 +1911,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/KeyboardAdjuster/KeyboardAdjuster-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/KeyboardAdjuster/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/KeyboardAdjuster/KeyboardAdjuster.modulemap";
 				PRODUCT_NAME = KeyboardAdjuster;
@@ -1951,8 +1951,8 @@
 		3E0ACB0797BCB48E28859E2336B7FEB9 /* Build configuration list for PBXNativeTarget "KeyboardAdjuster" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DE8B646A43FDF3D873C200A9DD195E2B /* Debug */,
-				FF4D9E31D1892B89FFFBC3D0BA1324C1 /* Release */,
+				E96A3C52908E370CDB914C9C56622BF6 /* Debug */,
+				F3334012B17421A1E69A2F88EEA17F3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
