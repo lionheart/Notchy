@@ -22,9 +22,9 @@ enum ExtraStuffInfo {
 
     var imageName: String {
         switch self {
-        case .addPhone: return "iPhoneXIcon"
-        case .removeWatermark: return "WatermarkIcon"
-        case .icons: return "IconsIcon"
+        case .addPhone: return "Add Frame"
+        case .removeWatermark: return "WatermarkSticker"
+        case .icons: return "Get Icons"
         }
     }
 

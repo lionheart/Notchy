@@ -1,6 +1,6 @@
 # vim: ft=ruby
 
-platform :ios, '11.1'
+platform :ios, '11.2'
 
 target 'Notchy' do
   use_frameworks!

@@ -78,7 +78,7 @@ final class SingleImageViewController: UIViewController {
 
         self.asset = asset
         self.originalImage = original
-        self.maskedImage = original.maskv2(watermark: true)
+        self.maskedImage = original.maskv2(watermark: true, frame: false)
     }
 
     convenience init(asset: PHAsset) {
@@ -115,7 +115,7 @@ final class SingleImageViewController: UIViewController {
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
         backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        phoneImageView = UIImageView(image: UIImage(named: "iPhoneXSpaceGray2"))
+        phoneImageView = UIImageView(image: UIImage(named: "iPhone X"))
         phoneImageView.translatesAutoresizingMaskIntoConstraints = false
         phoneImageView.contentMode = .scaleAspectFit
         phoneImageView.isHidden = true
@@ -170,8 +170,8 @@ final class SingleImageViewController: UIViewController {
         
         toolbar = NotchyToolbar(delegate: self)
 
-        imageContainerView.addSubview(imageView)
         imageContainerView.addSubview(phoneImageView)
+        imageContainerView.addSubview(imageView)
         imageContainerView.addSubview(watermarkImageView)
 
         view.addSubview(imageContainerView)
@@ -211,7 +211,7 @@ final class SingleImageViewController: UIViewController {
 
         phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
         phoneImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
-        phoneImageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.75
+        phoneImageView.widthAnchor ~~ imageView.widthAnchor - 94
 
         imageContainerView.leadingAnchor ~~ view.leadingAnchor
         imageContainerView.trailingAnchor ~~ view.trailingAnchor
@@ -249,7 +249,7 @@ final class SingleImageViewController: UIViewController {
         if UserDefaults.purchased {
             selectionFeedbackGenerator.selectionChanged()
 
-            maskedImage = MaskType.v2.applyMask(input: originalImage, watermark: removeWatermarkButton.isSelected)
+            maskedImage = originalImage.maskv2(watermark: removeWatermarkButton.isSelected, frame: false)
             imageView.image = maskedImage
 
             removeWatermarkButton.isSelected = !removeWatermarkButton.isSelected

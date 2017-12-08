@@ -18,7 +18,7 @@ enum MaskType {
     func applyMask(input: UIImage, watermark: Bool) -> UIImage? {
         switch self {
         case .v1: return input.maskv1(watermark: watermark)
-        case .v2: return input.maskv2(watermark: watermark)
+        case .v2: return input.maskv2(watermark: watermark, frame: false)
         }
     }
 }
@@ -104,7 +104,7 @@ extension UIImage {
         return UIImage(cgImage: result)
     }
 
-    func maskv2(watermark: Bool) -> UIImage? {
+    func maskv2(watermark: Bool, frame: Bool) -> UIImage? {
         let outputImage = maskedImage(image: self)
 
         guard let watermarkCIImage = CIImage(image: watermarkImage) else {

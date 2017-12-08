@@ -173,8 +173,7 @@ extension GridViewController {
             activity.stopAnimating()
             view.removeFromSuperview()
 
-            guard let theImage = theImage,
-                let maskedImage = MaskType.v2.applyMask(input: theImage, watermark: true) else {
+            guard let theImage = theImage else {
                 return
             }
 
