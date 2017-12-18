@@ -22,9 +22,9 @@ enum ExtraStuffInfo {
 
     var imageName: String {
         switch self {
-        case .addPhone: return "Add Frame"
-        case .removeWatermark: return "WatermarkSticker"
-        case .icons: return "Get Icons"
+        case .addPhone: return "IAPFrame"
+        case .removeWatermark: return "IAPSticker"
+        case .icons: return "IAPIcons"
         }
     }
 
@@ -35,14 +35,6 @@ enum ExtraStuffInfo {
         case .icons: return "8 Icon Options"
         }
     }
-
-    var imageWidth: CGFloat {
-        switch self {
-        case .addPhone: return 15
-        case .removeWatermark: return 30
-        case .icons: return 30
-        }
-    }
 }
 
 final class ExtraStuffItemView: UIStackView {
@@ -51,6 +43,7 @@ final class ExtraStuffItemView: UIStackView {
 
         translatesAutoresizingMaskIntoConstraints = false
         axis = .horizontal
+        spacing = 10
 
         let imageView = UIImageView(image: UIImage(named: info.imageName))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,11 +52,16 @@ final class ExtraStuffItemView: UIStackView {
         let imageContainer = UIView()
         imageContainer.addSubview(imageView)
 
-        imageView.widthAnchor ~~ info.imageWidth
         imageView.leadingAnchor ~~ imageContainer.leadingAnchor
         imageView.trailingAnchor ≤≤ imageContainer.trailingAnchor
         imageView.topAnchor ~~ imageContainer.topAnchor
         imageView.bottomAnchor ~~ imageContainer.bottomAnchor
+
+        if info == .removeWatermark {
+            imageView.heightAnchor ~~ 71
+        } else {
+            imageView.heightAnchor ~~ 75
+        }
 
         let label = UILabel()
         label.text = info.title
@@ -113,8 +111,10 @@ final class ExtraStuffView: UIView {
         let optionsStackView = UIStackView(arrangedSubviews: [item1, item2, item3])
         optionsStackView.translatesAutoresizingMaskIntoConstraints = false
         optionsStackView.axis = .vertical
-        optionsStackView.spacing = 10
         optionsStackView.alignment = .leading
+        optionsStackView.spacing = 0
+
+        item2.heightAnchor ~~ 50
 
         getStuffButton = PlainButton()
         getStuffButton.addTarget(self, action: #selector(getStuffButtonDidTouchUpInside(_:)), for: .touchUpInside)
@@ -137,8 +137,9 @@ final class ExtraStuffView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.alignment = .center
-        stackView.setCustomSpacing(30, after: topLabel)
-        stackView.setCustomSpacing(30, after: optionsStackView)
+        stackView.distribution = .equalSpacing
+
+        stackView.setCustomSpacing(15, after: optionsStackView)
 
         addSubview(stackView)
 

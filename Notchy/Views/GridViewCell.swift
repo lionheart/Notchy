@@ -39,11 +39,6 @@ final class GridViewCell: UICollectionViewCell {
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        #if !MASK_IMAGE_WITH_VIEW
-            imageView.layer.borderColor = UIColor.lightGray.cgColor
-            imageView.layer.borderWidth = 0.5
-        #endif
-
         contentView.addSubview(imageView)
 
         imageView.leftAnchor ~~ contentView.leftAnchor

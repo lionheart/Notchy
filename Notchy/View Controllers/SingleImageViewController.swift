@@ -186,7 +186,8 @@ final class SingleImageViewController: UIViewController {
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
 
-        toolbar.stackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
+        toolbar.stackView.bottomAnchor ≤≤ view.safeAreaLayoutGuide.bottomAnchor
+        toolbar.stackView.bottomAnchor ≥≥ view.bottomAnchor - 20
         toolbar.leadingAnchor ~~ view.leadingAnchor
         toolbar.trailingAnchor ~~ view.trailingAnchor
 
@@ -209,9 +210,9 @@ final class SingleImageViewController: UIViewController {
         watermarkImageView.bottomAnchor ~~ imageView.bottomAnchor
         watermarkImageView.rightAnchor ~~ imageView.rightAnchor
 
-        phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
+        phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 9
         phoneImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
-        phoneImageView.widthAnchor ~~ imageView.widthAnchor - 94
+        phoneImageView.widthAnchor ~~ imageView.widthAnchor + 43
 
         imageContainerView.leadingAnchor ~~ view.leadingAnchor
         imageContainerView.trailingAnchor ~~ view.trailingAnchor
@@ -354,7 +355,6 @@ extension SingleImageViewController: NotchyToolbarDelegate {
             }
         })
     }
-
 
     func displayExtraStuffViewController() {
         selectionFeedbackGenerator.selectionChanged()

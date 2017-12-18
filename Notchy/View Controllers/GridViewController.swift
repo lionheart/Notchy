@@ -11,6 +11,8 @@ import SuperLayout
 import PhotosUI
 import GameplayKit
 import Hero
+import Presentr
+import LionheartExtensions
 
 protocol GridViewControllerDelegate: class {
     func gridViewControllerUpdatedAsset(_ asset: PHAsset)
@@ -43,11 +45,18 @@ final class GridViewController: UICollectionViewController {
     fileprivate var thumbnailSize: CGSize!
     fileprivate var previousPreheatRect = CGRect.zero
 
-    // MARK: - UIViewController / Lifecycle
+    lazy var extraStuffPresenter: Presentr = {
+        let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
+        let height = ModalSize.custom(size: 350)
+        let center = ModalCenterPosition.custom(centerPoint: view.center)
+        let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
+        presenter.backgroundOpacity = 0.5
+        presenter.transitionType = TransitionType.crossDissolve
+        presenter.dismissTransitionType = TransitionType.crossDissolve
+        return presenter
+    }()
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    // MARK: - Initializers
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
@@ -64,15 +73,14 @@ final class GridViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func refreshControlValueChanged(_ sender: Any) {
-        guard let refresh = sender as? UIRefreshControl else {
-            return
-        }
+    deinit {
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
+    }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-            self.collectionView?.reloadData()
-            refresh.endRefreshing()
-        }
+    // MARK: - View Lifecycle
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
     override func viewDidLoad() {
@@ -82,6 +90,9 @@ final class GridViewController: UICollectionViewController {
 
         resetCachedAssets()
         PHPhotoLibrary.shared().register(self)
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Icons"), style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem?.tintColor = .black
 
         guard let collectionView = collectionView else {
             return
@@ -99,10 +110,6 @@ final class GridViewController: UICollectionViewController {
         collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
     }
 
-    deinit {
-        PHPhotoLibrary.shared().unregisterChangeObserver(self)
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -118,6 +125,28 @@ final class GridViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateCachedAssets()
+
+        guard false else {
+            return
+        }
+
+        let controller = ExtraStuffViewController()
+        controller.transitioningDelegate = extraStuffPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: true)
+    }
+
+    // MARK: - Misc
+
+    @objc func refreshControlValueChanged(_ sender: Any) {
+        guard let refresh = sender as? UIRefreshControl else {
+            return
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            self.collectionView?.reloadData()
+            refresh.endRefreshing()
+        }
     }
 
     private func updateItemSize() {
