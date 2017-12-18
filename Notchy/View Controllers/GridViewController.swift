@@ -56,6 +56,17 @@ final class GridViewController: UICollectionViewController {
         return presenter
     }()
 
+    lazy var iconSelectorPresenter: Presentr = {
+        let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
+        let height = ModalSize.custom(size: 350)
+        let center = ModalCenterPosition.custom(centerPoint: view.center)
+        let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
+        presenter.backgroundOpacity = 0.5
+        presenter.transitionType = TransitionType.crossDissolve
+        presenter.dismissTransitionType = TransitionType.crossDissolve
+        return presenter
+    }()
+
     // MARK: - Initializers
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -91,7 +102,7 @@ final class GridViewController: UICollectionViewController {
         resetCachedAssets()
         PHPhotoLibrary.shared().register(self)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Icons"), style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Icons"), style: .plain, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(_:)))
         navigationItem.rightBarButtonItem?.tintColor = .black
 
         guard let collectionView = collectionView else {
@@ -108,6 +119,13 @@ final class GridViewController: UICollectionViewController {
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+    }
+
+    @objc func rightBarButtonItemDidTouchUpInside(_ sender: Any) {
+        let controller = IconSelectorViewController()
+        controller.transitioningDelegate = iconSelectorPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: true, completion: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

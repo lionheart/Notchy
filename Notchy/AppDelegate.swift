@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let _window = UIWindow(frame: UIScreen.main.bounds)
         _window.rootViewController = NotchyNavigationController(rootViewController: controller)
+//        _window.rootViewController = NotchyNavigationController(rootViewController: IconSelectorViewController())
         _window.makeKeyAndVisible()
         window = _window
         return true
