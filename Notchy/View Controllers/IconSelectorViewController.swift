@@ -12,7 +12,7 @@ import StoreKit
 import SwiftyUserDefaults
 
 protocol IconSelectorViewControllerDelegate: class {
-
+    func showIAPModal()
 }
 
 struct Icon: ExpressibleByStringLiteral {
@@ -64,16 +64,35 @@ final class IconSelectorViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.isOpaque = false
+        view.layer.cornerRadius = 20
+        view.clipsToBounds = true
+
+        let toolbar = UIToolbar()
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: #selector(closeButtonDidTouchUpInside(_:)))
+        let button = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeButtonDidTouchUpInside(_:)))
+        toolbar.items = [space, button, space]
+
         extendedLayoutIncludesOpaqueBars = true
 
         guard let collectionView = collectionView else {
             return
         }
 
+        view.addSubview(toolbar)
+
+        toolbar.bottomAnchor ~~ view.bottomAnchor
+        toolbar.leadingAnchor ~~ view.leadingAnchor
+        toolbar.trailingAnchor ~~ view.trailingAnchor
+
+        collectionView.backgroundColor = UIColor.white
+        collectionView.layer.cornerRadius = 20
         collectionView.bounces = true
-        collectionView.backgroundColor = UIColor(0x2a2f33)
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+
+        let margin: CGFloat = 10
+        collectionView.contentInset = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
         collectionView.register(IconCollectionViewCell.self)
     }
 
@@ -91,6 +110,10 @@ final class IconSelectorViewController: UICollectionViewController {
 
     // MARK: - Misc
 
+    @objc func closeButtonDidTouchUpInside(_ sender: Any) {
+        dismiss(animated: true)
+    }
+
     private func updateItemSize() {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else {
             return
@@ -99,10 +122,10 @@ final class IconSelectorViewController: UICollectionViewController {
         let viewWidth = view.bounds.size.width
         let columns: CGFloat = 3
         let padding: CGFloat = 10
-        let itemWidth = floor((viewWidth - (columns - 1) * padding - 20) / columns)
+        let itemWidth = floor((viewWidth - (columns - 1) * padding - (padding * 2)) / columns)
         let itemHeight = itemWidth
 
-        layout.minimumLineSpacing = 10
+        layout.minimumLineSpacing = padding
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
 }
@@ -111,6 +134,14 @@ final class IconSelectorViewController: UICollectionViewController {
 extension IconSelectorViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+
+        guard UserDefaults.purchased else {
+            dismiss(animated: true) {
+                self.delegate?.showIAPModal()
+            }
+            return
+        }
+
         let icon = icons[indexPath.row]
         UIApplication.shared.setAlternateIconName(icon.name, completionHandler: nil)
     }

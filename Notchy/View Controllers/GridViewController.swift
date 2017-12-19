@@ -57,8 +57,8 @@ final class GridViewController: UICollectionViewController {
     }()
 
     lazy var iconSelectorPresenter: Presentr = {
-        let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
-        let height = ModalSize.custom(size: 350)
+        let width = ModalSize.custom(size: Float(view.frame.width * 0.65))
+        let height = ModalSize.custom(size: 290)
         let center = ModalCenterPosition.custom(centerPoint: view.center)
         let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
         presenter.backgroundOpacity = 0.5
@@ -122,7 +122,7 @@ final class GridViewController: UICollectionViewController {
     }
 
     @objc func rightBarButtonItemDidTouchUpInside(_ sender: Any) {
-        let controller = IconSelectorViewController()
+        let controller = IconSelectorViewController(delegate: self)
         controller.transitioningDelegate = iconSelectorPresenter
         controller.modalPresentationStyle = .custom
         present(controller, animated: true, completion: nil)
@@ -143,15 +143,6 @@ final class GridViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateCachedAssets()
-
-        guard false else {
-            return
-        }
-
-        let controller = ExtraStuffViewController()
-        controller.transitioningDelegate = extraStuffPresenter
-        controller.modalPresentationStyle = .custom
-        present(controller, animated: true)
     }
 
     // MARK: - Misc
@@ -375,5 +366,14 @@ extension GridViewController: PHPhotoLibraryChangeObserver {
 
             resetCachedAssets()
         }
+    }
+}
+
+extension GridViewController: IconSelectorViewControllerDelegate {
+    func showIAPModal() {
+        let controller = ExtraStuffViewController()
+        controller.transitioningDelegate = extraStuffPresenter
+        controller.modalPresentationStyle = .custom
+        present(controller, animated: true)
     }
 }
