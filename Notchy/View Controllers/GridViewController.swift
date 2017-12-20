@@ -50,9 +50,9 @@ final class GridViewController: UICollectionViewController {
     }()
 
     lazy var iconSelectorPresenter: Presentr = {
-        let width = ModalSize.custom(size: Float(view.frame.width * 0.68))
-        let height = ModalSize.custom(size: 420)
-        let center = ModalCenterPosition.custom(centerPoint: view.center)
+        let width = ModalSize.fluid(percentage: 0.68)
+        let height = ModalSize.custom(size: 165 * Float(UIScreen.main.scale))
+        let center = ModalCenterPosition.center
         let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
         presenter.backgroundOpacity = 0.5
         presenter.transitionType = TransitionType.crossDissolve

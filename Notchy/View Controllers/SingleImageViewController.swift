@@ -52,7 +52,7 @@ final class SingleImageViewController: UIViewController {
 
     lazy var modalPresenter: Presentr = {
         let size = ModalSize.custom(size: 120)
-        let center = ModalCenterPosition.custom(centerPoint: view.center)
+        let center = ModalCenterPosition.center
         let presenter = Presentr(presentationType: .custom(width: size, height: size, center: center))
         let animation = NotchyAlertAnimation(duration: 0.5)
         presenter.backgroundOpacity = 0
