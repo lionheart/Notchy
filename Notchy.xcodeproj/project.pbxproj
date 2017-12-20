@@ -181,6 +181,7 @@
 		378DB3D11FE86B0600EAED3E /* IconNotchy-76x76@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DB3C11FE86B0500EAED3E /* IconNotchy-76x76@1x.png */; };
 		378DB3D21FE86B0600EAED3E /* IconNotchy-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DB3C21FE86B0500EAED3E /* IconNotchy-60x60@3x.png */; };
 		378DB3D31FE86B0600EAED3E /* IconNotchy-1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 378DB3C31FE86B0600EAED3E /* IconNotchy-1024x1024.png */; };
+		378EF10A1FEB18C200EA4288 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378EF1091FEB18C200EA4288 /* StoreKit.framework */; };
 		37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */; };
 		37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */; };
 		37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */; };
@@ -370,6 +371,7 @@
 		378DB3C11FE86B0500EAED3E /* IconNotchy-76x76@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconNotchy-76x76@1x.png"; path = "Icons/NotchyIcon/IconNotchy-76x76@1x.png"; sourceTree = SOURCE_ROOT; };
 		378DB3C21FE86B0500EAED3E /* IconNotchy-60x60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconNotchy-60x60@3x.png"; path = "Icons/NotchyIcon/IconNotchy-60x60@3x.png"; sourceTree = SOURCE_ROOT; };
 		378DB3C31FE86B0600EAED3E /* IconNotchy-1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconNotchy-1024x1024.png"; path = "Icons/NotchyIcon/IconNotchy-1024x1024.png"; sourceTree = SOURCE_ROOT; };
+		378EF1091FEB18C200EA4288 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessDeniedViewController.swift; sourceTree = "<group>"; };
 		37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Notchy.swift"; sourceTree = "<group>"; };
 		37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */,
+				378EF10A1FEB18C200EA4288 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +660,7 @@
 		D50BA6DF290288D179ECF420 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				378EF1091FEB18C200EA4288 /* StoreKit.framework */,
 				9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */,
 			);
 			name = Frameworks;
@@ -698,6 +702,11 @@
 					3739C9C31FB136CE00F461A8 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
