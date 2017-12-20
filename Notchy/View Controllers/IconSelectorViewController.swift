@@ -66,7 +66,7 @@ final class IconSelectorViewController: UICollectionViewController {
     weak var delegate: IconSelectorViewControllerDelegate?
 
     let sections: [Section] = [
-        Section(name: "Tap to switch icons", icons: []),
+//        Section(name: "Tap to switch icons", icons: []),
         Section(name: "Border", icons: ["IconStrokeBlack", "IconStrokeWhite"]),
         Section(name: "No Border", icons: ["IconNoStrokeWhite", "IconNoStrokeBlack"]),
         Section(name: "iPhone X Silver", icons: ["Icon6SilverBlack", "Icon6SilverWhite"]),
@@ -78,8 +78,11 @@ final class IconSelectorViewController: UICollectionViewController {
         super.init(collectionViewLayout: layout)
     }
 
+    let HeaderIdentifier = "HeaderIdentifier"
+    let margin: CGFloat = 60
     convenience init(delegate: IconSelectorViewControllerDelegate? = nil) {
         let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 60)
         self.init(collectionViewLayout: layout)
 
         self.delegate = delegate
@@ -89,8 +92,6 @@ final class IconSelectorViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    let HeaderIdentifier = "HeaderIdentifier"
-    let margin: CGFloat = 60
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -108,28 +109,50 @@ final class IconSelectorViewController: UICollectionViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.label.text = "Tap to switch icons"
+        label.backgroundColor = .white
+
+        let labelBackground = UIView()
+        labelBackground.translatesAutoresizingMaskIntoConstraints = false
+        labelBackground.backgroundColor = .white
 
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Close", for: .normal)
         button.addTarget(self, action: #selector(closeButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
+        let buttonBackground = UIView()
+        buttonBackground.translatesAutoresizingMaskIntoConstraints = false
+        buttonBackground.backgroundColor = .white
+
+        view.addSubview(labelBackground)
         view.addSubview(label)
+        view.addSubview(buttonBackground)
         view.addSubview(button)
 
         label.topAnchor ~~ view.topAnchor + 10
         label.centerXAnchor ~~ view.centerXAnchor
 
+        let cornerRadius: CGFloat = 20
+        labelBackground.topAnchor ~~ view.topAnchor
+        labelBackground.leadingAnchor ~~ view.leadingAnchor + cornerRadius
+        labelBackground.trailingAnchor ~~ view.trailingAnchor - cornerRadius
+        labelBackground.bottomAnchor ~~ label.bottomAnchor + 5
+
         button.bottomAnchor ~~ view.bottomAnchor - 10
         button.centerXAnchor ~~ view.centerXAnchor
 
+        buttonBackground.topAnchor ~~ button.topAnchor - 5
+        buttonBackground.leadingAnchor ~~ view.leadingAnchor + cornerRadius
+        buttonBackground.trailingAnchor ~~ view.trailingAnchor - cornerRadius
+        buttonBackground.bottomAnchor ~~ view.bottomAnchor
+
         collectionView.clipsToBounds = false
         collectionView.backgroundColor = UIColor.white
-        collectionView.layer.cornerRadius = 20
+        collectionView.layer.cornerRadius = cornerRadius
         collectionView.bounces = true
         collectionView.delegate = self
 
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+        collectionView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 50, right: 0)
         collectionView.register(IconCollectionViewCell.self)
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderIdentifier)
     }
@@ -182,10 +205,6 @@ extension IconSelectorViewController {
             let label = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderIdentifier, for: indexPath) as! HeaderView
             let section = sections[indexPath.section]
             label.label.text = section.name
-
-            if indexPath.section == 0 {
-                label.label.text = ""
-            }
             return label
 
         default:

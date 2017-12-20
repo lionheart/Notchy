@@ -87,6 +87,8 @@ final class SingleImageViewController: UIViewController {
 
     private var frameConstraint: NSLayoutConstraint!
     private var noFrameConstraint: NSLayoutConstraint!
+    private var widthConstraint: NSLayoutConstraint!
+    private var centerYConstraint: NSLayoutConstraint!
 
     var extraStuffView: ExtraStuffView!
 
@@ -228,8 +230,8 @@ final class SingleImageViewController: UIViewController {
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
 
         imageView.centerXAnchor ~~ imageContainerView.centerXAnchor
-        imageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
-        imageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.6
+        centerYConstraint = imageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 16
+        widthConstraint = imageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.56
 
         noFrameConstraint = imageView.heightAnchor ~~ imageView.widthAnchor * PhoneDimension.noFrame.multiplier
 
@@ -239,7 +241,7 @@ final class SingleImageViewController: UIViewController {
         watermarkImageView.bottomAnchor ~~ imageView.bottomAnchor
         watermarkImageView.rightAnchor ~~ imageView.rightAnchor
 
-        phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 9
+        phoneImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 14
         phoneImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
         phoneImageView.widthAnchor ~~ imageView.widthAnchor + 43
 
@@ -300,9 +302,13 @@ final class SingleImageViewController: UIViewController {
             if addPhoneButton.isSelected {
                 noFrameConstraint.isActive = false
                 frameConstraint.isActive = true
+                widthConstraint.constant = 45
+                centerYConstraint.constant = -10
             } else {
                 frameConstraint.isActive = false
                 noFrameConstraint.isActive = true
+                widthConstraint.constant = 0
+                centerYConstraint.constant = -16
             }
 
             view.setNeedsUpdateConstraints()
