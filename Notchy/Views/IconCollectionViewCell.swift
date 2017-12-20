@@ -12,7 +12,6 @@ import LionheartExtensions
 
 final class IconCollectionViewCell: UICollectionViewCell {
     var imageView: UIImageView!
-    var lockImageView: UIImageView!
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -21,22 +20,13 @@ final class IconCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
 
-        lockImageView = UIImageView(image: UIImage(named: "Lock")?.image(withColor: .black))
-        lockImageView.translatesAutoresizingMaskIntoConstraints = false
-
         contentView.addSubview(imageView)
-        contentView.addSubview(lockImageView)
 
-        let margin: CGFloat = 5
+        let margin: CGFloat = 0
         imageView.leadingAnchor ~~ contentView.leadingAnchor + margin
         imageView.topAnchor ~~ contentView.topAnchor + margin
         imageView.trailingAnchor ~~ contentView.trailingAnchor - margin
         imageView.bottomAnchor ~~ contentView.bottomAnchor - margin
-
-        lockImageView.centerXAnchor ~~ imageView.rightAnchor - 2
-        lockImageView.centerYAnchor ~~ imageView.topAnchor + 2
-        lockImageView.widthAnchor ~~ 25
-        lockImageView.heightAnchor ~~ 25
 
         updateConstraintsIfNeeded()
     }

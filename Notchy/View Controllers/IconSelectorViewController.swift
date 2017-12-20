@@ -32,18 +32,45 @@ struct Icon: ExpressibleByStringLiteral {
     }
 }
 
+struct Section {
+    var name: String
+    var icons: [Icon]
+}
+
+final class HeaderView: UICollectionReusableView {
+    var label: UILabel!
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        addSubview(label)
+
+        label.leadingAnchor ~~ leadingAnchor
+        label.trailingAnchor ~~ trailingAnchor
+        label.topAnchor ~~ topAnchor + 10
+        label.bottomAnchor ~~ bottomAnchor - 2
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 final class IconSelectorViewController: UICollectionViewController {
     weak var delegate: IconSelectorViewControllerDelegate?
-    var icons: [Icon] = [
-        "IconStrokeWhite",
-        "IconStrokeBlack",
-        "IconNotchy",
-        "IconNoStrokeWhite",
-        "IconNoStrokeBlack",
-        "Icon6SilverWhite",
-        "Icon6SilverBlack",
-        "Icon6BlackWhite",
-        "Icon6BlackBlack"
+
+    let sections: [Section] = [
+        Section(name: "Tap to switch icons", icons: []),
+        Section(name: "Border", icons: ["IconStrokeBlack", "IconStrokeWhite"]),
+        Section(name: "No Border", icons: ["IconNoStrokeWhite", "IconNoStrokeBlack"]),
+        Section(name: "iPhone X Silver", icons: ["Icon6SilverBlack", "Icon6SilverWhite"]),
+        Section(name: "iPhone X Space Gray", icons: ["Icon6BlackWhite", "Icon6BlackBlack"]),
     ]
 
     // MARK: - Initializers
@@ -52,7 +79,8 @@ final class IconSelectorViewController: UICollectionViewController {
     }
 
     convenience init(delegate: IconSelectorViewControllerDelegate? = nil) {
-        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        self.init(collectionViewLayout: layout)
 
         self.delegate = delegate
     }
@@ -61,6 +89,8 @@ final class IconSelectorViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    let HeaderIdentifier = "HeaderIdentifier"
+    let margin: CGFloat = 60
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,32 +98,40 @@ final class IconSelectorViewController: UICollectionViewController {
         view.layer.cornerRadius = 20
         view.clipsToBounds = true
 
-        let toolbar = UIToolbar()
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: #selector(closeButtonDidTouchUpInside(_:)))
-        let button = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeButtonDidTouchUpInside(_:)))
-        toolbar.items = [space, button, space]
-
         extendedLayoutIncludesOpaqueBars = true
 
         guard let collectionView = collectionView else {
             return
         }
 
-        view.addSubview(toolbar)
+        let label = HeaderView()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.label.text = "Tap to switch icons"
 
-        toolbar.bottomAnchor ~~ view.bottomAnchor
-        toolbar.leadingAnchor ~~ view.leadingAnchor
-        toolbar.trailingAnchor ~~ view.trailingAnchor
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Close", for: .normal)
+        button.addTarget(self, action: #selector(closeButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
+        view.addSubview(label)
+        view.addSubview(button)
+
+        label.topAnchor ~~ view.topAnchor + 10
+        label.centerXAnchor ~~ view.centerXAnchor
+
+        button.bottomAnchor ~~ view.bottomAnchor - 10
+        button.centerXAnchor ~~ view.centerXAnchor
+
+        collectionView.clipsToBounds = false
         collectionView.backgroundColor = UIColor.white
         collectionView.layer.cornerRadius = 20
         collectionView.bounces = true
         collectionView.delegate = self
 
-        let margin: CGFloat = 10
-        collectionView.contentInset = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
         collectionView.register(IconCollectionViewCell.self)
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderIdentifier)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -119,10 +157,10 @@ final class IconSelectorViewController: UICollectionViewController {
             return
         }
 
-        let viewWidth = view.bounds.size.width
-        let columns: CGFloat = 3
-        let padding: CGFloat = 10
-        let itemWidth = floor((viewWidth - (columns - 1) * padding - (padding * 2)) / columns)
+        let viewWidth = view.bounds.size.width - 10
+        let columns: CGFloat = 2
+        let padding: CGFloat = 0
+        let itemWidth = floor((viewWidth - (columns - 1) * padding - (margin * 2)) / columns)
         let itemHeight = itemWidth
 
         layout.minimumLineSpacing = padding
@@ -130,8 +168,31 @@ final class IconSelectorViewController: UICollectionViewController {
     }
 }
 
+extension IconSelectorViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 40)
+    }
+}
+
 // MARK: - UICollectionView
 extension IconSelectorViewController {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let label = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderIdentifier, for: indexPath) as! HeaderView
+            let section = sections[indexPath.section]
+            label.label.text = section.name
+
+            if indexPath.section == 0 {
+                label.label.text = ""
+            }
+            return label
+
+        default:
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderIdentifier, for: indexPath)
+        }
+    }
+
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
 
@@ -142,17 +203,25 @@ extension IconSelectorViewController {
             return
         }
 
-        let icon = icons[indexPath.row]
+        let section = sections[indexPath.section]
+        let icon = section.icons[indexPath.row]
         UIApplication.shared.setAlternateIconName(icon.name, completionHandler: nil)
     }
 
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return icons.count
+        let section = sections[section]
+        return section.icons.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(for: indexPath) as IconCollectionViewCell
-        guard let image = icons[indexPath.row].image else {
+        let section = sections[indexPath.section]
+        let icon = section.icons[indexPath.row]
+        guard let image = icon.image else {
             fatalError()
         }
 

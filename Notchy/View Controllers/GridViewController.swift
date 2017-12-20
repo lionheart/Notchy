@@ -46,19 +46,12 @@ final class GridViewController: UICollectionViewController {
     fileprivate var previousPreheatRect = CGRect.zero
 
     lazy var extraStuffPresenter: Presentr = {
-        let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
-        let height = ModalSize.custom(size: 350)
-        let center = ModalCenterPosition.custom(centerPoint: view.center)
-        let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
-        presenter.backgroundOpacity = 0.5
-        presenter.transitionType = TransitionType.crossDissolve
-        presenter.dismissTransitionType = TransitionType.crossDissolve
-        return presenter
+        return ExtraStuffPresenter(view: view)
     }()
 
     lazy var iconSelectorPresenter: Presentr = {
-        let width = ModalSize.custom(size: Float(view.frame.width * 0.65))
-        let height = ModalSize.custom(size: 290)
+        let width = ModalSize.custom(size: Float(view.frame.width * 0.68))
+        let height = ModalSize.custom(size: Float(view.frame.height * 0.63))
         let center = ModalCenterPosition.custom(centerPoint: view.center)
         let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
         presenter.backgroundOpacity = 0.5
@@ -122,10 +115,14 @@ final class GridViewController: UICollectionViewController {
     }
 
     @objc func rightBarButtonItemDidTouchUpInside(_ sender: Any) {
-        let controller = IconSelectorViewController(delegate: self)
-        controller.transitioningDelegate = iconSelectorPresenter
-        controller.modalPresentationStyle = .custom
-        present(controller, animated: true, completion: nil)
+        if UserDefaults.purchased {
+            let controller = IconSelectorViewController(delegate: self)
+            controller.transitioningDelegate = iconSelectorPresenter
+            controller.modalPresentationStyle = .custom
+            present(controller, animated: true, completion: nil)
+        } else {
+            showIAPModal()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
