@@ -26,6 +26,7 @@ enum MaskType {
 let background = UIImage(named: "ClearBackground")!
 let ciImageMaskBackground = CIImage(image: background)!
 let notchMask = UIImage(named: "NotchMask")!
+let frameImage = UIImage(named: "iPhone X")!
 let watermarkImage = UIImage(named: "WatermarkStickerOverlay")!
 let ciImageMask = CIImage(image: notchMask)!
 
@@ -71,6 +72,7 @@ extension CIImage {
 
 extension UIImage {
     var urlForTransparentVersion: URL? {
+        print(size)
         guard let image = forced,
             let data = UIImagePNGRepresentation(image) else {
                 return nil
@@ -107,14 +109,25 @@ extension UIImage {
     func maskv2(watermark: Bool, frame: Bool) -> UIImage? {
         let outputImage = maskedImage(image: self)
 
-        guard let watermarkCIImage = CIImage(image: watermarkImage) else {
-            return UIImage(ciImage: outputImage)
+        guard let watermarkCIImage = CIImage(image: watermarkImage),
+            let frameImage = CIImage(image: frameImage) else {
+                return UIImage(ciImage: outputImage)
         }
 
+        let watermarked: CIImage
         if watermark {
-            return UIImage(ciImage: watermarkCIImage.composited(over: outputImage))
+            watermarked = watermarkCIImage.composited(over: outputImage)
         } else {
-            return UIImage(ciImage: outputImage)
+            watermarked = outputImage
         }
+
+        let new: CIImage
+        if frame {
+            new = watermarked.transformed(by: CGAffineTransform(translationX: 108, y: 105)).composited(over: frameImage)
+        } else {
+            new = watermarked
+        }
+
+        return UIImage(ciImage: new)
     }
 }

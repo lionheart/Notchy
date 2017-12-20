@@ -11,10 +11,12 @@ import Photos
 import StoreKit
 import SwiftyUserDefaults
 
+//1342 × 2588 pixels
+//1125 × 2436 pixels
 extension UserDefaults {
     static var purchased: Bool {
         #if DEBUG
-            return false
+            return true
         #else
             return Defaults[.purchased]
         #endif

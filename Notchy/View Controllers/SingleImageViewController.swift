@@ -29,6 +29,19 @@ func ExtraStuffPresenter(view: UIView) -> Presentr {
     return presenter
 }
 
+enum PhoneDimension {
+    case frame
+    case noFrame
+
+    var multiplier: CGFloat {
+        switch self {
+        // 2436/1125
+        case .frame: return 1.9284649776
+        case .noFrame: return 2.1653
+        }
+    }
+}
+
 final class SingleImageViewController: UIViewController {
     let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
@@ -71,6 +84,9 @@ final class SingleImageViewController: UIViewController {
     private var phoneImageView: UIImageView!
     private var watermarkImageView: UIImageView!
     private var maskImageView: UIImageView!
+
+    private var frameConstraint: NSLayoutConstraint!
+    private var noFrameConstraint: NSLayoutConstraint!
 
     var extraStuffView: ExtraStuffView!
 
@@ -211,11 +227,14 @@ final class SingleImageViewController: UIViewController {
 
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
 
-        // 2436/1125
         imageView.centerXAnchor ~~ imageContainerView.centerXAnchor
         imageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 15
         imageView.widthAnchor ~~ imageContainerView.widthAnchor * 0.6
-        imageView.heightAnchor ~~ imageView.widthAnchor * 2.1653
+
+        noFrameConstraint = imageView.heightAnchor ~~ imageView.widthAnchor * PhoneDimension.noFrame.multiplier
+
+        frameConstraint = imageView.heightAnchor ~~ imageView.widthAnchor * PhoneDimension.frame.multiplier
+        frameConstraint.isActive = false
 
         watermarkImageView.bottomAnchor ~~ imageView.bottomAnchor
         watermarkImageView.rightAnchor ~~ imageView.rightAnchor
@@ -231,13 +250,6 @@ final class SingleImageViewController: UIViewController {
 
         screenshotLabel.topAnchor ~~ phoneImageView.bottomAnchor + 5
         screenshotLabel.centerXAnchor ~~ view.centerXAnchor
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        maskImageView.frame = imageView.bounds
-        imageView.mask = maskImageView
     }
 
     // MARK: - View Options
@@ -263,10 +275,10 @@ final class SingleImageViewController: UIViewController {
         if UserDefaults.purchased {
             selectionFeedbackGenerator.selectionChanged()
 
-            maskedImage = originalImage.maskv2(watermark: removeWatermarkButton.isSelected, frame: false)
-            imageView.image = maskedImage
-
             removeWatermarkButton.isSelected = !removeWatermarkButton.isSelected
+
+            maskedImage = originalImage.maskv2(watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
+            imageView.image = maskedImage
         } else {
             displayExtraStuffViewController()
         }
@@ -280,8 +292,20 @@ final class SingleImageViewController: UIViewController {
         if UserDefaults.purchased {
             selectionFeedbackGenerator.selectionChanged()
 
-            phoneImageView.isHidden = !phoneImageView.isHidden
             addPhoneButton.isSelected = !addPhoneButton.isSelected
+
+            maskedImage = originalImage.maskv2(watermark: removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
+            imageView.image = maskedImage
+
+            if addPhoneButton.isSelected {
+                noFrameConstraint.isActive = false
+                frameConstraint.isActive = true
+            } else {
+                frameConstraint.isActive = false
+                noFrameConstraint.isActive = true
+            }
+
+            view.setNeedsUpdateConstraints()
         } else {
             displayExtraStuffViewController()
         }
