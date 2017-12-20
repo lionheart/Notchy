@@ -21,7 +21,7 @@ final class SingleImageViewController: UIViewController {
 
     lazy var extraStuffPresenter: Presentr = {
         let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
-        let height = ModalSize.custom(size: 300)
+        let height = ModalSize.custom(size: 350)
         let center = ModalCenterPosition.custom(centerPoint: view.center)
         let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
         presenter.backgroundOpacity = 0.5
@@ -196,6 +196,9 @@ final class SingleImageViewController: UIViewController {
 
         removeWatermarkButton.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor - margin
         removeWatermarkButton.bottomAnchor ~~ toolbar.topAnchor - margin
+        removeWatermarkButton.widthAnchor ~~ 153
+
+        addPhoneButton.widthAnchor ~~ 125
         addPhoneButton.bottomAnchor ~~ toolbar.topAnchor - margin
         addPhoneButton.leadingAnchor ~~ view.safeAreaLayoutGuide.leadingAnchor + margin
 
@@ -332,7 +335,15 @@ extension SingleImageViewController: NotchyToolbarDelegate {
         }
 
         PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
+            let request = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
+            guard let identifier = request?.placeholderForCreatedAsset?.localIdentifier else {
+                return
+            }
+
+            let identifiers = Defaults[.identifiers]
+            if !identifiers.contains(identifier) {
+                Defaults[.identifiers].append(identifier)
+            }
         }, completionHandler: { success, error in
             if let error = error {
                 self.notificationFeedbackGenerator.notificationOccurred(.error)

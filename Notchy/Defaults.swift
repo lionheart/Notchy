@@ -12,4 +12,5 @@ import SwiftyUserDefaults
 
 extension DefaultsKeys {
     static let purchased = DefaultsKey<Bool>("purchased")
+    static let identifiers = DefaultsKey<[String]>("identifiers")
 }

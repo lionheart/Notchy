@@ -13,6 +13,7 @@ import GameplayKit
 import Hero
 import Presentr
 import LionheartExtensions
+import SwiftyUserDefaults
 
 protocol GridViewControllerDelegate: class {
     func gridViewControllerUpdatedAsset(_ asset: PHAsset)
@@ -36,7 +37,6 @@ private extension UICollectionView {
     }
 }
 
-let CellIdentifier = "GridViewCellIdentifier"
 final class GridViewController: UICollectionViewController {
     weak var gridViewControllerDelegate: GridViewControllerDelegate?
     var fetchResult: PHFetchResult<PHAsset>!
@@ -118,7 +118,7 @@ final class GridViewController: UICollectionViewController {
         collectionView.backgroundColor = UIColor(0x2a2f33)
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+        collectionView.register(GridViewCell.self)
     }
 
     @objc func rightBarButtonItemDidTouchUpInside(_ sender: Any) {
@@ -181,36 +181,9 @@ final class GridViewController: UICollectionViewController {
 extension GridViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let asset = fetchResult.object(at: indexPath.item)
-        let cell = collectionView.cellForItem(at: indexPath)
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        activity.startAnimating()
-        activity.translatesAutoresizingMaskIntoConstraints = false
-
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(activity)
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 10
-        view.isHidden = true
-
-        guard let contentView = cell?.contentView else {
-            return
-        }
-
-        contentView.addSubview(view)
-
-        view.heightAnchor ~~ 40
-        view.widthAnchor ~~ 40
-        view.centerXAnchor ~~ contentView.centerXAnchor
-        view.centerYAnchor ~~ contentView.centerYAnchor
-        activity.centerXAnchor ~~ view.centerXAnchor
-        activity.centerYAnchor ~~ view.centerYAnchor
 
         let manager = PHImageManager.default()
         manager.image(asset: asset) { [unowned self] (theImage) in
-            activity.stopAnimating()
-            view.removeFromSuperview()
-
             guard let theImage = theImage else {
                 return
             }
@@ -225,7 +198,7 @@ extension GridViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as! GridViewCell
+        let cell = collectionView.dequeueReusableCell(for: indexPath) as GridViewCell
         let asset = fetchResult.object(at: indexPath.item)
 
         // Request an image for the asset from the PHCachingImageManager.
@@ -239,7 +212,11 @@ extension GridViewController {
                 return
             }
 
-            cell.thumbnailImage = image
+            if Defaults[.identifiers].contains(asset.localIdentifier) {
+                cell.thumbnailImage = image?.maskv1(watermark: false)
+            } else {
+                cell.thumbnailImage = image
+            }
         }
 
         return cell

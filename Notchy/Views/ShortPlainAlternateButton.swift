@@ -18,12 +18,16 @@ final class ShortPlainAlternateButton: UIButton {
         let color: UIColor
         switch state {
         case .normal: color = .white
-        default: color = .black
+        default: color = UIColor(0x2a2e32)
         }
+
+        let paragraph = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        paragraph.alignment = .center
 
         let attributes: [NSAttributedStringKey: Any] = [
             .font: NotchyTheme.systemFont(ofSize: 13, weight: .medium),
-            .foregroundColor: color
+            .foregroundColor: color,
+            .paragraphStyle: paragraph
         ]
 
         let attributed = NSAttributedString(string: title, attributes: attributes)
@@ -49,7 +53,7 @@ final class ShortPlainAlternateButton: UIButton {
 
         setBackgroundImage(UIImage(color: .clear), for: .normal)
         setBackgroundImage(UIImage(color: .lightGray), for: .highlighted)
-        setBackgroundImage(UIImage(color: .lightGray), for: UIControlState(rawValue: 5))
+        setBackgroundImage(UIImage(color: .lightGray), for: [.highlighted, .selected])
         setBackgroundImage(UIImage(color: .white), for: .selected)
     }
 
