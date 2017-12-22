@@ -16,7 +16,7 @@ import SwiftyUserDefaults
 extension UserDefaults {
     static var purchased: Bool {
         #if DEBUG
-            return false
+            return true
         #else
             return Defaults[.purchased]
         #endif

@@ -123,7 +123,7 @@ extension UIImage {
 
         let new: CIImage
         if frame {
-            new = watermarked.transformed(by: CGAffineTransform(translationX: 108, y: 105)).composited(over: frameImage)
+            new = watermarked.transformed(by: CGAffineTransform(translationX: 108, y: 75)).composited(over: frameImage)
         } else {
             new = watermarked
         }

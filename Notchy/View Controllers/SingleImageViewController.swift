@@ -303,7 +303,7 @@ final class SingleImageViewController: UIViewController {
                 noFrameConstraint.isActive = false
                 frameConstraint.isActive = true
                 widthConstraint.constant = 45
-                centerYConstraint.constant = -10
+                centerYConstraint.constant = -16
             } else {
                 frameConstraint.isActive = false
                 noFrameConstraint.isActive = true
