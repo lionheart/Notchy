@@ -70,11 +70,10 @@ final class IconSelectorViewController: UICollectionViewController {
     weak var delegate: IconSelectorViewControllerDelegate?
 
     let sections: [Section] = [
-//        Section(name: "Tap to switch icons", icons: []),
         Section(name: "Border", icons: ["IconStrokeBlack", "IconStrokeWhite"]),
         Section(name: "No Border", icons: ["IconNoStrokeWhite", "IconNoStrokeBlack"]),
-        Section(name: "iPhone X Silver", icons: ["Icon6SilverBlack", "Icon6SilverWhite"]),
-        Section(name: "iPhone X Space Gray", icons: ["Icon6BlackWhite", "Icon6BlackBlack"]),
+        Section(name: "Silver", icons: ["Icon6SilverBlack", "Icon6SilverWhite"]),
+        Section(name: "Space Gray", icons: ["Icon6BlackWhite", "Icon6BlackBlack"]),
     ]
 
     // MARK: - Initializers
