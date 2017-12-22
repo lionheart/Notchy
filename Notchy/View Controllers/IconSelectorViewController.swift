@@ -25,6 +25,10 @@ struct Icon: ExpressibleByStringLiteral {
         return UIImage(named: imageName)
     }
 
+    var precutImage: UIImage? {
+        return UIImage(named: "Precut-\(name)")
+    }
+
     typealias StringLiteralType = String
 
     init(stringLiteral value: StringLiteralType) {
@@ -186,6 +190,7 @@ final class IconSelectorViewController: UICollectionViewController {
         let itemWidth = floor((viewWidth - (columns - 1) * padding - (margin * 2)) / columns)
         let itemHeight = itemWidth
 
+
         layout.minimumLineSpacing = padding
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
     }
@@ -240,7 +245,7 @@ extension IconSelectorViewController {
         let cell = collectionView.dequeueReusableCell(for: indexPath) as IconCollectionViewCell
         let section = sections[indexPath.section]
         let icon = section.icons[indexPath.row]
-        guard let image = icon.image else {
+        guard let image = icon.precutImage else {
             fatalError()
         }
 
