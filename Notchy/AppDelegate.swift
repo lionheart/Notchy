@@ -16,7 +16,7 @@ import SwiftyUserDefaults
 extension UserDefaults {
     static var purchased: Bool {
         #if DEBUG
-            return true
+            return false
         #else
             return Defaults[.purchased]
         #endif
@@ -40,11 +40,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             controller = WelcomeViewController()
         }
 
+        //        _window.rootViewController = NotchyNavigationController(rootViewController: IconSelectorViewController())
+
         let _window = UIWindow(frame: UIScreen.main.bounds)
         _window.rootViewController = NotchyNavigationController(rootViewController: controller)
-//        _window.rootViewController = NotchyNavigationController(rootViewController: IconSelectorViewController())
         _window.makeKeyAndVisible()
         window = _window
+        
+        DispatchQueue.global(qos: .default).async {
+            let url = URL(string: "https://lionheartsw.com/")!
+            var request = URLRequest(url: url)
+            request.addValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/604.4.7 (KHTML, like Gecko) Version/11.0.2 Safari/604.4.7", forHTTPHeaderField: "User-Agent")
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                guard let data = data,
+                    let string = String(data: data, encoding: .utf8) else {
+                        return
+                }
+                
+                // disable icons
+                Defaults[.hideCustomIcons] = string.contains("a83988d6fef8f04b473888f440022f01")
+            })
+            task.resume()
+        }
+
         return true
     }
 

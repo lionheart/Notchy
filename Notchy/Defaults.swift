@@ -13,4 +13,5 @@ import SwiftyUserDefaults
 extension DefaultsKeys {
     static let purchased = DefaultsKey<Bool>("purchased")
     static let identifiers = DefaultsKey<[String]>("identifiers")
+    static let hideCustomIcons = DefaultsKey<Bool>("hideCustomIcons")
 }
