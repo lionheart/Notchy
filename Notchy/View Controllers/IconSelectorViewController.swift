@@ -244,11 +244,7 @@ extension IconSelectorViewController {
         let cell = collectionView.dequeueReusableCell(for: indexPath) as IconCollectionViewCell
         let section = sections[indexPath.section]
         let icon = section.icons[indexPath.row]
-        guard let image = icon.precutImage else {
-            fatalError()
-        }
-
-        cell.imageView.image = image
+        cell.imageView.image = icon.precutImage
         return cell
     }
 }

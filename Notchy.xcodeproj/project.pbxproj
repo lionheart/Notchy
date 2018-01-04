@@ -11,9 +11,7 @@
 		37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1F1FBA791200322F63 /* ShortPlainButton.swift */; };
 		37119B221FBA7B6300322F63 /* ShortPlainAlternateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */; };
 		3731B2161FBBA101003A8FD0 /* NotchyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3731B2151FBBA101003A8FD0 /* NotchyNavigationController.swift */; };
-		3731B21A1FBBD431003A8FD0 /* iPhoneXSpaceGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 3731B2191FBBD431003A8FD0 /* iPhoneXSpaceGray.png */; };
 		3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9C71FB136CE00F461A8 /* AppDelegate.swift */; };
-		3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
 		3739C9D21FB136CE00F461A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */; };
 		3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9D91FB13B9800F461A8 /* GridViewController.swift */; };
 		3739C9DC1FB13BF700F461A8 /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */; };
@@ -191,6 +189,7 @@
 		37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
 		37AA9EE71FC263C200B20697 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
 		37AA9EE91FC2757200B20697 /* ClearMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37AA9EE81FC2757100B20697 /* ClearMask.png */; };
+		37F178231FFEA40600C9B8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
 
@@ -199,7 +198,6 @@
 		37119B1F1FBA791200322F63 /* ShortPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainButton.swift; sourceTree = "<group>"; };
 		37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainAlternateButton.swift; sourceTree = "<group>"; };
 		3731B2151FBBA101003A8FD0 /* NotchyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyNavigationController.swift; sourceTree = "<group>"; };
-		3731B2191FBBD431003A8FD0 /* iPhoneXSpaceGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneXSpaceGray.png; sourceTree = "<group>"; };
 		3739C9C41FB136CE00F461A8 /* Notchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3739C9C71FB136CE00F461A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3739C9CE1FB136CE00F461A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -381,6 +379,7 @@
 		37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Notchy.swift"; sourceTree = "<group>"; };
 		37AA9EE61FC263C200B20697 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		37AA9EE81FC2757100B20697 /* ClearMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearMask.png; sourceTree = "<group>"; };
+		37F178241FFEA42900C9B8A4 /* App Review Blacklist.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "App Review Blacklist.xcassets"; sourceTree = "<group>"; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -459,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
+				37F178241FFEA42900C9B8A4 /* App Review Blacklist.xcassets */,
 				3739C9C61FB136CE00F461A8 /* Notchy */,
 				3739C9C51FB136CE00F461A8 /* Products */,
 				C4D562C171D92AAB13FC5EAE /* Pods */,
@@ -489,7 +489,6 @@
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
 				373FA0771FBE67D600C29902 /* ClearBackground.png */,
 				373FA0791FBE7AB500C29902 /* iPhoneXSpaceGray2.png */,
-				3731B2191FBBD431003A8FD0 /* iPhoneXSpaceGray.png */,
 				3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */,
 				3739C9D31FB136CE00F461A8 /* Info.plist */,
 			);
@@ -789,7 +788,6 @@
 				378DB3CD1FE86B0600EAED3E /* IconNotchy-60x60@2x.png in Resources */,
 				378DB30C1FE8695200EAED3E /* IconNoStrokeWhite-83.5x83.5@2x.png in Resources */,
 				378DB3321FE8695700EAED3E /* IconNoStrokeBlack-40x40@2x.png in Resources */,
-				3739C9CF1FB136CE00F461A8 /* Assets.xcassets in Resources */,
 				378DB2A51FE8694100EAED3E /* IconStrokeWhite-20x20@3x.png in Resources */,
 				378DB3B11FE8696D00EAED3E /* Icon6BlackBlack-40x40@1x.png in Resources */,
 				378DB3CA1FE86B0600EAED3E /* IconNotchy-60x60@1x.png in Resources */,
@@ -823,7 +821,6 @@
 				378DB38A1FE8696800EAED3E /* Icon6BlackWhite-20x20@3x.png in Resources */,
 				378DB3091FE8695200EAED3E /* IconNoStrokeWhite-20x20@3x.png in Resources */,
 				378DB2AF1FE8694100EAED3E /* IconStrokeWhite-76x76@1x.png in Resources */,
-				3731B21A1FBBD431003A8FD0 /* iPhoneXSpaceGray.png in Resources */,
 				378DB30F1FE8695200EAED3E /* IconNoStrokeWhite-40x40@3x.png in Resources */,
 				378DB38B1FE8696800EAED3E /* Icon6BlackWhite-29x29@1x.png in Resources */,
 				378DB3871FE8696800EAED3E /* Icon6BlackWhite-20x20@2x.png in Resources */,
@@ -877,6 +874,7 @@
 				378DB3461FE8695D00EAED3E /* Icon6SilverWhite-29x29@3x.png in Resources */,
 				378DB2B11FE8694100EAED3E /* IconStrokeWhite-40x40@1x.png in Resources */,
 				378DB32B1FE8695700EAED3E /* IconNoStrokeBlack-60x60@3x.png in Resources */,
+				37F178231FFEA40600C9B8A4 /* Assets.xcassets in Resources */,
 				378DB3CE1FE86B0600EAED3E /* IconNotchy-83.5x83.5@2x.png in Resources */,
 				378DB2B31FE8694100EAED3E /* IconStrokeWhite-60x60@1x.png in Resources */,
 				378DB34D1FE8695D00EAED3E /* Icon6SilverWhite-1024x1024.png in Resources */,
