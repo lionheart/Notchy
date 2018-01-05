@@ -49,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37116F4920002BB600F5EA56 /* Info with Icons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info with Icons.plist"; sourceTree = "<group>"; };
 		37119B1D1FBA771300322F63 /* PlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainButton.swift; sourceTree = "<group>"; };
 		37119B1F1FBA791200322F63 /* ShortPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainButton.swift; sourceTree = "<group>"; };
 		37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainAlternateButton.swift; sourceTree = "<group>"; };
@@ -345,6 +346,7 @@
 				373FA0771FBE67D600C29902 /* ClearBackground.png */,
 				373FA0791FBE7AB500C29902 /* iPhoneXSpaceGray2.png */,
 				3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */,
+				37116F4920002BB600F5EA56 /* Info with Icons.plist */,
 				3739C9D31FB136CE00F461A8 /* Info.plist */,
 			);
 			path = Notchy;
@@ -840,7 +842,7 @@
 				INFOPLIST_FILE = Notchy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.NotchyLovesAppReview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -860,7 +862,7 @@
 				INFOPLIST_FILE = Notchy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.NotchyLovesAppReview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
