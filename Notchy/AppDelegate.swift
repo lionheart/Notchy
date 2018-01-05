@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _window.makeKeyAndVisible()
         window = _window
         
+        Defaults[.hideCustomIcons] = true
         DispatchQueue.global(qos: .default).async {
             let url = URL(string: "https://lionheartsw.com/")!
             var request = URLRequest(url: url)
