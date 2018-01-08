@@ -6,7 +6,7 @@ username "dan@dlo.me" # your Apple ID user
 # skip_screenshots true
 force true
 # skip_metadata true
-submit_for_review true
+submit_for_review false
 project_file = "Notchy.xcodeproj"
 
 app_review_information(
