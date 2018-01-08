@@ -1,6 +1,6 @@
 # vim: set ft=ruby:
 
-app_identifier "com.lionheartsw.Notchy" # The bundle identifier of your app
+app_identifier ENV["BUNDLE_IDENTIFIER"]
 apple_id "dan@lionheartsw.com" # Your Apple email address
 team_id "63553QQ62F" # Developer Portal Team ID
 

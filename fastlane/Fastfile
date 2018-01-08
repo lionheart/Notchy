@@ -6,8 +6,7 @@ default_platform :ios
 
 xcode_select "/Applications/Xcode.app"
 project_file = "Notchy.xcodeproj"
-
-app_identifier = "com.lionheartsw.Notchy"
+app_identifier = ENV["BUNDLE_IDENTIFIER"]
 
 platform :ios do
   lane :generate_license_json do
