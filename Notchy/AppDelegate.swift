@@ -47,23 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _window.makeKeyAndVisible()
         window = _window
         
-        Defaults[.hideCustomIcons] = true
-        DispatchQueue.global(qos: .default).async {
-            let url = URL(string: "https://lionheartsw.com/")!
-            var request = URLRequest(url: url)
-            request.addValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/604.4.7 (KHTML, like Gecko) Version/11.0.2 Safari/604.4.7", forHTTPHeaderField: "User-Agent")
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-                guard let data = data,
-                    let string = String(data: data, encoding: .utf8) else {
-                        return
-                }
-                
-                // disable icons
-                Defaults[.hideCustomIcons] = string.contains("a83988d6fef8f04b473888f440022f01")
-            })
-            task.resume()
-        }
-
+        Defaults[.hideCustomIcons] = false
         return true
     }
 

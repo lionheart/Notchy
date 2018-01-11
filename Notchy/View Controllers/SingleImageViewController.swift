@@ -296,7 +296,7 @@ final class SingleImageViewController: UIViewController {
 
             addPhoneButton.isSelected = !addPhoneButton.isSelected
 
-            maskedImage = originalImage.maskv2(watermark: removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
+            maskedImage = originalImage.maskv2(watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
             imageView.image = maskedImage
 
             if addPhoneButton.isSelected {
