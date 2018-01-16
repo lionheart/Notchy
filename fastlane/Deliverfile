@@ -3,10 +3,10 @@
 app_identifier ENV["BUNDLE_IDENTIFIER"]
 username "dan@dlo.me" # your Apple ID user
 
-# skip_screenshots true
 force true
-# skip_metadata true
-submit_for_review false
+skip_screenshots true
+skip_metadata true
+submit_for_review ENV['SUBMIT_FOR_REVIEW']
 project_file = "Notchy.xcodeproj"
 
 app_review_information(
@@ -14,7 +14,5 @@ app_review_information(
   last_name: "Loewenherz",
   phone_number: "786-201-1161",
   email_address: "dan@lionheartsw.com",
-  demo_user: "",
-  demo_password: ""
 )
 
