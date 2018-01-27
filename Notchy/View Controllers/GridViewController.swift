@@ -95,10 +95,10 @@ final class GridViewController: UICollectionViewController {
         resetCachedAssets()
         PHPhotoLibrary.shared().register(self)
 
-        if !Defaults[.hideCustomIcons] {
+        #if SHOW_ALTERNATE_ICONS_IN_IAP
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Icons"), style: .plain, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(_:)))
             navigationItem.rightBarButtonItem?.tintColor = .black
-        }
+        #endif
 
         guard let collectionView = collectionView else {
             return

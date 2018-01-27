@@ -16,7 +16,7 @@ import SwiftyUserDefaults
 extension UserDefaults {
     static var purchased: Bool {
         #if DEBUG
-            return false
+            return true
         #else
             return Defaults[.purchased]
         #endif
@@ -46,8 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _window.rootViewController = NotchyNavigationController(rootViewController: controller)
         _window.makeKeyAndVisible()
         window = _window
-        
-        Defaults[.hideCustomIcons] = false
         return true
     }
 

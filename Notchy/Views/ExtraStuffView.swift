@@ -108,7 +108,7 @@ final class ExtraStuffView: UIView {
         let item1 = ExtraStuffItemView(info: .addPhone)
         let item2 = ExtraStuffItemView(info: .removeWatermark)
         let item3 = ExtraStuffItemView(info: .icons)
-        item3.isHidden = Defaults[.hideCustomIcons]
+        item3.isHidden = true
 
         let optionsStackView = UIStackView(arrangedSubviews: [item1, item2, item3])
         optionsStackView.translatesAutoresizingMaskIntoConstraints = false
