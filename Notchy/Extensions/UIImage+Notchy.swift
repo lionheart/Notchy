@@ -27,7 +27,7 @@ let background = UIImage(named: "ClearBackground")!
 let ciImageMaskBackground = CIImage(image: background)!
 let notchMask = UIImage(named: "NotchMask")!
 let frameImage = UIImage(named: "iPhone X")!
-let watermarkImage = UIImage(named: "WatermarkStickerOverlay")!
+let watermarkImage = UIImage(named: "WatermarkStickerOverlay2")!
 let ciImageMask = CIImage(image: notchMask)!
 
 let maskFilterParameters: [String: Any] = [
