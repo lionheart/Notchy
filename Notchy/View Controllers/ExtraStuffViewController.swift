@@ -10,6 +10,7 @@ import UIKit
 import SuperLayout
 import StoreKit
 import SwiftyUserDefaults
+import Presentr
 
 final class ExtraStuffViewController: UIViewController {
     var product: SKProduct?
@@ -117,6 +118,7 @@ extension ExtraStuffViewController: SKPaymentTransactionObserver {
     }
 }
 
+// MARK: - ExtraStuffViewDelegate
 extension ExtraStuffViewController: ExtraStuffViewDelegate {
     func thanksButtonDidTouchUpInside(_ sender: Any) {
         dismiss(animated: true)
@@ -133,5 +135,22 @@ extension ExtraStuffViewController: ExtraStuffViewDelegate {
 
     func restoreButtonDidTouchUpInside(_ sender: Any) {
         SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+}
+
+// MARK: - Presentable
+extension ExtraStuffViewController: Presentable {
+    static func presenter(view: UIView) -> Presentr {
+        let width = ModalSize.custom(size: Float(view.frame.width * 0.7))
+        let height = ModalSize.custom(size: 350)
+        let center = ModalCenterPosition.custom(centerPoint: view.center)
+
+        let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
+
+        presenter.backgroundOpacity = 0.5
+        presenter.transitionType = TransitionType.crossDissolve
+        presenter.dismissTransitionType = TransitionType.crossDissolve
+        
+        return presenter
     }
 }

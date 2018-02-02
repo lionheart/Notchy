@@ -97,6 +97,16 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return newImage
     }
+    
+    var XSizeImage: UIImage? {
+        let hasAlpha = true
+        let size = CGSize(width: 375, height: 812)
+        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, 0)
+        draw(in: CGRect(origin: .zero, size: size))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return scaledImage
+    }
 
     func maskv1(watermark: Bool) -> UIImage? {
         guard let cgImage = cgImage,
@@ -109,7 +119,11 @@ extension UIImage {
     }
 
     func maskv2(watermark: Bool, frame: Bool) -> UIImage? {
-        let original = CIImage(image: self)!
+        guard let resizedToX = XSizeImage else {
+            return nil
+        }
+
+        let original = CIImage(image: resizedToX)!
 
         guard let watermarkCIImage = CIImage(image: watermarkImage),
             let frameImage = CIImage(image: frameImage) else {

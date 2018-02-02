@@ -30,6 +30,11 @@
 		373FA0781FBE67D700C29902 /* ClearBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 373FA0771FBE67D600C29902 /* ClearBackground.png */; };
 		374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */; };
 		374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */; };
+		3751961B2024BC02007E7DA6 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3751961A2024BC02007E7DA6 /* PhotosUI.framework */; };
+		3751961D2024BC02007E7DA6 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3751961C2024BC02007E7DA6 /* Photos.framework */; };
+		375196202024BC02007E7DA6 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751961F2024BC02007E7DA6 /* PhotoEditingViewController.swift */; };
+		375196272024BC02007E7DA6 /* Photo Editor.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 375196192024BC02007E7DA6 /* Photo Editor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3751962D2024BD20007E7DA6 /* BaseImageEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */; };
 		378DB28C1FE85EC700EAED3E /* IconSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28B1FE85EC700EAED3E /* IconSelectorViewController.swift */; };
 		378DB28E1FE860E500EAED3E /* UICollectionView+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */; };
 		378DB2901FE861DC00EAED3E /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28F1FE861DC00EAED3E /* IconCollectionViewCell.swift */; };
@@ -41,13 +46,56 @@
 		37931AD21FB7AC9E00C03BB0 /* NotchyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */; };
 		37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37931AD51FB8A8B300C03BB0 /* BlackBackground.png */; };
 		37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
+		37A497892024EC6F0039694C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
+		37A4978A2024EC8A0039694C /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA0691FBD05FC00C29902 /* Montserrat-Regular.otf */; };
+		37A4978B2024EC8C0039694C /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */; };
 		37AA9EE71FC263C200B20697 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
 		37AA9EE91FC2757200B20697 /* ClearMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37AA9EE81FC2757100B20697 /* ClearMask.png */; };
+		37CC0E152024C072003DD50C /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E142024C072003DD50C /* Presentable.swift */; };
+		37CC0E162024C072003DD50C /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E142024C072003DD50C /* Presentable.swift */; };
+		37CC0E172024E361003DD50C /* BaseImageEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */; };
+		37CC0E182024E3BC003DD50C /* ShortPlainAlternateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */; };
+		37CC0E192024E3C3003DD50C /* NotchyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */; };
+		37CC0E1A2024E3C6003DD50C /* ExtraStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0711FBD118400C29902 /* ExtraStuffView.swift */; };
+		37CC0E1B2024E3CE003DD50C /* PlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1D1FBA771300322F63 /* PlainButton.swift */; };
+		37CC0E1C2024E3D7003DD50C /* UIFont+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */; };
+		37CC0E1D2024E3E7003DD50C /* ExtraStuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */; };
+		37CC0E1E2024E3F3003DD50C /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
+		37CC0E202024E3FD003DD50C /* NotchyAlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */; };
+		37CC0E222024E409003DD50C /* UIImage+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */; };
+		37CC0E242024E427003DD50C /* UserDefaults+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */; };
+		37CC0E252024E427003DD50C /* UserDefaults+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */; };
 		37F178231FFEA40600C9B8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
+		8D3553FAE6028E4648A24054 /* Pods_Photo_Editor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCF1D942C0903B1CA8BCDB0 /* Pods_Photo_Editor.framework */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		375196252024BC02007E7DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3739C9BC1FB136CE00F461A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 375196182024BC02007E7DA6;
+			remoteInfo = photoeditor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3751962B2024BC02007E7DA6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				375196272024BC02007E7DA6 /* Photo Editor.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1CCF1D942C0903B1CA8BCDB0 /* Pods_Photo_Editor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Photo_Editor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37116F4920002BB600F5EA56 /* Info with Icons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info with Icons.plist"; sourceTree = "<group>"; };
 		37119B1D1FBA771300322F63 /* PlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainButton.swift; sourceTree = "<group>"; };
 		37119B1F1FBA791200322F63 /* ShortPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainButton.swift; sourceTree = "<group>"; };
@@ -76,6 +124,12 @@
 		373FA0791FBE7AB500C29902 /* iPhoneXSpaceGray2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneXSpaceGray2.png; sourceTree = "<group>"; };
 		374BC9911FB68C7F00FB7AA2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		374BC9931FB68FB800FB7AA2 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		375196192024BC02007E7DA6 /* Photo Editor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Photo Editor.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3751961A2024BC02007E7DA6 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		3751961C2024BC02007E7DA6 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		3751961F2024BC02007E7DA6 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		375196242024BC02007E7DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseImageEditingViewController.swift; sourceTree = "<group>"; };
 		378DB28B1FE85EC700EAED3E /* IconSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorViewController.swift; sourceTree = "<group>"; };
 		378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Notchy.swift"; sourceTree = "<group>"; };
 		378DB28F1FE861DC00EAED3E /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -232,12 +286,18 @@
 		37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyGradientView.swift; sourceTree = "<group>"; };
 		37931AD51FB8A8B300C03BB0 /* BlackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackBackground.png; sourceTree = "<group>"; };
 		37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Notchy.swift"; sourceTree = "<group>"; };
+		37A4978D202519980039694C /* Photo Editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Photo Editor.entitlements"; sourceTree = "<group>"; };
+		37A4978E20251A540039694C /* Notchy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notchy.entitlements; sourceTree = "<group>"; };
 		37AA9EE61FC263C200B20697 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		37AA9EE81FC2757100B20697 /* ClearMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearMask.png; sourceTree = "<group>"; };
+		37CC0E142024C072003DD50C /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
+		37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Notchy.swift"; sourceTree = "<group>"; };
 		37F178241FFEA42900C9B8A4 /* App Review Blacklist.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "App Review Blacklist.xcassets"; sourceTree = "<group>"; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
+		913F506B7F411C042D48B890 /* Pods-Photo Editor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photo Editor.release.xcconfig"; path = "Pods/Target Support Files/Pods-Photo Editor/Pods-Photo Editor.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
+		C004335A05E139AF35760A82 /* Pods-Photo Editor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photo Editor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Photo Editor/Pods-Photo Editor.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +307,16 @@
 			files = (
 				C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */,
 				378EF10A1FEB18C200EA4288 /* StoreKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		375196162024BC02007E7DA6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3751961B2024BC02007E7DA6 /* PhotosUI.framework in Frameworks */,
+				3751961D2024BC02007E7DA6 /* Photos.framework in Frameworks */,
+				8D3553FAE6028E4648A24054 /* Pods_Photo_Editor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +375,7 @@
 				37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */,
 				37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */,
 				378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */,
+				37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -314,7 +385,9 @@
 			children = (
 				3739C9CE1FB136CE00F461A8 /* Assets.xcassets */,
 				37F178241FFEA42900C9B8A4 /* App Review Blacklist.xcassets */,
+				3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */,
 				3739C9C61FB136CE00F461A8 /* Notchy */,
+				3751961E2024BC02007E7DA6 /* Photo Editor */,
 				3739C9C51FB136CE00F461A8 /* Products */,
 				C4D562C171D92AAB13FC5EAE /* Pods */,
 				D50BA6DF290288D179ECF420 /* Frameworks */,
@@ -325,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				3739C9C41FB136CE00F461A8 /* Notchy.app */,
+				375196192024BC02007E7DA6 /* Photo Editor.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,6 +406,7 @@
 		3739C9C61FB136CE00F461A8 /* Notchy */ = {
 			isa = PBXGroup;
 			children = (
+				37A4978E20251A540039694C /* Notchy.entitlements */,
 				378DB2911FE8693800EAED3E /* Icons */,
 				3731B2141FBB913B003A8FD0 /* Font */,
 				3731B2171FBBA104003A8FD0 /* View Controllers */,
@@ -340,6 +415,7 @@
 				373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */,
 				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
 				37AA9EE61FC263C200B20697 /* Defaults.swift */,
+				37CC0E132024C05F003DD50C /* Protocols */,
 				37AA9EE81FC2757100B20697 /* ClearMask.png */,
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
 				373FA0771FBE67D600C29902 /* ClearBackground.png */,
@@ -349,6 +425,16 @@
 				3739C9D31FB136CE00F461A8 /* Info.plist */,
 			);
 			path = Notchy;
+			sourceTree = "<group>";
+		};
+		3751961E2024BC02007E7DA6 /* Photo Editor */ = {
+			isa = PBXGroup;
+			children = (
+				37A4978D202519980039694C /* Photo Editor.entitlements */,
+				3751961F2024BC02007E7DA6 /* PhotoEditingViewController.swift */,
+				375196242024BC02007E7DA6 /* Info.plist */,
+			);
+			path = "Photo Editor";
 			sourceTree = "<group>";
 		};
 		378DB2911FE8693800EAED3E /* Icons */ = {
@@ -503,11 +589,21 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		37CC0E132024C05F003DD50C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				37CC0E142024C072003DD50C /* Presentable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		C4D562C171D92AAB13FC5EAE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */,
 				7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */,
+				C004335A05E139AF35760A82 /* Pods-Photo Editor.debug.xcconfig */,
+				913F506B7F411C042D48B890 /* Pods-Photo Editor.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -517,6 +613,9 @@
 			children = (
 				378EF1091FEB18C200EA4288 /* StoreKit.framework */,
 				9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */,
+				3751961A2024BC02007E7DA6 /* PhotosUI.framework */,
+				3751961C2024BC02007E7DA6 /* Photos.framework */,
+				1CCF1D942C0903B1CA8BCDB0 /* Pods_Photo_Editor.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -534,15 +633,36 @@
 				3739C9C21FB136CE00F461A8 /* Resources */,
 				0E7772E4995A64B131127EB5 /* [CP] Embed Pods Frameworks */,
 				64A6107CED8C131BA353706A /* [CP] Copy Pods Resources */,
+				3751962B2024BC02007E7DA6 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				375196262024BC02007E7DA6 /* PBXTargetDependency */,
 			);
 			name = Notchy;
 			productName = Notchy;
 			productReference = 3739C9C41FB136CE00F461A8 /* Notchy.app */;
 			productType = "com.apple.product-type.application";
+		};
+		375196182024BC02007E7DA6 /* Photo Editor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3751962A2024BC02007E7DA6 /* Build configuration list for PBXNativeTarget "Photo Editor" */;
+			buildPhases = (
+				6340F762BF5BB28F566FA021 /* [CP] Check Pods Manifest.lock */,
+				375196152024BC02007E7DA6 /* Sources */,
+				375196162024BC02007E7DA6 /* Frameworks */,
+				375196172024BC02007E7DA6 /* Resources */,
+				2C79CD2B5B641AF1676642EE /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Photo Editor";
+			productName = photoeditor;
+			productReference = 375196192024BC02007E7DA6 /* Photo Editor.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -550,7 +670,7 @@
 		3739C9BC1FB136CE00F461A8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Lionheart Software LLC";
 				TargetAttributes = {
@@ -558,7 +678,19 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
+					};
+					375196182024BC02007E7DA6 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
 						};
@@ -579,6 +711,7 @@
 			projectRoot = "";
 			targets = (
 				3739C9C31FB136CE00F461A8 /* Notchy */,
+				375196182024BC02007E7DA6 /* Photo Editor */,
 			);
 		};
 /* End PBXProject section */
@@ -595,6 +728,16 @@
 				373FA06E1FBD077F00C29902 /* Montserrat-Medium.otf in Resources */,
 				373FA06A1FBD05FC00C29902 /* Montserrat-Regular.otf in Resources */,
 				37F178231FFEA40600C9B8A4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		375196172024BC02007E7DA6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37A497892024EC6F0039694C /* Assets.xcassets in Resources */,
+				37A4978B2024EC8C0039694C /* Montserrat-Medium.otf in Resources */,
+				37A4978A2024EC8A0039694C /* Montserrat-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +772,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2C79CD2B5B641AF1676642EE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Photo Editor/Pods-Photo Editor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6340F762BF5BB28F566FA021 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Photo Editor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		64810315890C0C0E0F0F7A44 /* [CP] Check Pods Manifest.lock */ = {
@@ -682,6 +858,7 @@
 				373FA0681FBD018100C29902 /* NotchyAlertViewController.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
 				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
+				37CC0E242024E427003DD50C /* UserDefaults+Notchy.swift in Sources */,
 				378DB28C1FE85EC700EAED3E /* IconSelectorViewController.swift in Sources */,
 				37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */,
 				3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */,
@@ -690,7 +867,9 @@
 				3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */,
 				378DB2901FE861DC00EAED3E /* IconCollectionViewCell.swift in Sources */,
 				3739C9E21FB13C4D00F461A8 /* AnimatedImage.swift in Sources */,
+				37CC0E152024C072003DD50C /* Presentable.swift in Sources */,
 				3739C9DC1FB13BF700F461A8 /* AssetViewController.swift in Sources */,
+				3751962D2024BD20007E7DA6 /* BaseImageEditingViewController.swift in Sources */,
 				37119B1E1FBA771300322F63 /* PlainButton.swift in Sources */,
 				3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */,
 				37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */,
@@ -703,7 +882,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		375196152024BC02007E7DA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				375196202024BC02007E7DA6 /* PhotoEditingViewController.swift in Sources */,
+				37CC0E202024E3FD003DD50C /* NotchyAlertAnimation.swift in Sources */,
+				37CC0E1D2024E3E7003DD50C /* ExtraStuffViewController.swift in Sources */,
+				37CC0E162024C072003DD50C /* Presentable.swift in Sources */,
+				37CC0E1B2024E3CE003DD50C /* PlainButton.swift in Sources */,
+				37CC0E252024E427003DD50C /* UserDefaults+Notchy.swift in Sources */,
+				37CC0E1C2024E3D7003DD50C /* UIFont+Notchy.swift in Sources */,
+				37CC0E192024E3C3003DD50C /* NotchyGradientView.swift in Sources */,
+				37CC0E222024E409003DD50C /* UIImage+Notchy.swift in Sources */,
+				37CC0E182024E3BC003DD50C /* ShortPlainAlternateButton.swift in Sources */,
+				37CC0E1E2024E3F3003DD50C /* Defaults.swift in Sources */,
+				37CC0E1A2024E3C6003DD50C /* ExtraStuffView.swift in Sources */,
+				37CC0E172024E361003DD50C /* BaseImageEditingViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		375196262024BC02007E7DA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 375196182024BC02007E7DA6 /* Photo Editor */;
+			targetProxy = 375196252024BC02007E7DA6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3739C9D01FB136CE00F461A8 /* LaunchScreen.storyboard */ = {
@@ -832,8 +1039,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconPlain;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CODE_SIGN_ENTITLEMENTS = Notchy/Notchy.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
@@ -851,8 +1060,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconPlain;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CODE_SIGN_ENTITLEMENTS = Notchy/Notchy.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63553QQ62F;
@@ -863,6 +1074,40 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		375196282024BC02007E7DA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C004335A05E139AF35760A82 /* Pods-Photo Editor.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Photo Editor/Photo Editor.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = "Photo Editor/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy.photoeditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		375196292024BC02007E7DA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 913F506B7F411C042D48B890 /* Pods-Photo Editor.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Photo Editor/Photo Editor.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = "Photo Editor/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lionheartsw.Notchy.photoeditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -883,6 +1128,15 @@
 			buildConfigurations = (
 				3739C9D71FB136CE00F461A8 /* Debug */,
 				3739C9D81FB136CE00F461A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3751962A2024BC02007E7DA6 /* Build configuration list for PBXNativeTarget "Photo Editor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				375196282024BC02007E7DA6 /* Debug */,
+				375196292024BC02007E7DA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

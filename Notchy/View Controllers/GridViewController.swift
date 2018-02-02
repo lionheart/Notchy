@@ -45,20 +45,8 @@ final class GridViewController: UICollectionViewController {
     fileprivate var thumbnailSize: CGSize!
     fileprivate var previousPreheatRect = CGRect.zero
 
-    lazy var extraStuffPresenter: Presentr = {
-        return ExtraStuffPresenter(view: view)
-    }()
-
-    lazy var iconSelectorPresenter: Presentr = {
-        let width = ModalSize.fluid(percentage: 0.68)
-        let height = ModalSize.custom(size: 165 * Float(UIScreen.main.scale))
-        let center = ModalCenterPosition.center
-        let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
-        presenter.backgroundOpacity = 0.5
-        presenter.transitionType = TransitionType.crossDissolve
-        presenter.dismissTransitionType = TransitionType.crossDissolve
-        return presenter
-    }()
+    lazy var extraStuffPresenter = ExtraStuffViewController.presenter(view: view)
+    lazy var iconSelectorPresenter = IconSelectorViewController.presenter(view: view)
 
     // MARK: - Initializers
 
@@ -345,6 +333,7 @@ extension GridViewController: PHPhotoLibraryChangeObserver {
     }
 }
 
+// MARK: - IconSelectorViewControllerDelegate
 extension GridViewController: IconSelectorViewControllerDelegate {
     func showIAPModal() {
         let controller = ExtraStuffViewController()

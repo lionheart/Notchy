@@ -10,11 +10,13 @@ import UIKit
 import SuperLayout
 import StoreKit
 import SwiftyUserDefaults
+import Presentr
 
 protocol IconSelectorViewControllerDelegate: class {
     func showIAPModal()
 }
 
+// MARK: - ExpressibleByStringLiteral
 struct Icon: ExpressibleByStringLiteral {
     var name: String
     var imageName: String {
@@ -195,6 +197,7 @@ final class IconSelectorViewController: UICollectionViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension IconSelectorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 40)
@@ -246,5 +249,19 @@ extension IconSelectorViewController {
         let icon = section.icons[indexPath.row]
         cell.imageView.image = icon.precutImage
         return cell
+    }
+}
+
+// MARK: - Presentable
+extension IconSelectorViewController: Presentable {
+    static func presenter(view: UIView) -> Presentr {
+        let width = ModalSize.fluid(percentage: 0.68)
+        let height = ModalSize.custom(size: 165 * Float(UIScreen.main.scale))
+        let center = ModalCenterPosition.center
+        let presenter = Presentr(presentationType: .custom(width: width, height: height, center: center))
+        presenter.backgroundOpacity = 0.5
+        presenter.transitionType = TransitionType.crossDissolve
+        presenter.dismissTransitionType = TransitionType.crossDissolve
+        return presenter
     }
 }

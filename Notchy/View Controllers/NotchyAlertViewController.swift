@@ -8,6 +8,7 @@
 
 import UIKit
 import SuperLayout
+import Presentr
 
 final class NotchyAlertViewController: UIViewController {
     var alertType: NotchyAlertViewType = .loading("Notching…")
@@ -33,5 +34,19 @@ final class NotchyAlertViewController: UIViewController {
         alertView.trailingAnchor ~~ view.trailingAnchor
         alertView.topAnchor ~~ view.topAnchor
         alertView.bottomAnchor ~~ view.bottomAnchor
+    }
+}
+
+// MARK: - Presentable
+extension NotchyAlertViewController: Presentable {
+    static func presenter(view: UIView) -> Presentr {
+        let size = ModalSize.custom(size: 120)
+        let center = ModalCenterPosition.center
+        let presenter = Presentr(presentationType: .custom(width: size, height: size, center: center))
+        let animation = NotchyAlertAnimation(duration: 0.5)
+        presenter.backgroundOpacity = 0
+        presenter.transitionType = .custom(animation)
+        presenter.dismissTransitionType = .custom(animation)
+        return presenter
     }
 }
