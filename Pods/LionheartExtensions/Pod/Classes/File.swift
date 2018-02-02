@@ -16,15 +16,15 @@
 
 import Foundation
 
-public final class File {
+final class File {
     var filename: String?
 
-    public init(_ filename: String) {
+    init(_ filename: String) {
         self.filename = filename
     }
 
     /// The file's full path contained with the documents directory, or `nil` if it does not exist.
-    lazy public var documentsPath: String? = {
+    lazy var documentsPath: String? = {
         let paths: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [NSString]
         guard let path = paths.first,
             let filename = self.filename else {
@@ -35,7 +35,7 @@ public final class File {
     }()
 
     /// The file's full path contained within the bundle, or `nil` if `filename` is `nil`.
-    public var bundlePath: String? {
+    var bundlePath: String? {
         let bundle = Bundle.main
         guard let filename = filename else {
             return nil
@@ -46,7 +46,7 @@ public final class File {
     }
 
     /// Returns the file's contents as a `String`.
-    public func read() -> String? {
+    func read() -> String? {
         guard let path = documentsPath ?? bundlePath else {
             return nil
         }
@@ -55,7 +55,7 @@ public final class File {
     }
 
     /// A boolean that indicates whether `self` is contained within the app bundle.
-    public var existsInBundle: Bool {
+    var existsInBundle: Bool {
         guard let path = bundlePath else {
             return false
         }
@@ -64,7 +64,7 @@ public final class File {
     }
 
     /// A boolean that indicates whether `self` is contained within the documents directory.
-    public var existsInDocuments: Bool {
+    var existsInDocuments: Bool {
         guard let path = documentsPath else {
             return false
         }
