@@ -27,7 +27,7 @@ let background = UIImage(named: "ClearBackground")!
 let ciImageMaskBackground = CIImage(image: background)!
 let notchMask = UIImage(named: "NotchMask")!
 let frameImage = UIImage(named: "iPhone X")!
-let watermarkImage = UIImage(named: "WatermarkStickerOverlay2")!
+let watermarkImage = UIImage(named: "WatermarkStickerOverlayTopURL")!
 let ciImageMask = CIImage(image: notchMask)!
 
 let maskFilterParameters: [String: Any] = [
@@ -45,18 +45,20 @@ let maskFilter: CIFilter = {
 
 func maskedImage(image: UIImage) -> CIImage {
     // Memory leak?!
-    let inputImage = CIImage(image: image)!
-
-    // Memory leak?!
-    #if false
-        return inputImage.applyingFilter("CIBlendWithMask", parameters: maskFilterParameters)
-    #else
-        maskFilter.setValue(inputImage, forKey: kCIInputImageKey)
-        return maskFilter.outputImage!
-    #endif
+    return CIImage(image: image)!.masked
 }
 
 extension CIImage {
+    var masked: CIImage {
+        // Memory leak?!
+        #if false
+            return inputImage.applyingFilter("CIBlendWithMask", parameters: maskFilterParameters)
+        #else
+            maskFilter.setValue(self, forKey: kCIInputImageKey)
+            return maskFilter.outputImage!
+        #endif
+    }
+
     var forced: UIImage? {
         UIGraphicsBeginImageContextWithOptions(extent.size, false, 1)
         guard let cgContext = UIGraphicsGetCurrentContext() else {
@@ -107,18 +109,18 @@ extension UIImage {
     }
 
     func maskv2(watermark: Bool, frame: Bool) -> UIImage? {
-        let outputImage = maskedImage(image: self)
+        let original = CIImage(image: self)!
 
         guard let watermarkCIImage = CIImage(image: watermarkImage),
             let frameImage = CIImage(image: frameImage) else {
-                return UIImage(ciImage: outputImage)
+                return UIImage(ciImage: original.masked)
         }
 
         let watermarked: CIImage
         if watermark {
-            watermarked = watermarkCIImage.composited(over: outputImage)
+            watermarked = watermarkCIImage.composited(over: original).masked
         } else {
-            watermarked = outputImage
+            watermarked = original.masked
         }
 
         let new: CIImage
