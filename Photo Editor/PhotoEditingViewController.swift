@@ -47,7 +47,12 @@ extension PhotoEditingViewController: PHContentEditingController {
     func canHandle(_ adjustmentData: PHAdjustmentData) -> Bool {
         // Inspect the adjustmentData to determine whether your extension can work with past edits.
         // (Typically, you use its formatIdentifier and formatVersion properties to do this.)
-        return false
+        guard adjustmentData.formatIdentifier == "com.lionheartsw.notchy",
+            adjustmentData.formatVersion == "1" else {
+                return false
+        }
+
+        return true
     }
     
     func startContentEditing(with contentEditingInput: PHContentEditingInput, placeholderImage: UIImage) {
@@ -57,7 +62,14 @@ extension PhotoEditingViewController: PHContentEditingController {
         input = contentEditingInput
 
         self.originalImage = placeholderImage
-        self.maskedImage = placeholderImage.maskv2(watermark: true, frame: false)
+
+        let decoder = JSONDecoder()
+        if let adjustmentData = contentEditingInput.adjustmentData,
+            let adjustment = try? decoder.decode(NotchyImageAdjustmentData.self, from: adjustmentData.data) {
+            self.maskedImage = placeholderImage.maskv2(watermark: adjustment.showWatermark, frame: adjustment.showFrame)
+        } else {
+            self.maskedImage = placeholderImage.maskv2(watermark: true, frame: false)
+        }
     }
 
     func finishContentEditing(completionHandler: @escaping ((PHContentEditingOutput?) -> Void)) {
@@ -73,13 +85,20 @@ extension PhotoEditingViewController: PHContentEditingController {
             let encoder = JSONEncoder()
 
             guard let data = try? encoder.encode(adjustment),
-                let image = self.maskedImage.forced,
-//                let pngImageData = UIImagePNGRepresentation(image),
-                let imageData = UIImageJPEGRepresentation(image, 0.8) else {
+                let image = self.maskedImage.forced else {
                     completionHandler(output)
                     return
             }
             
+            let format = UIGraphicsImageRendererFormat()
+            let renderer = UIGraphicsImageRenderer(size: image.size, format: format)
+            let imageData = renderer.jpegData(withCompressionQuality: 0.8) { context in
+                UIColor.black.setFill()
+                let rect = CGRect(origin: .zero, size: image.size)
+                UIRectFill(rect)
+                image.draw(in: rect)
+            }
+
             output.adjustmentData = PHAdjustmentData(formatIdentifier: "com.lionheartsw.notchy", formatVersion: "1", data: data)
 
             do {
