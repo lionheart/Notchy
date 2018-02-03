@@ -14,6 +14,8 @@ import LionheartExtensions
 import SwiftyUserDefaults
 import MobileCoreServices
 
+let Defaults = UserDefaults(suiteName: "group.com.lionheartsw.notchy")!
+
 /// self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
 
 final class ActionViewController: BaseImageEditingViewController {

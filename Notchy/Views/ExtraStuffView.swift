@@ -80,6 +80,25 @@ final class ExtraStuffItemView: UIStackView {
 }
 
 final class ExtraStuffView: UIView {
+    enum TransactionStatus {
+        case success
+        case failure
+    }
+    
+    /// Setting this updates the title of the `getStuffButton` button
+    var productPrice: String? {
+        didSet {
+            let title: String
+            if let price = productPrice {
+                title = "Add Extra Stuff - \(price)"
+            } else {
+                title = "Add Extra Stuff"
+            }
+            
+            getStuffButton.setTitle(title, for: .normal, size: 14)
+        }
+    }
+
     weak var delegate: ExtraStuffViewDelegate!
 
     private var getStuffButton: PlainButton!
@@ -120,7 +139,7 @@ final class ExtraStuffView: UIView {
 
         getStuffButton = PlainButton()
         getStuffButton.addTarget(self, action: #selector(getStuffButtonDidTouchUpInside(_:)), for: .touchUpInside)
-        getStuffButton.setTitle("Add Extra Stuff - $1.99", for: .normal, size: 14)
+        getStuffButton.setTitle("Add Extra Stuff", for: .normal, size: 14)
         getStuffButton.setTitle(nil, for: .selected, size: 14)
 
         restorePurchasesButton = UIButton(type: .system)
@@ -155,15 +174,24 @@ final class ExtraStuffView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    enum TransactionStatus {
-        case success
-        case failure
-    }
+    
+    // MARK: -
 
     @objc func thanksButtonDidTouchUpInside(_ sender: Any) {
         delegate.thanksButtonDidTouchUpInside(sender)
     }
+    
+    @objc func getStuffButtonDidTouchUpInside(_ sender: Any) {
+        transactionStarted()
+        delegate.getStuffButtonDidTouchUpInside(sender)
+    }
+    
+    @objc func restoreButtonDidTouchUpInside(_ sender: Any) {
+        transactionStarted()
+        delegate.restoreButtonDidTouchUpInside(sender)
+    }
+    
+    // MARK: -
 
     func transactionCompleted(status: TransactionStatus) {
         switch status {
@@ -195,15 +223,5 @@ final class ExtraStuffView: UIView {
 
         activity.centerXAnchor ~~ getStuffButton.centerXAnchor
         activity.centerYAnchor ~~ getStuffButton.centerYAnchor
-    }
-
-    @objc func getStuffButtonDidTouchUpInside(_ sender: Any) {
-        transactionStarted()
-        delegate.getStuffButtonDidTouchUpInside(sender)
-    }
-
-    @objc func restoreButtonDidTouchUpInside(_ sender: Any) {
-        transactionStarted()
-        delegate.restoreButtonDidTouchUpInside(sender)
     }
 }

@@ -37,7 +37,9 @@ private extension UICollectionView {
     }
 }
 
-final class GridViewController: UICollectionViewController {
+final class GridViewController: UICollectionViewController, ExtraStuffPresentationDelegate {
+    let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+
     weak var gridViewControllerDelegate: GridViewControllerDelegate?
     var fetchResult: PHFetchResult<PHAsset>!
 

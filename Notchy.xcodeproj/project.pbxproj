@@ -42,6 +42,16 @@
 		379235F6202542FF003D5C77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
 		379235F720254321003D5C77 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA0691FBD05FC00C29902 /* Montserrat-Regular.otf */; };
 		379235F820254321003D5C77 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */; };
+		379235FA20261427003D5C77 /* UIViewController+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379235F920261427003D5C77 /* UIViewController+Notchy.swift */; };
+		379235FB20261427003D5C77 /* UIViewController+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379235F920261427003D5C77 /* UIViewController+Notchy.swift */; };
+		379235FC20261427003D5C77 /* UIViewController+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379235F920261427003D5C77 /* UIViewController+Notchy.swift */; };
+		379235FE20261496003D5C77 /* ExtraStuffViewController+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379235FD20261496003D5C77 /* ExtraStuffViewController+Notchy.swift */; };
+		37923600202614A4003D5C77 /* ExtraStuffViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379235FF202614A4003D5C77 /* ExtraStuffViewController+Extension.swift */; };
+		37923601202614FA003D5C77 /* ExtraStuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */; };
+		3792360220261503003D5C77 /* ExtraStuffViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379235FF202614A4003D5C77 /* ExtraStuffViewController+Extension.swift */; };
+		3792360420261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3792360320261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift */; };
+		3792360520261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3792360320261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift */; };
+		3792360620261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3792360320261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift */; };
 		37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */; };
 		37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */; };
 		37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */; };
@@ -81,7 +91,6 @@
 		37CC0E1A2024E3C6003DD50C /* ExtraStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0711FBD118400C29902 /* ExtraStuffView.swift */; };
 		37CC0E1B2024E3CE003DD50C /* PlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1D1FBA771300322F63 /* PlainButton.swift */; };
 		37CC0E1C2024E3D7003DD50C /* UIFont+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */; };
-		37CC0E1D2024E3E7003DD50C /* ExtraStuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */; };
 		37CC0E1E2024E3F3003DD50C /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
 		37CC0E202024E3FD003DD50C /* NotchyAlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */; };
 		37CC0E222024E409003DD50C /* UIImage+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */; };
@@ -311,6 +320,10 @@
 		378DB3C21FE86B0500EAED3E /* IconNotchy-60x60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconNotchy-60x60@3x.png"; path = "Icons/NotchyIcon/IconNotchy-60x60@3x.png"; sourceTree = SOURCE_ROOT; };
 		378DB3C31FE86B0600EAED3E /* IconNotchy-1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconNotchy-1024x1024.png"; path = "Icons/NotchyIcon/IconNotchy-1024x1024.png"; sourceTree = SOURCE_ROOT; };
 		378EF1091FEB18C200EA4288 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		379235F920261427003D5C77 /* UIViewController+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Notchy.swift"; sourceTree = "<group>"; };
+		379235FD20261496003D5C77 /* ExtraStuffViewController+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtraStuffViewController+Notchy.swift"; sourceTree = "<group>"; };
+		379235FF202614A4003D5C77 /* ExtraStuffViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtraStuffViewController+Extension.swift"; sourceTree = "<group>"; };
+		3792360320261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraStuffPresentationDelegate.swift; sourceTree = "<group>"; };
 		37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessDeniedViewController.swift; sourceTree = "<group>"; };
 		37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Notchy.swift"; sourceTree = "<group>"; };
 		37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
@@ -404,6 +417,8 @@
 				378DB28B1FE85EC700EAED3E /* IconSelectorViewController.swift */,
 				373FA0671FBD018100C29902 /* NotchyAlertViewController.swift */,
 				373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */,
+				379235FD20261496003D5C77 /* ExtraStuffViewController+Notchy.swift */,
+				379235FF202614A4003D5C77 /* ExtraStuffViewController+Extension.swift */,
 				3739C9D91FB13B9800F461A8 /* GridViewController.swift */,
 				3739C9DB1FB13BF700F461A8 /* AssetViewController.swift */,
 				3739C9E31FB13FC800F461A8 /* RequestAccessViewController.swift */,
@@ -422,6 +437,7 @@
 				37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */,
 				378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */,
 				37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */,
+				379235F920261427003D5C77 /* UIViewController+Notchy.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -651,6 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				37CC0E142024C072003DD50C /* Presentable.swift */,
+				3792360320261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -985,6 +1002,7 @@
 				37AA9EE71FC263C200B20697 /* Defaults.swift in Sources */,
 				374BC9921FB68C7F00FB7AA2 /* WelcomeViewController.swift in Sources */,
 				37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */,
+				379235FA20261427003D5C77 /* UIViewController+Notchy.swift in Sources */,
 				373FA0721FBD118400C29902 /* ExtraStuffView.swift in Sources */,
 				378DB28E1FE860E500EAED3E /* UICollectionView+Notchy.swift in Sources */,
 				373FA0741FBE283000C29902 /* ExtraStuffViewController.swift in Sources */,
@@ -997,6 +1015,7 @@
 				378DB28C1FE85EC700EAED3E /* IconSelectorViewController.swift in Sources */,
 				3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */,
 				373FA0761FBE2BFD00C29902 /* NotchyAlertAnimation.swift in Sources */,
+				379235FE20261496003D5C77 /* ExtraStuffViewController+Notchy.swift in Sources */,
 				37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */,
 				3739C9DA1FB13B9800F461A8 /* GridViewController.swift in Sources */,
 				378DB2901FE861DC00EAED3E /* IconCollectionViewCell.swift in Sources */,
@@ -1012,6 +1031,7 @@
 				373FA05F1FBCD8F100C29902 /* NotchyAlertView.swift in Sources */,
 				37119B221FBA7B6300322F63 /* ShortPlainAlternateButton.swift in Sources */,
 				3731B2161FBBA101003A8FD0 /* NotchyNavigationController.swift in Sources */,
+				3792360420261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */,
 				37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1022,14 +1042,17 @@
 			files = (
 				375196202024BC02007E7DA6 /* PhotoEditingViewController.swift in Sources */,
 				37CC0E202024E3FD003DD50C /* NotchyAlertAnimation.swift in Sources */,
-				37CC0E1D2024E3E7003DD50C /* ExtraStuffViewController.swift in Sources */,
+				3792360520261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */,
 				37CC0E162024C072003DD50C /* Presentable.swift in Sources */,
+				3792360220261503003D5C77 /* ExtraStuffViewController+Extension.swift in Sources */,
 				37CC0E1B2024E3CE003DD50C /* PlainButton.swift in Sources */,
 				37CC0E252024E427003DD50C /* UserDefaults+Notchy.swift in Sources */,
 				37CC0E1C2024E3D7003DD50C /* UIFont+Notchy.swift in Sources */,
+				379235FB20261427003D5C77 /* UIViewController+Notchy.swift in Sources */,
 				37CC0E192024E3C3003DD50C /* NotchyGradientView.swift in Sources */,
 				37CC0E222024E409003DD50C /* UIImage+Notchy.swift in Sources */,
 				37CC0E182024E3BC003DD50C /* ShortPlainAlternateButton.swift in Sources */,
+				37923601202614FA003D5C77 /* ExtraStuffViewController.swift in Sources */,
 				37CC0E1E2024E3F3003DD50C /* Defaults.swift in Sources */,
 				37CC0E1A2024E3C6003DD50C /* ExtraStuffView.swift in Sources */,
 				37CC0E172024E361003DD50C /* BaseImageEditingViewController.swift in Sources */,
@@ -1048,9 +1071,11 @@
 				37A497A120253ECE0039694C /* BaseImageEditingViewController.swift in Sources */,
 				37A497AA20253FDC0039694C /* ExtraStuffViewController.swift in Sources */,
 				37A4979620253E7B0039694C /* ActionViewController.swift in Sources */,
+				37923600202614A4003D5C77 /* ExtraStuffViewController+Extension.swift in Sources */,
 				37A497AE20253FE50039694C /* UserDefaults+Notchy.swift in Sources */,
 				37A497B5202541820039694C /* PHAsset+Notchy.swift in Sources */,
 				37A497A620253FB90039694C /* ShortPlainAlternateButton.swift in Sources */,
+				3792360620261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */,
 				37A497A520253FB20039694C /* NotchyGradientView.swift in Sources */,
 				37A497A420253F810039694C /* NotchyAlertViewController.swift in Sources */,
 				37A497A920253FD40039694C /* UIFont+Notchy.swift in Sources */,
@@ -1058,6 +1083,7 @@
 				37A497A220253F5E0039694C /* NotchyToolbar.swift in Sources */,
 				37A497AB20253FE50039694C /* UIImage+Notchy.swift in Sources */,
 				37A497B0202540030039694C /* Presentable.swift in Sources */,
+				379235FC20261427003D5C77 /* UIViewController+Notchy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1092,6 +1118,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconPlain;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1119,7 +1146,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 66;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1151,6 +1178,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconPlain;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1178,7 +1206,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 65;
+				CURRENT_PROJECT_VERSION = 66;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

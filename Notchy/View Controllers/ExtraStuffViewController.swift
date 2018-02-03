@@ -61,6 +61,20 @@ extension ExtraStuffViewController: SKProductsRequestDelegate {
 
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         product = response.products.first
+        
+        guard let product = product else {
+            return
+        }
+
+        let currencyFormatter: NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.locale = product.priceLocale
+            formatter.maximumFractionDigits = 2
+            return formatter
+        }()
+        
+        extraStuffView.productPrice = currencyFormatter.string(from: product.price)
     }
 }
 
@@ -115,26 +129,6 @@ extension ExtraStuffViewController: SKPaymentTransactionObserver {
 
     func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
         return true
-    }
-}
-
-// MARK: - ExtraStuffViewDelegate
-extension ExtraStuffViewController: ExtraStuffViewDelegate {
-    func thanksButtonDidTouchUpInside(_ sender: Any) {
-        dismiss(animated: true)
-    }
-
-    func getStuffButtonDidTouchUpInside(_ sender: Any) {
-        guard let product = product else {
-            return
-        }
-
-        let payment = SKPayment(product: product)
-        SKPaymentQueue.default().add(payment)
-    }
-
-    func restoreButtonDidTouchUpInside(_ sender: Any) {
-        SKPaymentQueue.default().restoreCompletedTransactions()
     }
 }
 

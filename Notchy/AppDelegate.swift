@@ -9,7 +9,9 @@
 import UIKit
 import Photos
 import StoreKit
+import LionheartExtensions
 import SwiftyUserDefaults
+import Presentr
 
 //1342 × 2588 pixels
 //1125 × 2436 pixels
@@ -41,12 +43,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = _window
         return true
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let parent = UIViewController.topViewController as? ExtraStuffPresentationDelegate else {
+            return false
+        }
+        
+        parent.displayExtraStuffViewController()
+        return true
+    }
 
     func applicationWillTerminate(_ application: UIApplication) {
         SKPaymentQueue.default().remove(self)
     }
 }
 
+// MARK: - SKPaymentTransactionObserver
 extension AppDelegate: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {

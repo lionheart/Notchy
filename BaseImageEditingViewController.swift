@@ -27,8 +27,8 @@ enum PhoneDimension {
     }
 }
 
-class BaseImageEditingViewController: UIViewController {
-    let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDelegate {
+    var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
     
     var originalImage: UIImage!
@@ -225,9 +225,6 @@ class BaseImageEditingViewController: UIViewController {
     
     @objc func removeWatermarkButtonDidTouchDown(_ sender: Any) {
         selectionFeedbackGenerator.prepare()
-        
-        print(addPhoneButton.frame.width)
-        print(removeWatermarkButton.frame.width)
     }
     
     @objc func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
@@ -268,13 +265,5 @@ class BaseImageEditingViewController: UIViewController {
         } else {
             displayExtraStuffViewController()
         }
-    }
-    
-    func displayExtraStuffViewController() {
-        selectionFeedbackGenerator.selectionChanged()
-        let controller = ExtraStuffViewController()
-        controller.transitioningDelegate = extraStuffPresenter
-        controller.modalPresentationStyle = .custom
-        present(controller, animated: true, completion: nil)
     }
 }
