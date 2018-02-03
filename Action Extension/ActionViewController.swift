@@ -31,37 +31,45 @@ final class ActionViewController: BaseImageEditingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Get the item[s] we're handling from the extension context.
+        guard let inputItems = extensionContext?.inputItems as? [NSExtensionItem] else {
+            return
+        }
         
+        // From Apple sample code.
+        // Get the item[s] we're handling from the extension context.
         // For example, look for an image and place it into an image view.
         // Replace this with something appropriate for the type[s] your extension supports.
-        var imageFound = false
-        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
-            for provider in item.attachments! as! [NSItemProvider] {
-                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
-                    // This is an image. We'll load it, then place it in our image view.
-                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, error) in
-                        OperationQueue.main.addOperation {
-                            guard let imageURL = imageURL as? URL,
-                                let data = try? Data(contentsOf: imageURL),
-                                let image = UIImage(data: data),
-                                let maskedImage = image.maskv2(watermark: true, frame: false) else {
-                                    return
-                            }
+        main: for item in inputItems {
+            guard let attachments = item.attachments as? [NSItemProvider] else {
+                continue
+            }
 
+            for provider in attachments {
+                guard provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else {
+                    continue
+                }
+
+                // This is an image. We'll load it, then place it in our image view.
+                provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (item, error) in
+                    OperationQueue.main.addOperation {
+                        var image: UIImage?
+                        if let _image = item as? UIImage {
+                            image = _image
+                        } else if let imageURL = item as? URL,
+                            let data = try? Data(contentsOf: imageURL) {
+                            image = UIImage(data: data)
+                        }
+                        
+                        if let image = image,
+                            let maskedImage = image.maskv2(watermark: true, frame: false) {
                             self.originalImage = image
                             self.maskedImage = maskedImage
                         }
-                    })
-                    
-                    imageFound = true
-                    break
-                }
-            }
-            
-            if (imageFound) {
+                    }
+                })
+
                 // We only handle one image, so stop looking for more.
-                break
+                break main
             }
         }
         
@@ -100,7 +108,8 @@ final class ActionViewController: BaseImageEditingViewController {
     }
     
     @objc func backButtonDidTouchUpInside(_ sender: Any) {
-        self.extensionContext?.completeRequest(returningItems: extensionContext!.inputItems, completionHandler: nil)
+        let inputItems = extensionContext?.inputItems ?? []
+        extensionContext?.completeRequest(returningItems: inputItems)
     }
 }
 

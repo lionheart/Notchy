@@ -171,6 +171,7 @@
 		3751961F2024BC02007E7DA6 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 		375196242024BC02007E7DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseImageEditingViewController.swift; sourceTree = "<group>"; };
+		3768956E202665DA00D92790 /* NSExtensionContext+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSExtensionContext+Notchy.swift"; sourceTree = "<group>"; };
 		378DB28B1FE85EC700EAED3E /* IconSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorViewController.swift; sourceTree = "<group>"; };
 		378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Notchy.swift"; sourceTree = "<group>"; };
 		378DB28F1FE861DC00EAED3E /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -437,6 +438,7 @@
 				37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */,
 				378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */,
 				37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */,
+				3768956E202665DA00D92790 /* NSExtensionContext+Notchy.swift */,
 				379235F920261427003D5C77 /* UIViewController+Notchy.swift */,
 			);
 			path = Extensions;

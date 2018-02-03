@@ -45,6 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+//        print(url)
+//        if let data = Data(base64Encoded: url.lastPathComponent),
+//            let json = try? JSONSerialization.jsonObject(with: data, options: []) {
+//            print(json)
+//        }
         guard let parent = UIViewController.topViewController as? ExtraStuffPresentationDelegate else {
             return false
         }
