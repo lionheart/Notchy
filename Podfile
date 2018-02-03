@@ -16,3 +16,6 @@ end
 
 target 'Photo Editor' do
 end
+
+target 'Action Extension' do
+end
