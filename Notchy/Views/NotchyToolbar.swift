@@ -12,7 +12,6 @@ import LionheartExtensions
 
 @objc protocol NotchyToolbarDelegate {
     @objc func saveButtonDidTouchUpInside(_ sender: Any)
-    @objc func backButtonDidTouchUpInside(_ sender: Any)
     @objc func copyButtonDidTouchUpInside(_ sender: Any)
     @objc func shareButtonDidTouchUpInside(_ sender: Any)
 }

@@ -39,16 +39,38 @@
 		378DB28E1FE860E500EAED3E /* UICollectionView+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */; };
 		378DB2901FE861DC00EAED3E /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28F1FE861DC00EAED3E /* IconCollectionViewCell.swift */; };
 		378EF10A1FEB18C200EA4288 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378EF1091FEB18C200EA4288 /* StoreKit.framework */; };
+		379235F6202542FF003D5C77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
+		379235F720254321003D5C77 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA0691FBD05FC00C29902 /* Montserrat-Regular.otf */; };
+		379235F820254321003D5C77 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */; };
 		37931ACA1FB752C700C03BB0 /* AccessDeniedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AC91FB752C700C03BB0 /* AccessDeniedViewController.swift */; };
 		37931ACC1FB75B4A00C03BB0 /* UIImage+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */; };
 		37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACD1FB7974A00C03BB0 /* SingleImageViewController.swift */; };
 		37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */; };
 		37931AD21FB7AC9E00C03BB0 /* NotchyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */; };
 		37931AD61FB8A8B300C03BB0 /* BlackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37931AD51FB8A8B300C03BB0 /* BlackBackground.png */; };
-		37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
 		37A497892024EC6F0039694C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
 		37A4978A2024EC8A0039694C /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA0691FBD05FC00C29902 /* Montserrat-Regular.otf */; };
 		37A4978B2024EC8C0039694C /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 373FA06D1FBD077F00C29902 /* Montserrat-Medium.otf */; };
+		37A4979620253E7B0039694C /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A4979520253E7B0039694C /* ActionViewController.swift */; };
+		37A4979D20253E7B0039694C /* Action Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 37A4979320253E7B0039694C /* Action Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		37A497A120253ECE0039694C /* BaseImageEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */; };
+		37A497A220253F5E0039694C /* NotchyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */; };
+		37A497A420253F810039694C /* NotchyAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0671FBD018100C29902 /* NotchyAlertViewController.swift */; };
+		37A497A520253FB20039694C /* NotchyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */; };
+		37A497A620253FB90039694C /* ShortPlainAlternateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */; };
+		37A497A720253FBC0039694C /* ExtraStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0711FBD118400C29902 /* ExtraStuffView.swift */; };
+		37A497A820253FC50039694C /* NotchyAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA05E1FBCD8F100C29902 /* NotchyAlertView.swift */; };
+		37A497A920253FD40039694C /* UIFont+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */; };
+		37A497AA20253FDC0039694C /* ExtraStuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0731FBE283000C29902 /* ExtraStuffViewController.swift */; };
+		37A497AB20253FE50039694C /* UIImage+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */; };
+		37A497AE20253FE50039694C /* UserDefaults+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */; };
+		37A497AF20253FFE0039694C /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
+		37A497B0202540030039694C /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E142024C072003DD50C /* Presentable.swift */; };
+		37A497B12025400A0039694C /* PlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1D1FBA771300322F63 /* PlainButton.swift */; };
+		37A497B2202540140039694C /* ShortPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1F1FBA791200322F63 /* ShortPlainButton.swift */; };
+		37A497B3202541750039694C /* NotchyAlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */; };
+		37A497B4202541820039694C /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
+		37A497B5202541820039694C /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
 		37AA9EE71FC263C200B20697 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
 		37AA9EE91FC2757200B20697 /* ClearMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37AA9EE81FC2757100B20697 /* ClearMask.png */; };
 		37CC0E152024C072003DD50C /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E142024C072003DD50C /* Presentable.swift */; };
@@ -66,6 +88,7 @@
 		37CC0E242024E427003DD50C /* UserDefaults+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */; };
 		37CC0E252024E427003DD50C /* UserDefaults+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */; };
 		37F178231FFEA40600C9B8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3739C9CE1FB136CE00F461A8 /* Assets.xcassets */; };
+		62501B0A7970BBA3D058DFE0 /* Pods_Action_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67761E6F694393D61A20D2D5 /* Pods_Action_Extension.framework */; };
 		8D3553FAE6028E4648A24054 /* Pods_Photo_Editor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCF1D942C0903B1CA8BCDB0 /* Pods_Photo_Editor.framework */; };
 		C3DA5ABFE88745E627458977 /* Pods_Notchy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */; };
 /* End PBXBuildFile section */
@@ -78,6 +101,13 @@
 			remoteGlobalIDString = 375196182024BC02007E7DA6;
 			remoteInfo = photoeditor;
 		};
+		37A4979B20253E7B0039694C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3739C9BC1FB136CE00F461A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37A4979220253E7B0039694C;
+			remoteInfo = "Action Extension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,6 +118,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				375196272024BC02007E7DA6 /* Photo Editor.appex in Embed App Extensions */,
+				37A4979D20253E7B0039694C /* Action Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +127,7 @@
 
 /* Begin PBXFileReference section */
 		1CCF1D942C0903B1CA8BCDB0 /* Pods_Photo_Editor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Photo_Editor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3393D2148B089AC68DFFDE32 /* Pods-Action Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Action Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Action Extension/Pods-Action Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		37116F4920002BB600F5EA56 /* Info with Icons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info with Icons.plist"; sourceTree = "<group>"; };
 		37119B1D1FBA771300322F63 /* PlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainButton.swift; sourceTree = "<group>"; };
 		37119B1F1FBA791200322F63 /* ShortPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainButton.swift; sourceTree = "<group>"; };
@@ -288,14 +320,20 @@
 		37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Notchy.swift"; sourceTree = "<group>"; };
 		37A4978D202519980039694C /* Photo Editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Photo Editor.entitlements"; sourceTree = "<group>"; };
 		37A4978E20251A540039694C /* Notchy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notchy.entitlements; sourceTree = "<group>"; };
+		37A4979320253E7B0039694C /* Action Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Action Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37A4979520253E7B0039694C /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
+		37A4979A20253E7B0039694C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37A497B6202542500039694C /* Action Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Action Extension.entitlements"; sourceTree = "<group>"; };
 		37AA9EE61FC263C200B20697 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		37AA9EE81FC2757100B20697 /* ClearMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearMask.png; sourceTree = "<group>"; };
 		37CC0E142024C072003DD50C /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 		37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Notchy.swift"; sourceTree = "<group>"; };
 		37F178241FFEA42900C9B8A4 /* App Review Blacklist.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "App Review Blacklist.xcassets"; sourceTree = "<group>"; };
+		67761E6F694393D61A20D2D5 /* Pods_Action_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Action_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.release.xcconfig"; sourceTree = "<group>"; };
 		913F506B7F411C042D48B890 /* Pods-Photo Editor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photo Editor.release.xcconfig"; path = "Pods/Target Support Files/Pods-Photo Editor/Pods-Photo Editor.release.xcconfig"; sourceTree = "<group>"; };
 		9B5903BFF1D141CF6F0AA328 /* Pods_Notchy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notchy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7AB461578A4A0EE6ED62E56 /* Pods-Action Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Action Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Action Extension/Pods-Action Extension.release.xcconfig"; sourceTree = "<group>"; };
 		BA8CE7F71A3B050224084BEF /* Pods-Notchy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notchy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notchy/Pods-Notchy.debug.xcconfig"; sourceTree = "<group>"; };
 		C004335A05E139AF35760A82 /* Pods-Photo Editor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Photo Editor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Photo Editor/Pods-Photo Editor.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -317,6 +355,14 @@
 				3751961B2024BC02007E7DA6 /* PhotosUI.framework in Frameworks */,
 				3751961D2024BC02007E7DA6 /* Photos.framework in Frameworks */,
 				8D3553FAE6028E4648A24054 /* Pods_Photo_Editor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37A4979020253E7B0039694C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62501B0A7970BBA3D058DFE0 /* Pods_Action_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +434,7 @@
 				3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */,
 				3739C9C61FB136CE00F461A8 /* Notchy */,
 				3751961E2024BC02007E7DA6 /* Photo Editor */,
+				37A4979420253E7B0039694C /* Action Extension */,
 				3739C9C51FB136CE00F461A8 /* Products */,
 				C4D562C171D92AAB13FC5EAE /* Pods */,
 				D50BA6DF290288D179ECF420 /* Frameworks */,
@@ -399,6 +446,7 @@
 			children = (
 				3739C9C41FB136CE00F461A8 /* Notchy.app */,
 				375196192024BC02007E7DA6 /* Photo Editor.appex */,
+				37A4979320253E7B0039694C /* Action Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -412,10 +460,10 @@
 				3731B2171FBBA104003A8FD0 /* View Controllers */,
 				37119B1C1FBA770A00322F63 /* Views */,
 				3731B2181FBBA12C003A8FD0 /* Extensions */,
+				37CC0E132024C05F003DD50C /* Protocols */,
 				373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */,
 				3739C9C71FB136CE00F461A8 /* AppDelegate.swift */,
 				37AA9EE61FC263C200B20697 /* Defaults.swift */,
-				37CC0E132024C05F003DD50C /* Protocols */,
 				37AA9EE81FC2757100B20697 /* ClearMask.png */,
 				37931AD51FB8A8B300C03BB0 /* BlackBackground.png */,
 				373FA0771FBE67D600C29902 /* ClearBackground.png */,
@@ -589,6 +637,16 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		37A4979420253E7B0039694C /* Action Extension */ = {
+			isa = PBXGroup;
+			children = (
+				37A497B6202542500039694C /* Action Extension.entitlements */,
+				37A4979520253E7B0039694C /* ActionViewController.swift */,
+				37A4979A20253E7B0039694C /* Info.plist */,
+			);
+			path = "Action Extension";
+			sourceTree = "<group>";
+		};
 		37CC0E132024C05F003DD50C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +662,8 @@
 				7E91126A6235F663F8BF4023 /* Pods-Notchy.release.xcconfig */,
 				C004335A05E139AF35760A82 /* Pods-Photo Editor.debug.xcconfig */,
 				913F506B7F411C042D48B890 /* Pods-Photo Editor.release.xcconfig */,
+				3393D2148B089AC68DFFDE32 /* Pods-Action Extension.debug.xcconfig */,
+				B7AB461578A4A0EE6ED62E56 /* Pods-Action Extension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -616,6 +676,7 @@
 				3751961A2024BC02007E7DA6 /* PhotosUI.framework */,
 				3751961C2024BC02007E7DA6 /* Photos.framework */,
 				1CCF1D942C0903B1CA8BCDB0 /* Pods_Photo_Editor.framework */,
+				67761E6F694393D61A20D2D5 /* Pods_Action_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -639,6 +700,7 @@
 			);
 			dependencies = (
 				375196262024BC02007E7DA6 /* PBXTargetDependency */,
+				37A4979C20253E7B0039694C /* PBXTargetDependency */,
 			);
 			name = Notchy;
 			productName = Notchy;
@@ -662,6 +724,25 @@
 			name = "Photo Editor";
 			productName = photoeditor;
 			productReference = 375196192024BC02007E7DA6 /* Photo Editor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		37A4979220253E7B0039694C /* Action Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37A497A020253E7B0039694C /* Build configuration list for PBXNativeTarget "Action Extension" */;
+			buildPhases = (
+				F60D76E5ED3EBB3983690797 /* [CP] Check Pods Manifest.lock */,
+				37A4978F20253E7B0039694C /* Sources */,
+				37A4979020253E7B0039694C /* Frameworks */,
+				37A4979120253E7B0039694C /* Resources */,
+				497A3F96B419F53B7028E4DE /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Action Extension";
+			productName = "Action Extension";
+			productReference = 37A4979320253E7B0039694C /* Action Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -695,6 +776,15 @@
 							};
 						};
 					};
+					37A4979220253E7B0039694C = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 				};
 			};
 			buildConfigurationList = 3739C9BF1FB136CE00F461A8 /* Build configuration list for PBXProject "Notchy" */;
@@ -712,6 +802,7 @@
 			targets = (
 				3739C9C31FB136CE00F461A8 /* Notchy */,
 				375196182024BC02007E7DA6 /* Photo Editor */,
+				37A4979220253E7B0039694C /* Action Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -738,6 +829,16 @@
 				37A497892024EC6F0039694C /* Assets.xcassets in Resources */,
 				37A4978B2024EC8C0039694C /* Montserrat-Medium.otf in Resources */,
 				37A4978A2024EC8A0039694C /* Montserrat-Regular.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37A4979120253E7B0039694C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				379235F6202542FF003D5C77 /* Assets.xcassets in Resources */,
+				379235F820254321003D5C77 /* Montserrat-Medium.otf in Resources */,
+				379235F720254321003D5C77 /* Montserrat-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,6 +888,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Photo Editor/Pods-Photo Editor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		497A3F96B419F53B7028E4DE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Action Extension/Pods-Action Extension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6340F762BF5BB28F566FA021 /* [CP] Check Pods Manifest.lock */ = {
@@ -840,6 +956,24 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F60D76E5ED3EBB3983690797 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Action Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -854,13 +988,13 @@
 				373FA0721FBD118400C29902 /* ExtraStuffView.swift in Sources */,
 				378DB28E1FE860E500EAED3E /* UICollectionView+Notchy.swift in Sources */,
 				373FA0741FBE283000C29902 /* ExtraStuffViewController.swift in Sources */,
+				37A497B4202541820039694C /* PHAsset+Notchy.swift in Sources */,
 				374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */,
 				373FA0681FBD018100C29902 /* NotchyAlertViewController.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
 				3739C9E41FB13FC800F461A8 /* RequestAccessViewController.swift in Sources */,
 				37CC0E242024E427003DD50C /* UserDefaults+Notchy.swift in Sources */,
 				378DB28C1FE85EC700EAED3E /* IconSelectorViewController.swift in Sources */,
-				37931AD81FB8D8FF00C03BB0 /* PHAsset+Notchy.swift in Sources */,
 				3739C9C81FB136CE00F461A8 /* AppDelegate.swift in Sources */,
 				373FA0761FBE2BFD00C29902 /* NotchyAlertAnimation.swift in Sources */,
 				37931AD01FB7AC5100C03BB0 /* NotchyToolbar.swift in Sources */,
@@ -902,6 +1036,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		37A4978F20253E7B0039694C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37A497B12025400A0039694C /* PlainButton.swift in Sources */,
+				37A497B2202540140039694C /* ShortPlainButton.swift in Sources */,
+				37A497A820253FC50039694C /* NotchyAlertView.swift in Sources */,
+				37A497AF20253FFE0039694C /* Defaults.swift in Sources */,
+				37A497B3202541750039694C /* NotchyAlertAnimation.swift in Sources */,
+				37A497A120253ECE0039694C /* BaseImageEditingViewController.swift in Sources */,
+				37A497AA20253FDC0039694C /* ExtraStuffViewController.swift in Sources */,
+				37A4979620253E7B0039694C /* ActionViewController.swift in Sources */,
+				37A497AE20253FE50039694C /* UserDefaults+Notchy.swift in Sources */,
+				37A497B5202541820039694C /* PHAsset+Notchy.swift in Sources */,
+				37A497A620253FB90039694C /* ShortPlainAlternateButton.swift in Sources */,
+				37A497A520253FB20039694C /* NotchyGradientView.swift in Sources */,
+				37A497A420253F810039694C /* NotchyAlertViewController.swift in Sources */,
+				37A497A920253FD40039694C /* UIFont+Notchy.swift in Sources */,
+				37A497A720253FBC0039694C /* ExtraStuffView.swift in Sources */,
+				37A497A220253F5E0039694C /* NotchyToolbar.swift in Sources */,
+				37A497AB20253FE50039694C /* UIImage+Notchy.swift in Sources */,
+				37A497B0202540030039694C /* Presentable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -909,6 +1068,11 @@
 			isa = PBXTargetDependency;
 			target = 375196182024BC02007E7DA6 /* Photo Editor */;
 			targetProxy = 375196252024BC02007E7DA6 /* PBXContainerItemProxy */;
+		};
+		37A4979C20253E7B0039694C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37A4979220253E7B0039694C /* Action Extension */;
+			targetProxy = 37A4979B20253E7B0039694C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -955,7 +1119,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1014,7 +1178,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1111,6 +1275,40 @@
 			};
 			name = Release;
 		};
+		37A4979E20253E7B0039694C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3393D2148B089AC68DFFDE32 /* Pods-Action Extension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Action Extension/Action Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = "Action Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lionheartsw.Notchy.action-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		37A4979F20253E7B0039694C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7AB461578A4A0EE6ED62E56 /* Pods-Action Extension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Action Extension/Action Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63553QQ62F;
+				INFOPLIST_FILE = "Action Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lionheartsw.Notchy.action-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1137,6 +1335,15 @@
 			buildConfigurations = (
 				375196282024BC02007E7DA6 /* Debug */,
 				375196292024BC02007E7DA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37A497A020253E7B0039694C /* Build configuration list for PBXNativeTarget "Action Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37A4979E20253E7B0039694C /* Debug */,
+				37A4979F20253E7B0039694C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,37 +1,67 @@
 //
-//  SingleImageViewController.swift
-//  Notchy
+//  ActionViewController.swift
+//  Action Extension
 //
-//  Created by Daniel Loewenherz on 11/11/17.
-//  Copyright © 2017 Lionheart Software LLC. All rights reserved.
+//  Created by Dan Loewenherz on 2/2/18.
+//  Copyright © 2018 Lionheart Software LLC. All rights reserved.
 //
 
 import UIKit
 import Photos
 import SuperLayout
-import Hero
 import Presentr
 import LionheartExtensions
 import SwiftyUserDefaults
 import MobileCoreServices
 
-final class SingleImageViewController: BaseImageEditingViewController {
+/// self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+
+final class ActionViewController: BaseImageEditingViewController {
     var toolbar: NotchyToolbar!
-    
-    lazy var iconSelectorPresenter = IconSelectorViewController.presenter(view: view)
+
     lazy var alertPresenter = NotchyAlertViewController.presenter(view: view)
     
     private var toolbarVisibleConstraint: NSLayoutConstraint!
     private var toolbarHiddenConstraint: NSLayoutConstraint!
-
+    
     private var backButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        isHeroEnabled = true
+        // Get the item[s] we're handling from the extension context.
         
-        previewImageView.heroID = asset.localIdentifier
+        // For example, look for an image and place it into an image view.
+        // Replace this with something appropriate for the type[s] your extension supports.
+        var imageFound = false
+        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
+            for provider in item.attachments! as! [NSItemProvider] {
+                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
+                    // This is an image. We'll load it, then place it in our image view.
+                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, error) in
+                        OperationQueue.main.addOperation {
+                            guard let imageURL = imageURL as? URL,
+                                let data = try? Data(contentsOf: imageURL),
+                                let image = UIImage(data: data),
+                                let maskedImage = image.maskv2(watermark: true, frame: false) else {
+                                    return
+                            }
+
+                            self.originalImage = image
+                            self.maskedImage = maskedImage
+                        }
+                    })
+                    
+                    imageFound = true
+                    break
+                }
+            }
+            
+            if (imageFound) {
+                // We only handle one image, so stop looking for more.
+                break
+            }
+        }
         
         backButton = UIButton()
         backButton.contentEdgeInsets = UIEdgeInsetsMake(40, 0, 0, 0 )
@@ -46,7 +76,7 @@ final class SingleImageViewController: BaseImageEditingViewController {
         view.addSubview(backButton)
         
         let margin: CGFloat = 15
-
+        
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
         
@@ -59,21 +89,21 @@ final class SingleImageViewController: BaseImageEditingViewController {
         backButton.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor - margin
         
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
-
+        
         helperLayoutGuide.topAnchor ~~ toolbar.topAnchor
         helperLayoutGuide.bottomAnchor ~~ toolbar.bottomAnchor
         helperLayoutGuide.centerXAnchor ~~ view.centerXAnchor
-
+        
         imagePreviewHelperLayoutGuide.widthAnchor ~~ view.widthAnchor * 0.56
     }
-
+    
     @objc func backButtonDidTouchUpInside(_ sender: Any) {
-        hero_dismissViewController()
+        self.extensionContext?.completeRequest(returningItems: extensionContext!.inputItems, completionHandler: nil)
     }
 }
 
 // MARK: - NotchyToolbarDelegate
-extension SingleImageViewController: NotchyToolbarDelegate {
+extension ActionViewController: NotchyToolbarDelegate {
     func copyButtonDidTouchUpInside(_ sender: Any) {
         notificationFeedbackGenerator.prepare()
         

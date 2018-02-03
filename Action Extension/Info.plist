@@ -17,22 +17,20 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>65</string>
+	<string>1</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
-			<key>PHSupportedMediaTypes</key>
-			<array>
-				<string>Image</string>
-			</array>
+			<key>NSExtensionActivationRule</key>
+			<string>TRUEPREDICATE</string>
 		</dict>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.photo-editing</string>
 		<key>NSExtensionPrincipalClass</key>
-		<string>Photo_Editor.PhotoEditingViewController</string>
+		<string>Action_Extension.ActionViewController</string>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.ui-services</string>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
