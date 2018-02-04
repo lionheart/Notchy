@@ -86,14 +86,19 @@ final class NotchyToolbar: UIView {
 
     private var saveButton: PlainButton!
     private var copyButton: ShortPlainButton!
-    private var shareButton: ShortPlainButton!
+    private var shareButton: UIButton!
     var stackView: UIStackView!
 
     var addDeviceCheckmarkView: CheckmarkButton!
     var deleteCheckmarkView: CheckmarkButton!
     var removeWatermarkCheckmarkView: CheckmarkButton!
+    
+    enum ToolbarType {
+        case regular
+        case short
+    }
 
-    init(delegate: NotchyToolbarDelegate) {
+    init(delegate: NotchyToolbarDelegate, type: ToolbarType) {
         super.init(frame: .zero)
 
         self.delegate = delegate
@@ -101,22 +106,46 @@ final class NotchyToolbar: UIView {
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
 
-        saveButton = PlainButton()
-        saveButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.saveButtonDidTouchUpInside(_:)), for: .touchUpInside)
-        saveButton.setTitle("Save", for: .normal)
-
-        copyButton = ShortPlainButton()
-        copyButton.setTitle("Copy", for: .normal)
-        copyButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.copyButtonDidTouchUpInside(_:)), for: .touchUpInside)
-
-        shareButton = ShortPlainButton()
-        shareButton.setTitle("Share", for: .normal)
-        shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
-
-        let shortButtonStackView = UIStackView(arrangedSubviews: [copyButton, shareButton])
-        shortButtonStackView.axis = .horizontal
-        shortButtonStackView.spacing = 0
-        shortButtonStackView.distribution = .equalSpacing
+        var shortButtonStackView: UIStackView?
+        let arrangedSubviews: [UIView]
+        let anchorView: UIView
+        switch type {
+        case .regular:
+            saveButton = PlainButton()
+            saveButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.saveButtonDidTouchUpInside(_:)), for: .touchUpInside)
+            saveButton.setTitle("Save", for: .normal)
+            
+            copyButton = ShortPlainButton()
+            copyButton.setTitle("Copy", for: .normal)
+            copyButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.copyButtonDidTouchUpInside(_:)), for: .touchUpInside)
+            
+            shareButton = ShortPlainButton()
+            shareButton.setTitle("Share", for: .normal)
+            shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
+            
+            shortButtonStackView = UIStackView(arrangedSubviews: [copyButton, shareButton])
+            shortButtonStackView?.axis = .horizontal
+            shortButtonStackView?.spacing = 0
+            shortButtonStackView?.distribution = .equalSpacing
+            
+            arrangedSubviews = [saveButton, shortButtonStackView!]
+            
+            anchorView = saveButton
+            
+        case .short:
+            shareButton = PlainButton()
+            shareButton.setTitle("Share", for: .normal)
+            
+            let shareIcon = UIImage(named: "Share")?.image(withColor: .white)
+            shareButton.setImage(shareIcon, for: .normal)
+            shareButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+            shareButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+            shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
+            
+            arrangedSubviews = [shareButton]
+            
+            anchorView = shareButton
+        }
 
         addDeviceCheckmarkView = CheckmarkButton(title: "Add Device")
         addDeviceCheckmarkView.addTarget(self, action: #selector(addDeviceButtonDidTouchUpInside(_:)), for: .touchUpInside)
@@ -124,7 +153,7 @@ final class NotchyToolbar: UIView {
         removeWatermarkCheckmarkView = CheckmarkButton(title: "Remove Watermark")
         removeWatermarkCheckmarkView.addTarget(self, action: #selector(removeWatermarkButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-        stackView = UIStackView(arrangedSubviews: [saveButton, shortButtonStackView])
+        stackView = UIStackView(arrangedSubviews: arrangedSubviews)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -134,10 +163,12 @@ final class NotchyToolbar: UIView {
 
         let margin: CGFloat = 15
 
-        shortButtonStackView.widthAnchor ~~ 125
+        if let stackView = shortButtonStackView {
+            stackView.widthAnchor ~~ 125
+        }
 
-        saveButton.leadingAnchor ~~ stackView.leadingAnchor
-        saveButton.trailingAnchor ~~ stackView.trailingAnchor
+        anchorView.leadingAnchor ~~ stackView.leadingAnchor
+        anchorView.trailingAnchor ~~ stackView.trailingAnchor
         stackView.widthAnchor ~~ widthAnchor * 0.6
         stackView.topAnchor ~~ topAnchor + margin
         stackView.centerXAnchor ~~ centerXAnchor

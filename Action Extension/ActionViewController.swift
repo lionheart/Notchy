@@ -80,7 +80,7 @@ final class ActionViewController: BaseImageEditingViewController {
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
         backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
         
-        toolbar = NotchyToolbar(delegate: self)
+        toolbar = NotchyToolbar(delegate: self, type: .short)
 
         view.addSubview(toolbar)
         view.addSubview(backButton)
