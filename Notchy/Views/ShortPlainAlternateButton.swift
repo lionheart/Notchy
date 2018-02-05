@@ -45,11 +45,11 @@ final class ShortPlainAlternateButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
 
-        layer.cornerRadius = 15
+        layer.cornerRadius = 17
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 1
 
-        contentEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
+        contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
 
         setBackgroundImage(UIImage(color: .clear), for: .normal)
         setBackgroundImage(UIImage(color: .lightGray), for: .highlighted)

@@ -31,9 +31,9 @@ final class PlainButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
 
-        layer.cornerRadius = 5
+        layer.cornerRadius = 13
 
-        contentEdgeInsets = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        contentEdgeInsets = UIEdgeInsets(top: 12, left: 30, bottom: 12, right: 30)
 
         let color = UIColor.black
         setBackgroundImage(UIImage(color: color), for: .normal)

@@ -176,15 +176,15 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         view.addSubview(removeWatermarkButton)
         view.addSubview(addPhoneButton)
 
-        let margin: CGFloat = 15
+        addPhoneButton.widthAnchor ~~ removeWatermarkButton.widthAnchor
 
-        removeWatermarkButton.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor - margin
-        removeWatermarkButton.bottomAnchor ~~ helperLayoutGuide.topAnchor - margin
-        removeWatermarkButton.widthAnchor ~~ 153
+        removeWatermarkButton.trailingAnchor ~~ view.layoutMarginsGuide.trailingAnchor
+        helperLayoutGuide.topAnchor.constraintEqualToSystemSpacingBelow(removeWatermarkButton.bottomAnchor, multiplier: 2).isActive = true
+        helperLayoutGuide.topAnchor.constraintEqualToSystemSpacingBelow(addPhoneButton.bottomAnchor, multiplier: 2).isActive = true
 
-        addPhoneButton.widthAnchor ~~ 125
-        addPhoneButton.bottomAnchor ~~ helperLayoutGuide.topAnchor - margin
-        addPhoneButton.leadingAnchor ~~ view.safeAreaLayoutGuide.leadingAnchor + margin
+        addPhoneButton.leadingAnchor ~~ view.layoutMarginsGuide.leadingAnchor
+
+        removeWatermarkButton.leadingAnchor.constraintEqualToSystemSpacingAfter(addPhoneButton.trailingAnchor, multiplier: 2).isActive = true
 
         previewImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
         previewImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 16

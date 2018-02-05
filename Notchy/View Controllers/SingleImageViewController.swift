@@ -25,6 +25,8 @@ final class SingleImageViewController: BaseImageEditingViewController {
     private var toolbarHiddenConstraint: NSLayoutConstraint!
 
     private var backButton: UIButton!
+    
+    private var guide = UILayoutGuide()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +34,9 @@ final class SingleImageViewController: BaseImageEditingViewController {
         isHeroEnabled = true
         
         previewImageView.heroID = asset.localIdentifier
-        
+
         backButton = UIButton()
-        backButton.contentEdgeInsets = UIEdgeInsetsMake(40, 0, 0, 0 )
+        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0 )
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.setImage(UIImage(named: "CircleClose")?.image(withColor: .white), for: .normal)
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
@@ -44,19 +46,16 @@ final class SingleImageViewController: BaseImageEditingViewController {
 
         view.addSubview(toolbar)
         view.addSubview(backButton)
-        
-        let margin: CGFloat = 15
+        view.addLayoutGuide(guide)
 
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
+
+        toolbar.leadingAnchor ~~ view.safeAreaLayoutGuide.leadingAnchor
+        toolbar.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor
         
-        toolbar.stackView.bottomAnchor ≤≤ view.safeAreaLayoutGuide.bottomAnchor
-        toolbar.stackView.bottomAnchor ≥≥ view.bottomAnchor - 20
-        toolbar.leadingAnchor ~~ view.leadingAnchor
-        toolbar.trailingAnchor ~~ view.trailingAnchor
-        
-        backButton.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor - margin
-        backButton.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor - margin
+        backButton.topAnchor ~~ view.layoutMarginsGuide.topAnchor
+        backButton.trailingAnchor ~~ view.layoutMarginsGuide.trailingAnchor
         
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
 
@@ -65,10 +64,27 @@ final class SingleImageViewController: BaseImageEditingViewController {
         helperLayoutGuide.centerXAnchor ~~ view.centerXAnchor
 
         imagePreviewHelperLayoutGuide.widthAnchor ~~ view.widthAnchor * 0.56
+        
+        guide.topAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
+        guide.bottomAnchor ~~ view.bottomAnchor
     }
 
     @objc func backButtonDidTouchUpInside(_ sender: Any) {
         hero_dismissViewController()
+    }
+    
+    var bottomConstraint: NSLayoutConstraint?
+    override func viewDidLayoutSubviews() {
+        // Only let the most recent bottom constraint win.
+        if let bottomConstraint = bottomConstraint {
+            view.removeConstraint(bottomConstraint)
+        }
+
+        if guide.layoutFrame.height == 0 {
+            bottomConstraint = toolbar.stackView.bottomAnchor ~~ view.bottomAnchor - 16
+        } else {
+            bottomConstraint = toolbar.stackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
+        }
     }
 }
 

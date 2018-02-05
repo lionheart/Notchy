@@ -113,7 +113,7 @@ final class NotchyToolbar: UIView {
         case .regular:
             saveButton = PlainButton()
             saveButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.saveButtonDidTouchUpInside(_:)), for: .touchUpInside)
-            saveButton.setTitle("Save", for: .normal)
+            saveButton.setTitle("Save to Photos", for: .normal)
             
             copyButton = ShortPlainButton()
             copyButton.setTitle("Copy", for: .normal)
@@ -127,6 +127,7 @@ final class NotchyToolbar: UIView {
             shortButtonStackView?.axis = .horizontal
             shortButtonStackView?.spacing = 0
             shortButtonStackView?.distribution = .equalSpacing
+            shortButtonStackView?.alignment = .bottom
             
             arrangedSubviews = [saveButton, shortButtonStackView!]
             
@@ -156,21 +157,23 @@ final class NotchyToolbar: UIView {
         stackView = UIStackView(arrangedSubviews: arrangedSubviews)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 10
         stackView.alignment = .center
+        
+        if !arrangedSubviews.contains(shareButton) {
+            stackView.setCustomSpacing(UIStackView.spacingUseSystem, after: saveButton)
+        }
 
         addSubview(stackView)
-
-        let margin: CGFloat = 15
 
         if let stackView = shortButtonStackView {
             stackView.widthAnchor ~~ 125
         }
 
-        anchorView.leadingAnchor ~~ stackView.leadingAnchor
-        anchorView.trailingAnchor ~~ stackView.trailingAnchor
-        stackView.widthAnchor ~~ widthAnchor * 0.6
-        stackView.topAnchor ~~ topAnchor + margin
+        anchorView.leadingAnchor.constraintEqualToSystemSpacingAfter(stackView.leadingAnchor, multiplier: 2).isActive = true
+        stackView.trailingAnchor.constraintEqualToSystemSpacingAfter(anchorView.trailingAnchor, multiplier: 2).isActive = true
+        stackView.topAnchor.constraintEqualToSystemSpacingBelow(topAnchor, multiplier: 2).isActive = true
+
+        stackView.widthAnchor ~~ widthAnchor
         stackView.centerXAnchor ~~ centerXAnchor
     }
 
