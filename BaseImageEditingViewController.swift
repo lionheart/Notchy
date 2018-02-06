@@ -44,10 +44,15 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
     /// A reference for the position of the image preview.
     var imagePreviewHelperLayoutGuide: UILayoutGuide!
     
+    /// A guide for the bottom of the view. Needs a rename.
+    var guide = UILayoutGuide()
+    
     var previewImageView: UIImageView!
     var asset: PHAsset!
     
     var extraStuffView: ExtraStuffView!
+    var backButton: UIButton!
+    var toolbar: NotchyToolbar!
 
     var showWatermark: Bool { return !removeWatermarkButton.isSelected }
     var showFrame: Bool { return addPhoneButton.isSelected }
@@ -105,6 +110,12 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         
         view.backgroundColor = UIColor(0x2a2f33)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Pick", style: .done, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(sender:)))
+        
+        backButton = UIButton()
+        backButton.contentEdgeInsets = UIEdgeInsetsMake(40, 0, 0, 0 )
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(UIImage(named: "CircleClose")?.image(withColor: .white), for: .normal)
+        backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
         
         imageContainerView = UIView()
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,11 +181,16 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
 
         view.addLayoutGuide(helperLayoutGuide)
         view.addLayoutGuide(imagePreviewHelperLayoutGuide)
+        view.addLayoutGuide(guide)
 
+        view.addSubview(backButton)
         view.addSubview(imageContainerView)
         view.addSubview(screenshotLabel)
         view.addSubview(removeWatermarkButton)
         view.addSubview(addPhoneButton)
+        
+        backButton.topAnchor.constraintEqualToSystemSpacingBelow(view.layoutMarginsGuide.topAnchor, multiplier: 1)
+        backButton.trailingAnchor ~~ view.layoutMarginsGuide.trailingAnchor
 
         addPhoneButton.widthAnchor ~~ removeWatermarkButton.widthAnchor
 
@@ -209,6 +225,27 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         
         screenshotLabel.topAnchor ~~ phoneImageView.bottomAnchor + 5
         screenshotLabel.centerXAnchor ~~ view.centerXAnchor
+        
+        guide.topAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
+        guide.bottomAnchor ~~ view.bottomAnchor
+    }
+    
+    var bottomConstraint: NSLayoutConstraint?
+    override func viewDidLayoutSubviews() {
+        guard toolbar != nil else {
+            return
+        }
+
+        // Only let the most recent bottom constraint win.
+        if let bottomConstraint = bottomConstraint {
+            view.removeConstraint(bottomConstraint)
+        }
+        
+        if guide.layoutFrame.height == 0 {
+            bottomConstraint = toolbar.stackView.bottomAnchor ~~ view.bottomAnchor - 16
+        } else {
+            bottomConstraint = toolbar.stackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor - 8
+        }
     }
     
     // MARK: - View Options

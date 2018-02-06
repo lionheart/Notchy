@@ -35,6 +35,8 @@
 		375196202024BC02007E7DA6 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751961F2024BC02007E7DA6 /* PhotoEditingViewController.swift */; };
 		375196272024BC02007E7DA6 /* Photo Editor.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 375196192024BC02007E7DA6 /* Photo Editor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3751962D2024BD20007E7DA6 /* BaseImageEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3751962C2024BD20007E7DA6 /* BaseImageEditingViewController.swift */; };
+		378CB7362029159B008BFB0E /* NotchyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */; };
+		378CB737202915A5008BFB0E /* ShortPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1F1FBA791200322F63 /* ShortPlainButton.swift */; };
 		378DB28C1FE85EC700EAED3E /* IconSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28B1FE85EC700EAED3E /* IconSelectorViewController.swift */; };
 		378DB28E1FE860E500EAED3E /* UICollectionView+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */; };
 		378DB2901FE861DC00EAED3E /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378DB28F1FE861DC00EAED3E /* IconCollectionViewCell.swift */; };
@@ -1043,6 +1045,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				375196202024BC02007E7DA6 /* PhotoEditingViewController.swift in Sources */,
+				378CB737202915A5008BFB0E /* ShortPlainButton.swift in Sources */,
 				37CC0E202024E3FD003DD50C /* NotchyAlertAnimation.swift in Sources */,
 				3792360520261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */,
 				37CC0E162024C072003DD50C /* Presentable.swift in Sources */,
@@ -1052,6 +1055,7 @@
 				37CC0E1C2024E3D7003DD50C /* UIFont+Notchy.swift in Sources */,
 				379235FB20261427003D5C77 /* UIViewController+Notchy.swift in Sources */,
 				37CC0E192024E3C3003DD50C /* NotchyGradientView.swift in Sources */,
+				378CB7362029159B008BFB0E /* NotchyToolbar.swift in Sources */,
 				37CC0E222024E409003DD50C /* UIImage+Notchy.swift in Sources */,
 				37CC0E182024E3BC003DD50C /* ShortPlainAlternateButton.swift in Sources */,
 				37923601202614FA003D5C77 /* ExtraStuffViewController.swift in Sources */,

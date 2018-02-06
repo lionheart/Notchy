@@ -139,8 +139,9 @@ final class NotchyToolbar: UIView {
             
             let shareIcon = UIImage(named: "Share")?.image(withColor: .white)
             shareButton.setImage(shareIcon, for: .normal)
-            shareButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
-            shareButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+            shareButton.reversesTitleShadowWhenHighlighted = false
+            shareButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+            shareButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
             
             arrangedSubviews = [shareButton]

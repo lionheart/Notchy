@@ -19,14 +19,10 @@ let Defaults = UserDefaults(suiteName: "group.com.lionheartsw.notchy")!
 /// self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
 
 final class ActionViewController: BaseImageEditingViewController {
-    var toolbar: NotchyToolbar!
-
     lazy var alertPresenter = NotchyAlertViewController.presenter(view: view)
     
     private var toolbarVisibleConstraint: NSLayoutConstraint!
     private var toolbarHiddenConstraint: NSLayoutConstraint!
-    
-    private var backButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,12 +68,7 @@ final class ActionViewController: BaseImageEditingViewController {
                 break main
             }
         }
-        
-        backButton = UIButton()
-        backButton.contentEdgeInsets = UIEdgeInsetsMake(40, 0, 0, 0 )
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(UIImage(named: "CircleClose")?.image(withColor: .white), for: .normal)
-        backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
+
         backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
         
         toolbar = NotchyToolbar(delegate: self, type: .short)
@@ -85,18 +76,14 @@ final class ActionViewController: BaseImageEditingViewController {
         view.addSubview(toolbar)
         view.addSubview(backButton)
         
-        let margin: CGFloat = 15
-        
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
         
-        toolbar.stackView.bottomAnchor ≤≤ view.safeAreaLayoutGuide.bottomAnchor
-        toolbar.stackView.bottomAnchor ≥≥ view.bottomAnchor - 20
-        toolbar.leadingAnchor ~~ view.leadingAnchor
-        toolbar.trailingAnchor ~~ view.trailingAnchor
+        toolbar.leadingAnchor ~~ view.safeAreaLayoutGuide.leadingAnchor
+        toolbar.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor
         
-        backButton.topAnchor ~~ view.safeAreaLayoutGuide.topAnchor - margin
-        backButton.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor - margin
+        backButton.topAnchor.constraintEqualToSystemSpacingBelow(view.layoutMarginsGuide.topAnchor, multiplier: 1)
+        view.layoutMarginsGuide.trailingAnchor.constraintEqualToSystemSpacingAfter(backButton.trailingAnchor, multiplier: 1)
         
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
         
@@ -105,6 +92,9 @@ final class ActionViewController: BaseImageEditingViewController {
         helperLayoutGuide.centerXAnchor ~~ view.centerXAnchor
         
         imagePreviewHelperLayoutGuide.widthAnchor ~~ view.widthAnchor * 0.56
+        
+        guide.topAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
+        guide.bottomAnchor ~~ view.bottomAnchor
     }
     
     @objc func backButtonDidTouchUpInside(_ sender: Any) {
