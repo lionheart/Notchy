@@ -56,8 +56,10 @@ final class ActionViewController: BaseImageEditingViewController {
                             image = UIImage(data: data)
                         }
                         
+                        let removeWatermark = Defaults[.removeWatermark]
+                        let addPhone = Defaults[.addPhone]
                         if let image = image,
-                            let maskedImage = image.maskv2(watermark: true, frame: false) {
+                            let maskedImage = image.maskv2(watermark: !removeWatermark, frame: addPhone) {
                             self.originalImage = image
                             self.maskedImage = maskedImage
                         }
@@ -78,7 +80,7 @@ final class ActionViewController: BaseImageEditingViewController {
         
         toolbarHiddenConstraint = toolbar.topAnchor ~~ view.bottomAnchor
         toolbarHiddenConstraint.isActive = false
-        
+
         toolbar.leadingAnchor ~~ view.safeAreaLayoutGuide.leadingAnchor
         toolbar.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor
         
@@ -95,6 +97,12 @@ final class ActionViewController: BaseImageEditingViewController {
         
         guide.topAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
         guide.bottomAnchor ~~ view.bottomAnchor
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        activateShareSheet()
     }
     
     @objc func backButtonDidTouchUpInside(_ sender: Any) {
@@ -129,8 +137,9 @@ extension ActionViewController: NotchyToolbarDelegate {
             }
         }
     }
-    
-    func shareButtonDidTouchUpInside(_ sender: Any) {
+
+    // MARK: XXX Duplicate code in SingleImageViewController
+    func activateShareSheet() {
         notificationFeedbackGenerator.prepare()
         
         guard let url = maskedImage.urlForTransparentVersion,
@@ -141,10 +150,21 @@ extension ActionViewController: NotchyToolbarDelegate {
         
         DispatchQueue.main.async {
             let activity = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+            activity.excludedActivityTypes = [
+                .openInIBooks,
+                .print,
+                .assignToContact,
+                .addToReadingList
+            ]
+
             self.present(activity, animated: true) {
                 self.notificationFeedbackGenerator.notificationOccurred(.success)
             }
         }
+    }
+    
+    func shareButtonDidTouchUpInside(_ sender: Any) {
+        activateShareSheet()
     }
     
     func saveButtonDidTouchUpInside(_ sender: Any) {

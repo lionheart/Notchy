@@ -113,12 +113,13 @@ final class NotchyToolbar: UIView {
         case .regular:
             saveButton = PlainButton()
             saveButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.saveButtonDidTouchUpInside(_:)), for: .touchUpInside)
-            saveButton.setTitle("Save to Photos", for: .normal)
+            saveButton.setTitle2("Save to Photos", for: .normal)
+            saveButton.setTitle2("Save to Photos", for: .highlighted)
             
             copyButton = ShortPlainButton()
             copyButton.setTitle("Copy", for: .normal)
             copyButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.copyButtonDidTouchUpInside(_:)), for: .touchUpInside)
-            
+
             shareButton = ShortPlainButton()
             shareButton.setTitle("Share", for: .normal)
             shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)

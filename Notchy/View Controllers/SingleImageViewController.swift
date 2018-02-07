@@ -93,6 +93,12 @@ extension SingleImageViewController: NotchyToolbarDelegate {
         
         DispatchQueue.main.async {
             let activity = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+            activity.excludedActivityTypes = [
+                .openInIBooks,
+                .print,
+                .assignToContact,
+                .addToReadingList
+            ]
             self.present(activity, animated: true) {
                 self.notificationFeedbackGenerator.notificationOccurred(.success)
             }

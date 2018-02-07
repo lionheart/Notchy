@@ -83,10 +83,10 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
     
     convenience init(asset: PHAsset, original: UIImage, masked: UIImage) {
         self.init()
-        
+
         self.asset = asset
         self.originalImage = original
-        self.maskedImage = original.maskv2(watermark: true, frame: false)
+        self.maskedImage = original.maskv2(watermark: !Defaults[.removeWatermark], frame: Defaults[.addPhone])
     }
     
     convenience init(asset: PHAsset) {
@@ -137,10 +137,12 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         watermarkImageView.isHidden = true
         
         addPhoneButton = ShortPlainAlternateButton(normalTitle: "Add iPhone", selectedTitle: "Remove iPhone")
+        addPhoneButton.isSelected = Defaults[.addPhone]
         addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchUpInside(_:)), for: .touchUpInside)
         addPhoneButton.addTarget(self, action: #selector(addDeviceButtonDidTouchDown(_:)), for: .touchDown)
         
         removeWatermarkButton = ShortPlainAlternateButton(normalTitle: "Remove Watermark", selectedTitle: "Add Watermark")
+        removeWatermarkButton.isSelected = Defaults[.removeWatermark]
         removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchUpInside(_:)), for: .touchUpInside)
         removeWatermarkButton.addTarget(self, action: #selector(removeWatermarkButtonDidTouchDown(_:)), for: .touchDown)
         
@@ -267,8 +269,9 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
     @objc func removeWatermarkButtonDidTouchUpInside(_ sender: Any) {
         if UserDefaults.purchased {
             selectionFeedbackGenerator.selectionChanged()
-            
+
             removeWatermarkButton.isSelected = !removeWatermarkButton.isSelected
+            Defaults[.removeWatermark] = removeWatermarkButton.isSelected
             
             maskedImage = originalImage.maskv2(watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
         } else {
@@ -285,6 +288,7 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
             selectionFeedbackGenerator.selectionChanged()
             
             addPhoneButton.isSelected = !addPhoneButton.isSelected
+            Defaults[.addPhone] = addPhoneButton.isSelected
             
             maskedImage = originalImage.maskv2(watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
             
