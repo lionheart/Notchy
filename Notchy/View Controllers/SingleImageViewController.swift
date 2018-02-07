@@ -31,7 +31,7 @@ final class SingleImageViewController: BaseImageEditingViewController {
         
         previewImageView.heroID = asset.localIdentifier
         
-        toolbar = NotchyToolbar(delegate: self, type: .short)
+        toolbar = NotchyToolbar(delegate: self, type: .regular)
 
         view.addSubview(toolbar)
 
