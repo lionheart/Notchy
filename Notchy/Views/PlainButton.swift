@@ -10,19 +10,26 @@ import UIKit
 import LionheartExtensions
 
 final class PlainButton: UIButton {
-    func setTitle(_ title: String?, for state: UIControlState, size: CGFloat = 20) {
+    func setTitle2(_ title: String?, for state: UIControlState, size: CGFloat = 20) {
         guard let title = title else {
             setAttributedTitle(nil, for: state)
             return
         }
 
+        let color: UIColor
+        switch state {
+        case .normal: color = .white
+        case .highlighted: color = .lightGray
+        default: color = .white
+        }
+
         let attributes: [NSAttributedStringKey: Any] = [
             .font: NotchyTheme.systemFont(ofSize: size, weight: .medium),
-            .foregroundColor: UIColor.white
+            .foregroundColor: color
         ]
 
-        let attributed = NSAttributedString(string: title, attributes: attributes)
-        setAttributedTitle(attributed, for: state)
+        let string = NSAttributedString(string: title, attributes: attributes)
+        setAttributedTitle(string, for: state)
     }
 
     init() {

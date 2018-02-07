@@ -95,7 +95,7 @@ final class ExtraStuffView: UIView {
                 title = "Add Extra Stuff"
             }
             
-            getStuffButton.setTitle(title, for: .normal, size: 14)
+            getStuffButton.setTitle2(title, for: .normal, size: 14)
         }
     }
 
@@ -139,8 +139,8 @@ final class ExtraStuffView: UIView {
 
         getStuffButton = PlainButton()
         getStuffButton.addTarget(self, action: #selector(getStuffButtonDidTouchUpInside(_:)), for: .touchUpInside)
-        getStuffButton.setTitle("Add Extra Stuff", for: .normal, size: 14)
-        getStuffButton.setTitle(nil, for: .selected, size: 14)
+        getStuffButton.setTitle2("Add Extra Stuff", for: .normal, size: 14)
+        getStuffButton.setTitle2(nil, for: .selected, size: 14)
 
         restorePurchasesButton = UIButton(type: .system)
         restorePurchasesButton.addTarget(self, action: #selector(restoreButtonDidTouchUpInside(_:)), for: .touchUpInside)
@@ -150,7 +150,7 @@ final class ExtraStuffView: UIView {
 
         thanksButton = PlainButton()
         thanksButton.isHidden = true
-        thanksButton.setTitle("Thanks!", for: .normal, size: 14)
+        thanksButton.setTitle2("Thanks!", for: .normal, size: 14)
         thanksButton.addTarget(self, action: #selector(thanksButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
         let stackView = UIStackView(arrangedSubviews: [topLabel, optionsStackView, getStuffButton, restorePurchasesButton, thanksButton])

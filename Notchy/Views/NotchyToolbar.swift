@@ -135,13 +135,14 @@ final class NotchyToolbar: UIView {
             
         case .short:
             shareButton = PlainButton()
-            shareButton.setTitle("Share", for: .normal)
-            
-            let shareIcon = UIImage(named: "Share")?.image(withColor: .white)
+            (shareButton as! PlainButton).setTitle2("Share", for: .normal)
+            (shareButton as! PlainButton).setTitle2("Share", for: .highlighted)
+
+            let shareIcon = UIImage(named: "ShareSmall")?.image(withColor: .white)
             shareButton.setImage(shareIcon, for: .normal)
             shareButton.reversesTitleShadowWhenHighlighted = false
-            shareButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
-            shareButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            shareButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+            shareButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
             shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
             
             arrangedSubviews = [shareButton]
@@ -159,7 +160,7 @@ final class NotchyToolbar: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
-        
+
         if !arrangedSubviews.contains(shareButton) {
             stackView.setCustomSpacing(UIStackView.spacingUseSystem, after: saveButton)
         }

@@ -183,11 +183,11 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         view.addLayoutGuide(imagePreviewHelperLayoutGuide)
         view.addLayoutGuide(guide)
 
-        view.addSubview(backButton)
         view.addSubview(imageContainerView)
         view.addSubview(screenshotLabel)
         view.addSubview(removeWatermarkButton)
         view.addSubview(addPhoneButton)
+        view.addSubview(backButton)
         
         backButton.topAnchor.constraintEqualToSystemSpacingBelow(view.layoutMarginsGuide.topAnchor, multiplier: 1)
         backButton.trailingAnchor ~~ view.layoutMarginsGuide.trailingAnchor
@@ -244,7 +244,7 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         if guide.layoutFrame.height == 0 {
             bottomConstraint = toolbar.stackView.bottomAnchor ~~ view.bottomAnchor - 16
         } else {
-            bottomConstraint = toolbar.stackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor - 8
+            bottomConstraint = toolbar.stackView.bottomAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor - 4
         }
     }
     
