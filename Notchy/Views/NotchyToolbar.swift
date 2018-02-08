@@ -84,9 +84,9 @@ final class CheckmarkView: UIStackView {
 final class NotchyToolbar: UIView {
     @objc private var delegate: NotchyToolbarDelegate!
 
-    private var saveButton: PlainButton!
+    private var shareButton: PlainButton!
+    private var saveButton: ShortPlainButton!
     private var copyButton: ShortPlainButton!
-    private var shareButton: UIButton!
     var stackView: UIStackView!
 
     var addDeviceCheckmarkView: CheckmarkButton!
@@ -105,50 +105,40 @@ final class NotchyToolbar: UIView {
 
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
+        
+        shareButton = PlainButton()
+        shareButton.setTitle2("Share", for: .normal)
+        shareButton.setTitle2("Share", for: .highlighted)
+        shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
+
+        let shareIcon = UIImage(named: "ShareSmall")?.image(withColor: .white)
+        shareButton.setImage(shareIcon, for: .normal)
+        shareButton.reversesTitleShadowWhenHighlighted = false
+        shareButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+        shareButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
         var shortButtonStackView: UIStackView?
         let arrangedSubviews: [UIView]
-        let anchorView: UIView
         switch type {
         case .regular:
-            saveButton = PlainButton()
-            saveButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.saveButtonDidTouchUpInside(_:)), for: .touchUpInside)
-            saveButton.setTitle2("Save to Photos", for: .normal)
-            saveButton.setTitle2("Save to Photos", for: .highlighted)
-            
             copyButton = ShortPlainButton()
             copyButton.setTitle("Copy", for: .normal)
             copyButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.copyButtonDidTouchUpInside(_:)), for: .touchUpInside)
 
-            shareButton = ShortPlainButton()
-            shareButton.setTitle("Share", for: .normal)
-            shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
-            
-            shortButtonStackView = UIStackView(arrangedSubviews: [copyButton, shareButton])
+            saveButton = ShortPlainButton()
+            saveButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.saveButtonDidTouchUpInside(_:)), for: .touchUpInside)
+            saveButton.setTitle("Save", for: .normal)
+
+            shortButtonStackView = UIStackView(arrangedSubviews: [copyButton, saveButton])
             shortButtonStackView?.axis = .horizontal
-            shortButtonStackView?.spacing = 0
             shortButtonStackView?.distribution = .equalSpacing
             shortButtonStackView?.alignment = .bottom
             
-            arrangedSubviews = [saveButton, shortButtonStackView!]
-            
-            anchorView = saveButton
+            arrangedSubviews = [shareButton, shortButtonStackView!]
             
         case .short:
-            shareButton = PlainButton()
-            (shareButton as! PlainButton).setTitle2("Share", for: .normal)
-            (shareButton as! PlainButton).setTitle2("Share", for: .highlighted)
-
-            let shareIcon = UIImage(named: "ShareSmall")?.image(withColor: .white)
-            shareButton.setImage(shareIcon, for: .normal)
-            shareButton.reversesTitleShadowWhenHighlighted = false
-            shareButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
-            shareButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
-            shareButton.addTarget(delegate, action: #selector(NotchyToolbarDelegate.shareButtonDidTouchUpInside(_:)), for: .touchUpInside)
-            
             arrangedSubviews = [shareButton]
-            
-            anchorView = shareButton
         }
 
         addDeviceCheckmarkView = CheckmarkButton(title: "Add Device")
@@ -162,18 +152,15 @@ final class NotchyToolbar: UIView {
         stackView.axis = .vertical
         stackView.alignment = .center
 
-        if !arrangedSubviews.contains(shareButton) {
-            stackView.setCustomSpacing(UIStackView.spacingUseSystem, after: saveButton)
-        }
-
         addSubview(stackView)
 
-        if let stackView = shortButtonStackView {
-            stackView.widthAnchor ~~ 125
+        if let shortButtonStackView = shortButtonStackView {
+            shortButtonStackView.widthAnchor ~~ 125
+            stackView.setCustomSpacing(UIStackView.spacingUseSystem, after: shareButton)
         }
 
-        anchorView.leadingAnchor.constraintEqualToSystemSpacingAfter(stackView.leadingAnchor, multiplier: 2).isActive = true
-        stackView.trailingAnchor.constraintEqualToSystemSpacingAfter(anchorView.trailingAnchor, multiplier: 2).isActive = true
+        shareButton.leadingAnchor.constraintEqualToSystemSpacingAfter(stackView.leadingAnchor, multiplier: 2).isActive = true
+        stackView.trailingAnchor.constraintEqualToSystemSpacingAfter(shareButton.trailingAnchor, multiplier: 2).isActive = true
         stackView.topAnchor.constraintEqualToSystemSpacingBelow(topAnchor, multiplier: 2).isActive = true
 
         stackView.widthAnchor ~~ widthAnchor
