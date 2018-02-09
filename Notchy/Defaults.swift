@@ -15,4 +15,5 @@ extension DefaultsKeys {
     static let removeWatermark = DefaultsKey<Bool>("removeWatermark")
     static let purchased = DefaultsKey<Bool>("purchased")
     static let identifiers = DefaultsKey<[String]>("identifiers")
+    static let numberOfScreenshots = DefaultsKey<Int>("numberOfScreenshots")
 }

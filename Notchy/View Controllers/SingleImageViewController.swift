@@ -14,6 +14,7 @@ import Presentr
 import LionheartExtensions
 import SwiftyUserDefaults
 import MobileCoreServices
+import StoreKit
 
 final class SingleImageViewController: BaseImageEditingViewController {
     lazy var iconSelectorPresenter = IconSelectorViewController.presenter(view: view)
@@ -21,6 +22,22 @@ final class SingleImageViewController: BaseImageEditingViewController {
     
     private var toolbarVisibleConstraint: NSLayoutConstraint!
     private var toolbarHiddenConstraint: NSLayoutConstraint!
+    
+    var saved = false {
+        willSet(newValue) {
+            guard !saved else {
+                return
+            }
+            
+            Defaults[.numberOfScreenshots] += 1
+            
+            if Defaults[.numberOfScreenshots] >= 5 {
+                DispatchQueue.main.async {
+                    SKStoreReviewController.requestReview()
+                }
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +94,7 @@ extension SingleImageViewController: NotchyToolbarDelegate {
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                     controller.dismiss(animated: true)
                     self.toolbar.notchingComplete()
+                    self.saved = true
                 }
             }
         }
@@ -99,6 +117,13 @@ extension SingleImageViewController: NotchyToolbarDelegate {
                 .assignToContact,
                 .addToReadingList
             ]
+            activity.completionWithItemsHandler = { activityType, completed, items, error in
+                guard completed else {
+                    return
+                }
+
+                self.saved = true
+            }
             self.present(activity, animated: true) {
                 self.notificationFeedbackGenerator.notificationOccurred(.success)
             }
@@ -140,6 +165,7 @@ extension SingleImageViewController: NotchyToolbarDelegate {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                         controller.dismiss(animated: true)
                         self.toolbar.notchingComplete()
+                        self.saved = true
                     }
                 }
             }
