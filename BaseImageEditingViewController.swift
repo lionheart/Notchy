@@ -190,7 +190,6 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         view.addSubview(removeWatermarkButton)
         view.addSubview(addPhoneButton)
         view.addSubview(backButton)
-        
         backButton.topAnchor.constraintEqualToSystemSpacingBelow(view.layoutMarginsGuide.topAnchor, multiplier: 1)
         backButton.trailingAnchor ~~ view.layoutMarginsGuide.trailingAnchor
 
@@ -230,6 +229,8 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         
         guide.topAnchor ~~ view.safeAreaLayoutGuide.bottomAnchor
         guide.bottomAnchor ~~ view.bottomAnchor
+        
+        updateImageConstraints()
     }
     
     var bottomConstraint: NSLayoutConstraint?
@@ -292,19 +293,23 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
             
             maskedImage = originalImage.maskv2(watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
             
-            if addPhoneButton.isSelected {
-                noFrameConstraint.isActive = false
-                frameConstraint.isActive = true
-                widthConstraint.constant = 45
-            } else {
-                frameConstraint.isActive = false
-                noFrameConstraint.isActive = true
-                widthConstraint.constant = 0
-            }
+            updateImageConstraints()
             
             view.setNeedsUpdateConstraints()
         } else {
             displayExtraStuffViewController()
+        }
+    }
+    
+    func updateImageConstraints() {
+        if addPhoneButton.isSelected {
+            noFrameConstraint.isActive = false
+            frameConstraint.isActive = true
+            widthConstraint.constant = 40
+        } else {
+            frameConstraint.isActive = false
+            noFrameConstraint.isActive = true
+            widthConstraint.constant = 0
         }
     }
 }
