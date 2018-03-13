@@ -54,6 +54,7 @@ final class ExtraStuffViewController: UIViewController {
     }
 }
 
+// MARK: - SKProductsRequestDelegate
 extension ExtraStuffViewController: SKProductsRequestDelegate {
     func request(_ request: SKRequest, didFailWithError error: Error) {
         print(error.localizedDescription)
