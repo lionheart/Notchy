@@ -40,5 +40,9 @@
 		<string>Montserrat-Regular.otf</string>
 		<string>Montserrat-Medium.otf</string>
 	</array>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
 </dict>
 </plist>
