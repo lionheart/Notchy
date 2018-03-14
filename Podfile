@@ -25,6 +25,6 @@ post_install do |installer|
     plist_buddy = "/usr/libexec/PlistBuddy"
     plist = "Pods/Target Support Files/#{target}/Info.plist"
     `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities array" "#{plist}"`
-    `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities:0 string armv7" "#{plist}"`
+    `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities:0 string arm64" "#{plist}"`
   end
 end
