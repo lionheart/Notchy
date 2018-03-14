@@ -49,6 +49,8 @@ final class GridViewController: UICollectionViewController, ExtraStuffPresentati
 
     lazy var extraStuffPresenter = ExtraStuffViewController.presenter(view: view)
     lazy var iconSelectorPresenter = IconSelectorViewController.presenter(view: view)
+    
+    fileprivate var emptyStateLabel: UILabel!
 
     // MARK: - Initializers
 
@@ -104,6 +106,22 @@ final class GridViewController: UICollectionViewController, ExtraStuffPresentati
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.register(GridViewCell.self)
+        
+        emptyStateLabel = UILabel()
+        emptyStateLabel.textColor = .white
+        emptyStateLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyStateLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+        emptyStateLabel.text = "You have no iPhone X screenshots on your device. Save an iPhone X screenshot into your photos to use Notchy."
+        emptyStateLabel.numberOfLines = 0
+        emptyStateLabel.textAlignment = .center
+        emptyStateLabel.isHidden = fetchResult.count > 0
+
+        view.addSubview(emptyStateLabel)
+
+        let margins = view.layoutMarginsGuide
+        emptyStateLabel.centerYAnchor ~~ view.centerYAnchor
+        emptyStateLabel.leadingAnchor ≥≥ margins.leadingAnchor
+        emptyStateLabel.trailingAnchor ≤≤ margins.trailingAnchor
     }
 
     @objc func rightBarButtonItemDidTouchUpInside(_ sender: Any) {
@@ -131,6 +149,7 @@ final class GridViewController: UICollectionViewController, ExtraStuffPresentati
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         updateCachedAssets()
     }
 
