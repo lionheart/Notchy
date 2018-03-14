@@ -42,6 +42,7 @@ extension HeroTransition {
       completionCallback = nil
       forceFinishing = nil
       container = nil
+      startingProgress = nil
       processors.removeAll()
       animators.removeAll()
       plugins.removeAll()
@@ -61,7 +62,7 @@ extension HeroTransition {
         context.unhide(rootView: toView)
         context.removeSnapshots(rootView: toView)
         context.storeViewAlpha(rootView: fromView)
-        fromViewController?.heroStoredSnapshot = container
+        fromViewController?.hero.storedSnapshot = container
         container.superview?.addSubview(fromView)
         fromView.addSubview(container)
       } else if !finished && !isPresenting && fromOverFullScreen {
@@ -69,7 +70,7 @@ extension HeroTransition {
         context.unhide(rootView: fromView)
         context.removeSnapshots(rootView: fromView)
         context.storeViewAlpha(rootView: toView)
-        toViewController?.heroStoredSnapshot = container
+        toViewController?.hero.storedSnapshot = container
         container.superview?.addSubview(toView)
         toView.addSubview(container)
       } else {
@@ -101,6 +102,16 @@ extension HeroTransition {
     transitionContainer?.isUserInteractionEnabled = true
 
     completionCallback?(finished)
+
+    // https://github.com/lkzhao/Hero/issues/354
+    // tabbar not responding after pushing a view controller with hideBottomBarWhenPushed
+    // this is due to iOS adding a few extra animation to the tabbar but they are not removed when
+    // the transition completes. Possibly another iOS bug. let me know if you have better work around.
+    if finished {
+      toViewController?.tabBarController?.tabBar.layer.removeAllAnimations()
+    } else {
+      fromViewController?.tabBarController?.tabBar.layer.removeAllAnimations()
+    }
 
     if finished {
       if let fvc = fromViewController, let tvc = toViewController {

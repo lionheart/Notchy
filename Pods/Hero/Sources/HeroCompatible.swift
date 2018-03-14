@@ -20,32 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-internal extension CALayer {
-  // return all animations running by this layer.
-  // the returned value is mutable
-  var animations: [(String, CAAnimation)] {
-    if let keys = animationKeys() {
-      return keys.map { return ($0, self.animation(forKey: $0)!.copy() as! CAAnimation) }
-    }
-    return []
+public protocol HeroCompatible {
+  associatedtype CompatibleType
+
+  var hero: HeroExtension<CompatibleType> { get set }
+}
+
+public extension HeroCompatible {
+  public var hero: HeroExtension<Self> {
+    get { return HeroExtension(self) }
+    set { }
   }
+}
 
-  func flatTransformTo(layer: CALayer) -> CATransform3D {
-    var layer = layer
-    var trans = layer.transform
-    while let superlayer = layer.superlayer, superlayer != self {
-      trans = CATransform3DConcat(superlayer.transform, trans)
-      layer = superlayer
-    }
-    return trans
-  }
+public class HeroExtension<Base> {
+  public let base: Base
 
-  func removeAllHeroAnimations() {
-    guard let keys = animationKeys() else { return }
-    for animationKey in keys where animationKey.hasPrefix("hero.") {
-      removeAnimation(forKey: animationKey)
-    }
+  init(_ base: Base) {
+    self.base = base
   }
 }

@@ -46,15 +46,15 @@ public class HeroContext {
 
   internal func process(views: [UIView], idMap: inout [String: UIView]) {
     for view in views {
-      view.layer.removeAllAnimations()
+      view.layer.removeAllHeroAnimations()
       let targetState: HeroTargetState?
-      if let modifiers = view.heroModifiers {
+      if let modifiers = view.hero.modifiers {
         targetState = HeroTargetState(modifiers: modifiers)
       } else {
         targetState = nil
       }
       if targetState?.forceAnimate == true || container.convert(view.bounds, from: view).intersects(container.bounds) {
-        if let heroID = view.heroID {
+        if let heroID = view.hero.id {
           idMap[heroID] = view
         }
         targetStates[view] = targetState
@@ -99,7 +99,7 @@ extension HeroContext {
    - Returns: a view with the same heroID, but on different view controller, nil if not found
    */
   public func pairedView(for view: UIView) -> UIView? {
-    if let id = view.heroID {
+    if let id = view.hero.id {
       if sourceView(for: id) == view {
         return destinationView(for: id)
       } else if destinationView(for: id) == view {
@@ -212,7 +212,7 @@ extension HeroContext {
     snapshot.layer.position = containerView.convert(view.layer.position, from: view.superview!)
     snapshot.layer.transform = containerView.layer.flatTransformTo(layer: view.layer)
     snapshot.layer.bounds = view.layer.bounds
-    snapshot.heroID = view.heroID
+    snapshot.hero.id = view.hero.id
 
     if snapshotType != .noSnapshot {
       if !(view is UINavigationBar), let contentView = snapshot.subviews.get(0) {
@@ -332,7 +332,7 @@ extension HeroContext {
       if view != snapshot {
         snapshot.removeFromSuperview()
       } else {
-        view.layer.removeAllAnimations()
+        view.layer.removeAllHeroAnimations()
       }
     }
   }
@@ -341,7 +341,7 @@ extension HeroContext {
       if rootView != snapshot {
         snapshot.removeFromSuperview()
       } else {
-        rootView.layer.removeAllAnimations()
+        rootView.layer.removeAllHeroAnimations()
       }
     }
     for subview in rootView.subviews {
@@ -358,16 +358,16 @@ extension HeroContext {
     return snapshots
   }
   internal func loadViewAlpha(rootView: UIView) {
-    if let storedAlpha = rootView.heroStoredAlpha {
+    if let storedAlpha = rootView.hero.storedAlpha {
       rootView.alpha = storedAlpha
-      rootView.heroStoredAlpha = nil
+      rootView.hero.storedAlpha = nil
     }
     for subview in rootView.subviews {
       loadViewAlpha(rootView: subview)
     }
   }
   internal func storeViewAlpha(rootView: UIView) {
-    rootView.heroStoredAlpha = viewAlphas[rootView]
+    rootView.hero.storedAlpha = viewAlphas[rootView]
     for subview in rootView.subviews {
       storeViewAlpha(rootView: subview)
     }
