@@ -21,8 +21,8 @@ protocol GridViewControllerDelegate: class {
 
 extension PHAsset {
     static var screenshots: PHFetchResult<PHAsset> {
-        let screenshotsAlbum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots, options: nil)
-        let collection = screenshotsAlbum.object(at: 0)
+        let album = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
+        let collection = album.object(at: 0)
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         options.predicate = NSPredicate(format: "pixelWidth == %@ AND pixelHeight == %@", argumentArray: [1125, 2436])
