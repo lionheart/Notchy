@@ -19,3 +19,12 @@ end
 
 target 'Action Extension' do
 end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    plist_buddy = "/usr/libexec/PlistBuddy"
+    plist = "Pods/Target Support Files/#{target}/Info.plist"
+    `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities array" "#{plist}"`
+    `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities:0 string armv7" "#{plist}"`
+  end
+end
