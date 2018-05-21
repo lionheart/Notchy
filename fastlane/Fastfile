@@ -51,7 +51,7 @@ platform :ios do
     increment_build_number(build_number: "#{build_number+1}.#{dt}", xcodeproj: project_file)
     commit_version_bump(message: "bump to #{build_number}", xcodeproj: project_file)
 
-    version_number = get_version_number(xcodeproj: project_file)
+    version_number = get_version_number(xcodeproj: project_file, target: "Notchy", configuration: "Release")
     add_git_tag tag: "v#{version_number}+#{build_number}"
     push_to_git_remote
 
