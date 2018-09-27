@@ -15,10 +15,10 @@ enum MaskType {
     case v1
     case v2
 
-    func applyMask(input: UIImage, watermark: Bool) -> UIImage? {
+    func applyMask(device: NotchyDevice, input: UIImage, watermark: Bool) -> UIImage? {
         switch self {
         case .v1: return input.maskv1(watermark: watermark)
-        case .v2: return input.maskv2(watermark: watermark, frame: false)
+        case .v2: return input.maskv2(device: device, watermark: watermark, frame: false)
         }
     }
 }
@@ -98,9 +98,19 @@ extension UIImage {
         return newImage
     }
     
-    var XSizeImage: UIImage? {
+    var _XSizeImage: UIImage? {
         let hasAlpha = true
         let size = CGSize(width: 375, height: 812)
+        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, 0)
+        draw(in: CGRect(origin: .zero, size: size))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return scaledImage
+    }
+    
+    func sizeImage(device: NotchyDevice) -> UIImage? {
+        let hasAlpha = true
+        let size = device.halfSize
         UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, 0)
         draw(in: CGRect(origin: .zero, size: size))
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -118,15 +128,15 @@ extension UIImage {
         return UIImage(cgImage: result)
     }
 
-    func maskv2(watermark: Bool, frame: Bool) -> UIImage? {
-        guard let resizedToX = XSizeImage else {
+    func maskv2(device: NotchyDevice, watermark: Bool, frame: Bool) -> UIImage? {
+        guard let resizedToX = sizeImage(device: device) else {
             return nil
         }
 
         let original = CIImage(image: resizedToX)!
 
-        guard let watermarkCIImage = CIImage(image: watermarkImage),
-            let frameImage = CIImage(image: frameImage) else {
+        guard let watermarkCIImage = CIImage(image: device.watermarkImage),
+            let frameImage = CIImage(image: device.frameImage) else {
                 return UIImage(ciImage: original.masked)
         }
 

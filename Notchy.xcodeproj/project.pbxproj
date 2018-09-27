@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37094AC1215C69CB00529944 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37094AC0215C69CB00529944 /* PHAsset+Notchy.swift */; };
+		37094AC2215C69CB00529944 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37094AC0215C69CB00529944 /* PHAsset+Notchy.swift */; };
+		37094AC3215C69CB00529944 /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37094AC0215C69CB00529944 /* PHAsset+Notchy.swift */; };
 		37119B1E1FBA771300322F63 /* PlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1D1FBA771300322F63 /* PlainButton.swift */; };
 		37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1F1FBA791200322F63 /* ShortPlainButton.swift */; };
 		37119B221FBA7B6300322F63 /* ShortPlainAlternateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B211FBA7B6300322F63 /* ShortPlainAlternateButton.swift */; };
@@ -81,8 +84,8 @@
 		37A497B12025400A0039694C /* PlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1D1FBA771300322F63 /* PlainButton.swift */; };
 		37A497B2202540140039694C /* ShortPlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37119B1F1FBA791200322F63 /* ShortPlainButton.swift */; };
 		37A497B3202541750039694C /* NotchyAlertAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373FA0751FBE2BFD00C29902 /* NotchyAlertAnimation.swift */; };
-		37A497B4202541820039694C /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
-		37A497B5202541820039694C /* PHAsset+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */; };
+		37A497B4202541820039694C /* PHImageManager+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHImageManager+Notchy.swift */; };
+		37A497B5202541820039694C /* PHImageManager+Notchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37931AD71FB8D8FF00C03BB0 /* PHImageManager+Notchy.swift */; };
 		37AA9EE71FC263C200B20697 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AA9EE61FC263C200B20697 /* Defaults.swift */; };
 		37AA9EE91FC2757200B20697 /* ClearMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 37AA9EE81FC2757100B20697 /* ClearMask.png */; };
 		37CC0E152024C072003DD50C /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC0E142024C072003DD50C /* Presentable.swift */; };
@@ -139,6 +142,7 @@
 /* Begin PBXFileReference section */
 		1CCF1D942C0903B1CA8BCDB0 /* Pods_Photo_Editor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Photo_Editor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3393D2148B089AC68DFFDE32 /* Pods-Action Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Action Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Action Extension/Pods-Action Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		37094AC0215C69CB00529944 /* PHAsset+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Notchy.swift"; sourceTree = "<group>"; };
 		37116F4920002BB600F5EA56 /* Info with Icons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info with Icons.plist"; sourceTree = "<group>"; };
 		37119B1D1FBA771300322F63 /* PlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainButton.swift; sourceTree = "<group>"; };
 		37119B1F1FBA791200322F63 /* ShortPlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortPlainButton.swift; sourceTree = "<group>"; };
@@ -333,7 +337,7 @@
 		37931ACF1FB7AC5100C03BB0 /* NotchyToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyToolbar.swift; sourceTree = "<group>"; };
 		37931AD11FB7AC9E00C03BB0 /* NotchyGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchyGradientView.swift; sourceTree = "<group>"; };
 		37931AD51FB8A8B300C03BB0 /* BlackBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackBackground.png; sourceTree = "<group>"; };
-		37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Notchy.swift"; sourceTree = "<group>"; };
+		37931AD71FB8D8FF00C03BB0 /* PHImageManager+Notchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHImageManager+Notchy.swift"; sourceTree = "<group>"; };
 		37A4978D202519980039694C /* Photo Editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Photo Editor.entitlements"; sourceTree = "<group>"; };
 		37A4978E20251A540039694C /* Notchy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notchy.entitlements; sourceTree = "<group>"; };
 		37A4979320253E7B0039694C /* Action Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Action Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -437,7 +441,8 @@
 			children = (
 				373FA06B1FBD065E00C29902 /* UIFont+Notchy.swift */,
 				37931ACB1FB75B4A00C03BB0 /* UIImage+Notchy.swift */,
-				37931AD71FB8D8FF00C03BB0 /* PHAsset+Notchy.swift */,
+				37094AC0215C69CB00529944 /* PHAsset+Notchy.swift */,
+				37931AD71FB8D8FF00C03BB0 /* PHImageManager+Notchy.swift */,
 				378DB28D1FE860E500EAED3E /* UICollectionView+Notchy.swift */,
 				37CC0E232024E427003DD50C /* UserDefaults+Notchy.swift */,
 				3768956E202665DA00D92790 /* NSExtensionContext+Notchy.swift */,
@@ -1010,7 +1015,7 @@
 				373FA0721FBD118400C29902 /* ExtraStuffView.swift in Sources */,
 				378DB28E1FE860E500EAED3E /* UICollectionView+Notchy.swift in Sources */,
 				373FA0741FBE283000C29902 /* ExtraStuffViewController.swift in Sources */,
-				37A497B4202541820039694C /* PHAsset+Notchy.swift in Sources */,
+				37A497B4202541820039694C /* PHImageManager+Notchy.swift in Sources */,
 				374BC9941FB68FB800FB7AA2 /* RoundedButton.swift in Sources */,
 				373FA0681FBD018100C29902 /* NotchyAlertViewController.swift in Sources */,
 				3739C9DE1FB13C0C00F461A8 /* GridViewCell.swift in Sources */,
@@ -1029,6 +1034,7 @@
 				3751962D2024BD20007E7DA6 /* BaseImageEditingViewController.swift in Sources */,
 				37119B1E1FBA771300322F63 /* PlainButton.swift in Sources */,
 				3739C9E01FB13C3600F461A8 /* AnimatedImageView.swift in Sources */,
+				37094AC1215C69CB00529944 /* PHAsset+Notchy.swift in Sources */,
 				37119B201FBA791200322F63 /* ShortPlainButton.swift in Sources */,
 				37931ACE1FB7974A00C03BB0 /* SingleImageViewController.swift in Sources */,
 				373FA06C1FBD065E00C29902 /* UIFont+Notchy.swift in Sources */,
@@ -1045,6 +1051,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				375196202024BC02007E7DA6 /* PhotoEditingViewController.swift in Sources */,
+				37094AC2215C69CB00529944 /* PHAsset+Notchy.swift in Sources */,
 				378CB737202915A5008BFB0E /* ShortPlainButton.swift in Sources */,
 				37CC0E202024E3FD003DD50C /* NotchyAlertAnimation.swift in Sources */,
 				3792360520261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */,
@@ -1079,7 +1086,7 @@
 				37A4979620253E7B0039694C /* ActionViewController.swift in Sources */,
 				37923600202614A4003D5C77 /* ExtraStuffViewController+Extension.swift in Sources */,
 				37A497AE20253FE50039694C /* UserDefaults+Notchy.swift in Sources */,
-				37A497B5202541820039694C /* PHAsset+Notchy.swift in Sources */,
+				37A497B5202541820039694C /* PHImageManager+Notchy.swift in Sources */,
 				37A497A620253FB90039694C /* ShortPlainAlternateButton.swift in Sources */,
 				3792360620261C3A003D5C77 /* ExtraStuffPresentationDelegate.swift in Sources */,
 				37A497A520253FB20039694C /* NotchyGradientView.swift in Sources */,
@@ -1088,6 +1095,7 @@
 				37A497A720253FBC0039694C /* ExtraStuffView.swift in Sources */,
 				37A497A220253F5E0039694C /* NotchyToolbar.swift in Sources */,
 				37A497AB20253FE50039694C /* UIImage+Notchy.swift in Sources */,
+				37094AC3215C69CB00529944 /* PHAsset+Notchy.swift in Sources */,
 				37A497B0202540030039694C /* Presentable.swift in Sources */,
 				379235FC20261427003D5C77 /* UIViewController+Notchy.swift in Sources */,
 			);

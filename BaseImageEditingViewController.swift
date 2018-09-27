@@ -14,19 +14,6 @@ import LionheartExtensions
 import SwiftyUserDefaults
 import MobileCoreServices
 
-enum PhoneDimension {
-    case frame
-    case noFrame
-    
-    var multiplier: CGFloat {
-        switch self {
-        // 2436/1125
-        case .frame: return 1.9284649776
-        case .noFrame: return 2.1653
-        }
-    }
-}
-
 class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDelegate {
     var selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
@@ -49,6 +36,7 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
     
     var previewImageView: UIImageView!
     var asset: PHAsset!
+    var device: NotchyDevice!
     
     var extraStuffView: ExtraStuffView!
     var backButton: UIButton!
@@ -84,9 +72,10 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
     convenience init(asset: PHAsset, original: UIImage, masked: UIImage) {
         self.init()
 
+        self.device = asset.device
         self.asset = asset
         self.originalImage = original
-        self.maskedImage = original.maskv2(watermark: !Defaults[.removeWatermark], frame: Defaults[.addPhone])
+        self.maskedImage = original.maskv2(device: device, watermark: !Defaults[.removeWatermark], frame: Defaults[.addPhone])
     }
     
     convenience init(asset: PHAsset) {
@@ -206,12 +195,12 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         previewImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
         previewImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 16
         widthConstraint = previewImageView.widthAnchor ~~ imagePreviewHelperLayoutGuide.widthAnchor
-        
-        noFrameConstraint = previewImageView.heightAnchor ~~ previewImageView.widthAnchor * PhoneDimension.noFrame.multiplier
-        
-        frameConstraint = previewImageView.heightAnchor ~~ previewImageView.widthAnchor * PhoneDimension.frame.multiplier
+
+        noFrameConstraint = previewImageView.heightAnchor ~~ previewImageView.widthAnchor * device.multiplier(hasFrame: false)
+
+        frameConstraint = previewImageView.heightAnchor ~~ previewImageView.widthAnchor * device.multiplier(hasFrame: true)
         frameConstraint.isActive = false
-        
+
         watermarkImageView.bottomAnchor ~~ previewImageView.bottomAnchor
         watermarkImageView.rightAnchor ~~ previewImageView.rightAnchor
         
@@ -274,7 +263,7 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
             removeWatermarkButton.isSelected = !removeWatermarkButton.isSelected
             Defaults[.removeWatermark] = removeWatermarkButton.isSelected
             
-            maskedImage = originalImage.maskv2(watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
+            maskedImage = originalImage.maskv2(device: device, watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
         } else {
             displayExtraStuffViewController()
         }
@@ -287,11 +276,11 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
     @objc func addDeviceButtonDidTouchUpInside(_ sender: Any) {
         if UserDefaults.purchased {
             selectionFeedbackGenerator.selectionChanged()
-            
+
             addPhoneButton.isSelected = !addPhoneButton.isSelected
             Defaults[.addPhone] = addPhoneButton.isSelected
             
-            maskedImage = originalImage.maskv2(watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
+            maskedImage = originalImage.maskv2(device: device, watermark: !removeWatermarkButton.isSelected, frame: addPhoneButton.isSelected)
             
             updateImageConstraints()
             

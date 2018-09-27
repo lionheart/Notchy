@@ -66,9 +66,9 @@ extension PhotoEditingViewController: PHContentEditingController {
         let decoder = JSONDecoder()
         if let adjustmentData = contentEditingInput.adjustmentData,
             let adjustment = try? decoder.decode(NotchyImageAdjustmentData.self, from: adjustmentData.data) {
-            self.maskedImage = placeholderImage.maskv2(watermark: adjustment.showWatermark, frame: adjustment.showFrame)
+            self.maskedImage = placeholderImage.maskv2(device: device, watermark: adjustment.showWatermark, frame: adjustment.showFrame)
         } else {
-            self.maskedImage = placeholderImage.maskv2(watermark: true, frame: false)
+            self.maskedImage = placeholderImage.maskv2(device: device, watermark: true, frame: false)
         }
     }
 

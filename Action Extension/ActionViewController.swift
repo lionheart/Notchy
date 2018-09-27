@@ -59,7 +59,7 @@ final class ActionViewController: BaseImageEditingViewController {
                         let removeWatermark = Defaults[.removeWatermark]
                         let addPhone = Defaults[.addPhone]
                         if let image = image,
-                            let maskedImage = image.maskv2(watermark: !removeWatermark, frame: addPhone) {
+                            let maskedImage = image.maskv2(device: self.device, watermark: !removeWatermark, frame: addPhone) {
                             self.originalImage = image
                             self.maskedImage = maskedImage
                         }

@@ -13,9 +13,6 @@ import LionheartExtensions
 import SwiftyUserDefaults
 import Presentr
 
-//1342 × 2588 pixels
-//1125 × 2436 pixels
-
 let Defaults = UserDefaults(suiteName: "group.com.lionheartsw.notchy")!
 
 @UIApplicationMain
@@ -24,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         SKPaymentQueue.default().add(self)
+        
+        print(UIScreen.main.bounds)
 
         let controller: UIViewController
         switch PHPhotoLibrary.authorizationStatus() {

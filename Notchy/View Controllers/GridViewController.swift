@@ -25,7 +25,7 @@ extension PHAsset {
         let collection = album.object(at: 0)
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        options.predicate = NSPredicate(format: "pixelWidth == %@ AND pixelHeight == %@", argumentArray: [1125, 2436])
+        options.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: NotchyDevice.predicates)
         return fetchAssets(in: collection, options: options)
     }
 }
@@ -175,7 +175,7 @@ final class GridViewController: UICollectionViewController, ExtraStuffPresentati
         let columns: CGFloat = 4
         let padding: CGFloat = 10
         let itemWidth = floor((viewWidth - (columns - 1) * padding - 20) / columns)
-        let aspect = CGFloat(2436) / CGFloat(1125)
+        let aspect = NotchyDevice.X.aspectRatio
         let itemHeight = itemWidth * aspect
 
         thumbnailSize = CGSize(width: itemWidth, height: itemHeight)
