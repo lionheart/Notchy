@@ -8,7 +8,7 @@ pod 'LionheartExtensions', '~> 3.9'
 pod 'QuickTableView', '~> 2'
 pod 'SwiftyUserDefaults', '~> 3'
 pod 'SuperLayout'
-pod 'Presentr', :path => "../Presentr"
+pod 'Presentr'
 
 target 'Notchy' do
   pod 'Hero'
