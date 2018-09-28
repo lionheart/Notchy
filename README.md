@@ -41,7 +41,11 @@ Main TODOs (as I see them right now):
 
 The first thing you should do is open an issue so we can discuss your plan in a little more detail before you work on a large pull request. I'd rather reject an idea *before* you put the time into it (I don't like wasting my time and don't want to waste yours, either). Once we've discussed your proposal, you can get started on writing code and then submit a PR.
 
-### Local Setup
+## The code is confusing. Can you write more documentation?
+
+Unfortunately, no. Not right now. I don't have time to write any more docs, but I'll happily accept pull requests that makes the code clearer for others.
+
+## Local Setup
 
 1. Install the Ruby in `.ruby-version` and Bundler.
 
@@ -58,10 +62,6 @@ The first thing you should do is open an issue so we can discuss your plan in a 
 
 3. Open `Notchy.xcworkspace` to compile and run the project.
 
-## The code is confusing. Can you write more documentation?
-
-Unfortunately, no. Not right now. I don't have time to write any more docs, but I'll happily accept pull requests that makes the code clearer for others.
-
 License
 -------
 
@@ -69,4 +69,4 @@ Notchy is licensed under the [GNU GPL version 3 or any later version](https://ww
 
 In short: you can modify and distribute the source code to others (and even sell it!) as long as you make the source code modifications freely available.
 
-If you would like to sell a modified version of the software (or any component thereof) and do *not* want to release the source code, you may contact me and you can purchase a [selling exception](https://www.gnu.org/philosophy/selling-exceptions), which is permissible under the GPL.
+If you would like to sell a modified version of the software (or any component thereof) and do *not* want to release the source code, you may contact me and you can purchase a [selling exception](https://www.gnu.org/philosophy/selling-exceptions).
