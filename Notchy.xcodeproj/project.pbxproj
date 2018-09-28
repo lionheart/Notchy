@@ -719,7 +719,6 @@
 				3739C9C11FB136CE00F461A8 /* Frameworks */,
 				3739C9C21FB136CE00F461A8 /* Resources */,
 				0E7772E4995A64B131127EB5 /* [CP] Embed Pods Frameworks */,
-				64A6107CED8C131BA353706A /* [CP] Copy Pods Resources */,
 				3751962B2024BC02007E7DA6 /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -741,7 +740,6 @@
 				375196152024BC02007E7DA6 /* Sources */,
 				375196162024BC02007E7DA6 /* Frameworks */,
 				375196172024BC02007E7DA6 /* Resources */,
-				2C79CD2B5B641AF1676642EE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -760,7 +758,6 @@
 				37A4978F20253E7B0039694C /* Sources */,
 				37A4979020253E7B0039694C /* Frameworks */,
 				37A4979120253E7B0039694C /* Resources */,
-				497A3F96B419F53B7028E4DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -901,36 +898,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2C79CD2B5B641AF1676642EE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Photo Editor/Pods-Photo Editor-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		497A3F96B419F53B7028E4DE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Action Extension/Pods-Action Extension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6340F762BF5BB28F566FA021 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -965,21 +932,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		64A6107CED8C131BA353706A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Notchy/Pods-Notchy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F60D76E5ED3EBB3983690797 /* [CP] Check Pods Manifest.lock */ = {

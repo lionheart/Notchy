@@ -15,6 +15,7 @@ import Foundation
 /// - coverVerticalFromTop: Slides in vertically from top.
 /// - coverHorizontalFromRight: Slides in horizontally from right.
 /// - coverHorizontalFromLeft: Slides in horizontally from left.
+/// - flipHorizontal: Flips new view horizontally.
 /// - custom: Custom transition animation provided by user.
 public enum TransitionType {
 
@@ -23,6 +24,8 @@ public enum TransitionType {
     case coverVerticalFromTop
     case coverHorizontalFromRight
     case coverHorizontalFromLeft
+    case flipHorizontal
+	case coverFromCorner(Corner)
     case custom(PresentrAnimation)
 
     /// Associates a custom transition type to the class responsible for its animation.
@@ -40,6 +43,10 @@ public enum TransitionType {
             return CoverHorizontalAnimation(fromRight: true)
         case .coverHorizontalFromLeft:
             return CoverHorizontalAnimation(fromRight: false)
+		case .coverFromCorner(let corner):
+			return CoverFromCornerAnimation(corner: corner)
+        case .flipHorizontal:
+            return FlipHorizontalAnimation()
         case .custom(let animation):
             return animation
         }
