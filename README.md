@@ -9,7 +9,7 @@ Notchy is an iOS app that makes pretty, shareable screenshots for the iPhone X a
 
 App Store Link: https://itunes.apple.com/us/app/notchy/id1311762771?ls=1&mt=8&uo=4&at=1l3vbEC
 
-Landing page: http://lionheartsw.com/software/notchy/
+Landing page: https://lionheartsw.com/software/notchy/
 
 ## Why Open Source
 
