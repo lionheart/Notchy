@@ -26,6 +26,14 @@ You can contribute in a few ways:
 1. The *best* way to contribute is to fork the code and make an improvement.
 2. Reach out to Ryan and I if you ever decide to visit Austin and buy us a coffee.
 3. If you use any of the Notchy code in a proprietary, closed-source app, you can purchase a selling exception (see [below](#license)).
+4. If you just want to send us money (you really don't need to do this though):
+
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="hosted_button_id" value="MKLMSDV7HL9VJ">
+  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  </form>
 
 ### I want to contribute! What can I work on?
 
