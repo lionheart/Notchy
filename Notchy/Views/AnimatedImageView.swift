@@ -1,5 +1,5 @@
 /*
- See LICENSE.txt for this sample’s licensing information.
+ See APPLE_LICENSE.txt for this sample’s licensing information.
 
  Abstract:
  View for displaying an animated GIF.

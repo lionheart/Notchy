@@ -1,5 +1,5 @@
 /*
- See LICENSE.txt for this sample’s licensing information.
+ See APPLE_LICENSE.txt for this sample’s licensing information.
 
  Abstract:
  Manages the second-level collection view, a grid of photos in a collection (or all photos).

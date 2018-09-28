@@ -1,5 +1,5 @@
 /*
- See LICENSE.txt for this sample’s licensing information.
+ See APPLE_LICENSE.txt for this sample’s licensing information.
 
  Abstract:
  Displays a single photo, live photo, or video asset and demonstrates simple editing.

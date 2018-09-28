@@ -1,5 +1,5 @@
 /*
- See LICENSE.txt for this sample’s licensing information.
+ See APPLE_LICENSE.txt for this sample’s licensing information.
 
  Abstract:
  Collection view cell for displaying an asset.
