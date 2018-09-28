@@ -3,6 +3,14 @@ Notchy
 
 This is the full source code to Notchy, an iOS app that was a collaboration between [Ryan Jones](https://twitter.com/rjonesy), [Brad Ellis](https://twitter.com/bradellis), and [I](https://twitter.com/dwlz).
 
+## What is Notchy?
+
+Notchy is an iOS app that makes pretty, shareable screenshots for the iPhone X and the iPhone XS.
+
+App Store Link: https://itunes.apple.com/us/app/notchy/id1311762771?ls=1&mt=8&uo=4&at=1l3vbEC
+
+Landing page: http://lionheartsw.com/software/notchy/
+
 ## Why Open Source
 
 A few reasons:
@@ -17,6 +25,17 @@ You can contribute in a few ways:
 1. The *best* way to contribute is to fork the code and make an improvement.
 2. Reach out to Ryan and I if you ever decide to visit Austin and buy us a coffee.
 3. If you use any of the Notchy code in a proprietary, closed-source app, you can purchase a selling exception (see [below](#license)).
+
+### I want to contribute! What can I work on?
+
+Main TODOs (as I see them right now):
+
+* [ ] Add support for the iPhone XS Max.
+* [ ] Add support for the iPhone-that-shall-not-be-named-as-of-2018-09-28 per App Review.
+
+### I have an idea. What should I do?
+
+The first thing you should do is open an issue so we can discuss your plan in a little more detail before you work on a large pull request. I'd rather reject an idea *before* you put the time into it (I don't like wasting my time and don't want to waste yours, either). Once we've discussed your proposal, you can get started on writing code and then submit a PR.
 
 ### Local Setup
 
