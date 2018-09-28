@@ -10,13 +10,15 @@ A few reasons:
 1. The app doesn't make *that* much money, so it makes more sense to convert it to a community project.
 2. I open source a lot of stuff, but I've never open sourced a complete iOS app. Seemed like a good opportunity to do that.
 
-## This is awesome. How can I give you money?
+### This is awesome. How can I give you money?
 
-The best way to contribute is to fork the code and make an improvement.
+You can contribute in a few ways:
 
-If you're dead-set on giving back, reach out to Ryan and I if you ever decide to visit Austin and buy us a coffee.
+1. The *best* way to contribute is to fork the code and make an improvement.
+2. Reach out to Ryan and I if you ever decide to visit Austin and buy us a coffee.
+3. If you use any of the Notchy code in a proprietary, closed-source app, you can purchase a selling exception (see [below](#license)).
 
-## Local Setup
+### Local Setup
 
 1. Install the Ruby in `.ruby-version` and Bundler.
 
@@ -32,6 +34,10 @@ If you're dead-set on giving back, reach out to Ryan and I if you ever decide to
         pod install
 
 3. Open `Notchy.xcworkspace` to compile and run the project.
+
+## The code is confusing. Can you write more documentation?
+
+Unfortunately, no. Not right now. I don't have time to write any more docs, but I'll happily accept pull requests that makes the code clearer for others.
 
 License
 -------
