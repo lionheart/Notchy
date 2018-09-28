@@ -17,6 +17,7 @@ A few reasons:
 
 1. The app doesn't make *that* much money, so it makes more sense to convert it to a community project.
 2. I open source a lot of stuff, but I've never open sourced a complete iOS app. Seemed like a good opportunity to do that.
+3. There are some goodies in here that couldn't be released in the live app ([hint hint](https://github.com/lionheart/Notchy/tree/master/App%20Review%20Blacklist.xcassets)).
 
 ### This is awesome. How can I give you money?
 
