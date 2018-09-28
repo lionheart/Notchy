@@ -63,6 +63,8 @@ Unfortunately, no. Not right now. I don't have time to write any more docs, but 
 License
 -------
 
+<img src="https://www.gnu.org/graphics/gplv3-with-text-84x42.png" />
+
 Notchy is licensed under the [GNU GPL version 3 or any later version](https://www.gnu.org/licenses/gpl-3.0.html), which is considered a strict open-source license.
 
 In short: you can modify and distribute the source code to others (and even sell it!) as long as you make the source code modifications freely available.
