@@ -58,9 +58,9 @@ final class SingleImageViewController: BaseImageEditingViewController {
 
         backButton.addTarget(self, action: #selector(backButtonDidTouchUpInside(_:)), for: .touchUpInside)
         
-        isHeroEnabled = true
-        
-        previewImageView.heroID = asset.localIdentifier
+        hero.isEnabled = true
+
+        previewImageView.hero.id = asset.localIdentifier
         
         toolbar = NotchyToolbar(delegate: self, type: .regular)
 
@@ -82,7 +82,7 @@ final class SingleImageViewController: BaseImageEditingViewController {
     }
 
     @objc func backButtonDidTouchUpInside(_ sender: Any) {
-        hero_dismissViewController()
+        hero.dismissViewController()
     }
 }
 

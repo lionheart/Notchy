@@ -224,7 +224,7 @@ extension GridViewController {
 
         // Request an image for the asset from the PHCachingImageManager.
         cell.representedAssetIdentifier = asset.localIdentifier
-        cell.imageView.heroID = asset.localIdentifier
+        cell.imageView.hero.id = asset.localIdentifier
 
         imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { image, _ in
             // The cell may have been recycled by the time this handler gets called;
