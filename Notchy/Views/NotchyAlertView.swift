@@ -50,7 +50,7 @@ final class NotchyAlertView: UIView {
             views = [imageView, label]
 
         case .loading(let text):
-            let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            let activity = UIActivityIndicatorView(style: .gray)
             activity.startAnimating()
             label.text = text
             views = [activity, label]

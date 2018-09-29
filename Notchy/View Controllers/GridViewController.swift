@@ -157,7 +157,7 @@ final class GridViewController: UICollectionViewController, ExtraStuffPresentati
             let alert = UIAlertController(title: "Big News!", message: "Notchy is now open source! If you'd like to read more, please check out the GitHub repo.", preferredStyle: .alert)
             alert.addAction(title: "View On GitHub", style: .default) { _ in
                 let url = URL(string: "https://lionheartsw.com/lionheart/notchy")!
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
             alert.addAction(title: "Cancel", style: .cancel, handler: nil)
             present(alert, animated: true) {
@@ -375,4 +375,9 @@ extension GridViewController: IconSelectorViewControllerDelegate {
         controller.modalPresentationStyle = .custom
         present(controller, animated: true)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

@@ -115,7 +115,7 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Pick", style: .done, target: self, action: #selector(rightBarButtonItemDidTouchUpInside(sender:)))
         
         backButton = UIButton()
-        backButton.contentEdgeInsets = UIEdgeInsetsMake(40, 0, 0, 0 )
+        backButton.contentEdgeInsets = UIEdgeInsets.init(top: 40, left: 0, bottom: 0, right: 0 )
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.setImage(UIImage(named: "CircleClose")?.image(withColor: .white), for: .normal)
         backButton.setImage(UIImage(named: "Clear")?.image(withColor: .white), for: .highlighted)
@@ -193,18 +193,18 @@ class BaseImageEditingViewController: UIViewController, ExtraStuffPresentationDe
         view.addSubview(removeWatermarkButton)
         view.addSubview(addPhoneButton)
         view.addSubview(backButton)
-        backButton.topAnchor.constraintEqualToSystemSpacingBelow(view.layoutMarginsGuide.topAnchor, multiplier: 1)
+        backButton.topAnchor.constraint(equalToSystemSpacingBelow: view.layoutMarginsGuide.topAnchor, multiplier: 1)
         backButton.trailingAnchor ~~ view.layoutMarginsGuide.trailingAnchor
 
         addPhoneButton.widthAnchor ~~ removeWatermarkButton.widthAnchor
 
         removeWatermarkButton.trailingAnchor ~~ view.layoutMarginsGuide.trailingAnchor
-        helperLayoutGuide.topAnchor.constraintEqualToSystemSpacingBelow(removeWatermarkButton.bottomAnchor, multiplier: 2).isActive = true
-        helperLayoutGuide.topAnchor.constraintEqualToSystemSpacingBelow(addPhoneButton.bottomAnchor, multiplier: 2).isActive = true
+        helperLayoutGuide.topAnchor.constraint(equalToSystemSpacingBelow: removeWatermarkButton.bottomAnchor, multiplier: 2).isActive = true
+        helperLayoutGuide.topAnchor.constraint(equalToSystemSpacingBelow: addPhoneButton.bottomAnchor, multiplier: 2).isActive = true
 
         addPhoneButton.leadingAnchor ~~ view.layoutMarginsGuide.leadingAnchor
 
-        removeWatermarkButton.leadingAnchor.constraintEqualToSystemSpacingAfter(addPhoneButton.trailingAnchor, multiplier: 2).isActive = true
+        removeWatermarkButton.leadingAnchor.constraint(equalToSystemSpacingAfter: addPhoneButton.trailingAnchor, multiplier: 2).isActive = true
 
         previewImageView.centerXAnchor ~~ imageContainerView.centerXAnchor
         previewImageView.centerYAnchor ~~ imageContainerView.centerYAnchor - 16

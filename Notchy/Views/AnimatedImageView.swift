@@ -124,7 +124,7 @@ class AnimatedImageView: UIView {
     func updateAnimation() {
         if shouldAnimate() {
             displayLink = CADisplayLink(target: self.displayLinkProxy, selector: #selector(DisplayLinkProxyObject.proxyTimerFired))
-            displayLink?.add(to: RunLoop.main, forMode: .commonModes)
+            displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
             displayLink?.preferredFramesPerSecond = 60
         } else {
             displayLink?.invalidate()

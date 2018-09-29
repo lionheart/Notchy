@@ -225,7 +225,7 @@ final class ExtraStuffView: UIView {
         getStuffButton.isEnabled = false
         restorePurchasesButton.isEnabled = false
 
-        activity = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activity = UIActivityIndicatorView(style: .white)
         guard let activity = activity else {
             return
         }

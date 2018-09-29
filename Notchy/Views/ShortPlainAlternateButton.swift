@@ -24,7 +24,7 @@ import UIKit
 import LionheartExtensions
 
 final class ShortPlainAlternateButton: UIButton {
-    override func setTitle(_ title: String?, for state: UIControlState) {
+    override func setTitle(_ title: String?, for state: UIControl.State) {
         guard let title = title else {
             return
         }
@@ -38,7 +38,7 @@ final class ShortPlainAlternateButton: UIButton {
         let paragraph = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraph.alignment = .center
 
-        let attributes: [NSAttributedStringKey: Any] = [
+        let attributes: [NSAttributedString.Key: Any] = [
             .font: NotchyTheme.systemFont(ofSize: 13, weight: .medium),
             .foregroundColor: color,
             .paragraphStyle: paragraph
@@ -53,7 +53,7 @@ final class ShortPlainAlternateButton: UIButton {
 
         setTitle(normalTitle, for: .normal)
         setTitle(normalTitle, for: .highlighted)
-        setTitle(selectedTitle, for: UIControlState(rawValue: 5))
+        setTitle(selectedTitle, for: UIControl.State(rawValue: 5))
         setTitle(selectedTitle, for: .selected)
 
         translatesAutoresizingMaskIntoConstraints = false

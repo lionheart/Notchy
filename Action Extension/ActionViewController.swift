@@ -98,8 +98,8 @@ final class ActionViewController: BaseImageEditingViewController {
         toolbar.leadingAnchor ~~ view.safeAreaLayoutGuide.leadingAnchor
         toolbar.trailingAnchor ~~ view.safeAreaLayoutGuide.trailingAnchor
         
-        backButton.topAnchor.constraintEqualToSystemSpacingBelow(view.layoutMarginsGuide.topAnchor, multiplier: 1)
-        view.layoutMarginsGuide.trailingAnchor.constraintEqualToSystemSpacingAfter(backButton.trailingAnchor, multiplier: 1)
+        backButton.topAnchor.constraint(equalToSystemSpacingBelow: view.layoutMarginsGuide.topAnchor, multiplier: 1)
+        view.layoutMarginsGuide.trailingAnchor.constraint(equalToSystemSpacingAfter: backButton.trailingAnchor, multiplier: 1)
         
         toolbarVisibleConstraint = toolbar.bottomAnchor ~~ view.bottomAnchor
         

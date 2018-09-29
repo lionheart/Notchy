@@ -48,12 +48,12 @@ extension UIImage {
 final class RoundedButton: UIButton {
     var textColor: UIColor!
 
-    override func setTitle(_ title: String?, for state: UIControlState) {
+    override func setTitle(_ title: String?, for state: UIControl.State) {
         guard let title = title else {
             return
         }
 
-        let attributes: [NSAttributedStringKey: Any] = [
+        let attributes: [NSAttributedString.Key: Any] = [
             .font: NotchyTheme.systemFont(ofSize: 16, weight: .medium),
             .foregroundColor: textColor
         ]

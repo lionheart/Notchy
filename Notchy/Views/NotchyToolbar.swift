@@ -43,7 +43,7 @@ final class CheckmarkButton: UIButton {
         setImage(UIImage(named: "CircleCheckmark")?.image(withAlpha: 0.5), for: .focused)
         setImage(UIImage(named: "CircleCheckmark"), for: .selected)
 
-        let attributes: [NSAttributedStringKey: Any] = [
+        let attributes: [NSAttributedString.Key: Any] = [
             .font: NotchyTheme.systemFont(ofSize: 15),
             .foregroundColor: UIColor.black
         ]
@@ -90,7 +90,7 @@ final class CheckmarkView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
+    func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
         button.addTarget(target, action: action, for: controlEvents)
     }
 }
@@ -173,9 +173,9 @@ final class NotchyToolbar: UIView {
             stackView.setCustomSpacing(UIStackView.spacingUseSystem, after: shareButton)
         }
 
-        shareButton.leadingAnchor.constraintEqualToSystemSpacingAfter(stackView.leadingAnchor, multiplier: 2).isActive = true
-        stackView.trailingAnchor.constraintEqualToSystemSpacingAfter(shareButton.trailingAnchor, multiplier: 2).isActive = true
-        stackView.topAnchor.constraintEqualToSystemSpacingBelow(topAnchor, multiplier: 2).isActive = true
+        shareButton.leadingAnchor.constraint(equalToSystemSpacingAfter: stackView.leadingAnchor, multiplier: 2).isActive = true
+        stackView.trailingAnchor.constraint(equalToSystemSpacingAfter: shareButton.trailingAnchor, multiplier: 2).isActive = true
+        stackView.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 2).isActive = true
 
         stackView.widthAnchor ~~ widthAnchor
         stackView.centerXAnchor ~~ centerXAnchor

@@ -67,7 +67,7 @@ final class AccessDeniedViewController: UIViewController {
     }
 
     @objc func openSettingsButtonDidTouchUpInside(sender: Any) {
-        let url = URL(string: UIApplicationOpenSettingsURLString)!
+        let url = URL(string: UIApplication.openSettingsURLString)!
         UIApplication.shared.open(url, options: [:])
     }
 }

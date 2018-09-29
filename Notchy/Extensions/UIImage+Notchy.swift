@@ -50,7 +50,7 @@ let maskFilterParameters: [String: Any] = [
 ]
 
 let maskFilter: CIFilter = {
-    guard let _filter = CIFilter(name: "CIBlendWithMask", withInputParameters: maskFilterParameters) else {
+    guard let _filter = CIFilter(name: "CIBlendWithMask", parameters: maskFilterParameters) else {
         fatalError()
     }
 
@@ -90,7 +90,7 @@ extension UIImage {
     var urlForTransparentVersion: URL? {
         print(size)
         guard let image = forced,
-            let data = UIImagePNGRepresentation(image) else {
+            let data = image.pngData() else {
                 return nil
         }
 

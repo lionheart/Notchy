@@ -173,7 +173,7 @@ final class IconSelectorViewController: UICollectionViewController {
 
         collectionView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 50, right: 0)
         collectionView.register(IconCollectionViewCell.self)
-        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HeaderIdentifier)
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderIdentifier)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -222,7 +222,7 @@ extension IconSelectorViewController: UICollectionViewDelegateFlowLayout {
 extension IconSelectorViewController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             let label = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderIdentifier, for: indexPath) as! HeaderView
             let section = sections[indexPath.section]
             label.label.text = section.name
