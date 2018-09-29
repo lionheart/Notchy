@@ -50,7 +50,7 @@ final class ActionViewController: BaseImageEditingViewController {
         // For example, look for an image and place it into an image view.
         // Replace this with something appropriate for the type[s] your extension supports.
         main: for item in inputItems {
-            guard let attachments = item.attachments as? [NSItemProvider] else {
+            guard let attachments = item.attachments else {
                 continue
             }
 
