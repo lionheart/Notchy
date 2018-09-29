@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.5</string>
+	<string>1.0.6</string>
 	<key>CFBundleVersion</key>
 	<string>87.2018.05.21</string>
 	<key>NSExtension</key>
