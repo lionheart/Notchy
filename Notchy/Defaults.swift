@@ -30,6 +30,7 @@ extension DefaultsKeys {
     static let purchased = DefaultsKey<Bool>("purchased")
     static let identifiers = DefaultsKey<[String]>("identifiers")
     static let numberOfScreenshots = DefaultsKey<Int>("numberOfScreenshots")
+    static let hasBeenShownOpenSourceMessage = DefaultsKey<Bool>("hasBeenShownOpenSourceMessage")
 }
 
 // 1342 × 2588 pixels - iPhone X/XS

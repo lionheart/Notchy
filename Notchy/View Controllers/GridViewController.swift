@@ -151,6 +151,19 @@ final class GridViewController: UICollectionViewController, ExtraStuffPresentati
         super.viewDidAppear(animated)
 
         updateCachedAssets()
+        
+        let hasBeenShownOpenSourceMessage = Defaults[.hasBeenShownOpenSourceMessage]
+        if (!hasBeenShownOpenSourceMessage) {
+            let alert = UIAlertController(title: "Big News!", message: "Notchy is now open source! If you'd like to read more, please check out the GitHub repo.", preferredStyle: .alert)
+            alert.addAction(title: "View On GitHub", style: .default) { _ in
+                let url = URL(string: "https://lionheartsw.com/lionheart/notchy")!
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            alert.addAction(title: "Cancel", style: .cancel, handler: nil)
+            present(alert, animated: true) {
+                Defaults[.hasBeenShownOpenSourceMessage] = true
+            }
+        }
     }
 
     // MARK: - Misc
