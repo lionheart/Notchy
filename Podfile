@@ -4,9 +4,9 @@ platform :ios, '11.2'
 
 use_frameworks!
 
-pod 'LionheartExtensions', '~> 3.9'
-pod 'QuickTableView', '~> 2'
-pod 'SwiftyUserDefaults', '~> 3'
+pod 'LionheartExtensions'
+pod 'QuickTableView'
+pod 'SwiftyUserDefaults'
 pod 'SuperLayout'
 pod 'Presentr'
 
