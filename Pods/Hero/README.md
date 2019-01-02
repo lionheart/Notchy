@@ -27,7 +27,6 @@ By default, Hero provides **dynamic duration** based on the [Material Design Mot
 
 Hero doesn't make any assumptions about how the view is built or structured. It won't modify any of your views' states other than hiding them during the animation. This makes it work with **Auto Layout**, **programmatic layout**, **UICollectionView** (without modifying its layout object), **UITableView**, **UINavigationController**, **UITabBarController**, etc... 
 
-
 ## Example Gallery
 
 Checkout the [Example Gallery Blog Post](http://lkzhao.com/2016/12/28/hero.html) for a general idea of what you can achieve with **Hero**
@@ -38,16 +37,16 @@ Checkout the [Example Gallery Blog Post](http://lkzhao.com/2016/12/28/hero.html)
 
 ##### View Controller 1
 ```swift
-redView.heroID = "ironMan"
-blackView.heroID = "batMan"
+redView.hero.id = "ironMan"
+blackView.hero.id = "batMan"
 ```
 
 ##### View Controller 2
 ```swift
-isHeroEnabled = true
-redView.heroID = "ironMan"
-blackView.heroID = "batMan"
-whiteView.heroModifiers = [.translate(y:100)]
+self.hero.isEnabled = true
+redView.hero.id = "ironMan"
+blackView.hero.id = "batMan"
+whiteView.hero.modifiers = [.translate(y:100)]
 ```
 
 
@@ -56,18 +55,18 @@ whiteView.heroModifiers = [.translate(y:100)]
 
 ##### View Controller 1
 ```swift
-greyView.heroID = "skyWalker"
+greyView.hero.id = "skyWalker"
 ```
 
 ##### View Controller 2
 ```swift
-isHeroEnabled = true
-greyView.heroID = "skyWalker"
+self.hero.isEnabled = true
+greyView.hero.id = "skyWalker"
 
 // collectionView is the parent view of all red cells
-collectionView.heroModifiers = [.cascade]
+collectionView.hero.modifiers = [.cascade]
 for cell in redCells {
-	cell.heroModifiers = [.fade, .scale(0.5)]
+	cell.hero.modifiers = [.fade, .scale(0.5)]
 }
 ```
 
@@ -75,6 +74,69 @@ You can do these in the **storyboard** too!
 
 <img src="https://cdn.rawgit.com/lkzhao/Hero/master/Resources/storyboardView.png" width="267px"/> 
 <img src="https://cdn.rawgit.com/lkzhao/Hero/master/Resources/storyboardViewController.png" width="267px"/>
+
+## Installation
+
+### CocoaPods
+
+Add the following entry to your Podfile:
+
+```rb
+pod 'Hero'
+```
+
+Then run `pod install`.
+
+Don't forget to `import Hero` in every file you'd like to use Hero.
+
+### Carthage
+
+Add the following entry to your `Cartfile`:
+
+```
+github "HeroTransitions/Hero"
+```
+
+Then run `carthage update`.
+
+If this is your first time using Carthage in the project, you'll need to go through some additional steps as explained [over at Carthage](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
+
+### Swift Package Manager
+
+To integrate using Apple's Swift package manager, add the following as a dependency to your `Package.swift`:
+
+```swift
+.package(url: "https://github.com/HeroTransitions/Hero.git", .upToNextMajor(from: "1.3.0"))
+```
+
+and then specify `"Hero"` as a dependency of the Target in which you wish to use Hero.
+Here's an example `PackageDescription`:
+
+```swift
+// swift-tools-version:4.0
+import PackageDescription
+
+let package = Package(
+    name: "MyPackage",
+    products: [
+        .library(
+            name: "MyPackage",
+            targets: ["MyPackage"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/HeroTransitions/Hero.git", .upToNextMajor(from: "1.3.0"))
+    ],
+    targets: [
+        .target(
+            name: "MyPackage",
+            dependencies: ["Hero"])
+    ]
+)
+```
+
+### Manually
+
+- Drag the **Sources** folder anywhere in your project.
 
 ## Documentations
 
@@ -89,25 +151,17 @@ For more up-to-date ones, please see the header-doc. (use **alt+click** in Xcode
 
 ## FAQ
 
-#### White flashes occurs on iPhone 7 (Plus) Simulators
+#### Not able to use Hero transition even when `self.hero.isEnabled` is set to true
 
-Hero **does not work** on iPhone 7 (Plus) Simulators due to an [Apple bug](https://forums.developer.apple.com/thread/63438). Please use other simulators or a real device when working with Hero.
-
-#### Not able to use Hero transition even when `isHeroEnabled` is set to true
-
-Make sure that you have also enabled `isHeroEnabled` on the navigation controller if you are doing a push/pop inside the navigation controller.
+Make sure that you have also enabled `self.hero.isEnabled` on the navigation controller if you are doing a push/pop inside the navigation controller.
 
 #### Views being covered by another matched view during the transition
 
 Matched views use global coordinate space while unmatched views use local coordinate space by default. Local coordinate spaced views might be covered by other global coordinate spaced views. To solve this, use the `useGlobalCoordinateSpace` modifier on the views being covered. Checkout [Coordinate Space Wiki page](https://github.com/lkzhao/Hero/wiki/Coordinate-Space) for details.
 
-#### Weird behavior with UIVisualEffectView
-
-UIVisualEffectView is quite hard to animate due to its private implementation and incompatibility with  `snapshotAfterScreenUpdate` and some Core Animation APIs. We are trying to get these solved as much as we can. Currently, as of 0.3.2, only unmatched UIVisualEffectView with noninteractive `.fade` animation is supported.
-
 #### Push animation is shown along side my custom animation
 
-This is the default animation for navigation controller provided by Hero. To disable the push animation, set `heroNavigationAnimationType` to `.fade` or `.none` on the navigation controller.
+This is the default animation for navigation controller provided by Hero. To disable the push animation, set `self.hero.navigationAnimationType` to `.fade` or `.none` on the navigation controller.
 
 #### How do I use a different default animation when dismissing
 
@@ -116,7 +170,7 @@ You can use the animation type `.selectBy(presenting:dismissing)` to specify a d
 For example:
 
 ```swift
-    heroModalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
+    self.hero.modalAnimationType = .selectBy(presenting:.zoom, dismissing:.zoomOut)
 ```
 
 ## Contribute

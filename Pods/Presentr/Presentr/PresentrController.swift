@@ -14,10 +14,13 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// Presentation type must be passed in to make all the sizing and position decisions.
     let presentationType: PresentationType
 
-    /// Should the presented controller dismiss on background tap.
-    let dismissOnTap: Bool
-    
-    /// Should the presented controller dismiss on background Swipe.
+	/// What should happen when background is tapped.
+	let backgroundTap: BackgroundTapAction
+
+	/// What should happen when the area outside the current context is tapped.
+	let outsideContextTap: BackgroundTapAction
+
+    /// Should the presented controller dismiss on presented view controller's view Swipe.
     let dismissOnSwipe: Bool
 
     /// DismissSwipe direction
@@ -32,13 +35,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     /// The frame used for a current context presentation. If nil, normal presentation.
     let contextFrameForPresentation: CGRect?
 
-    /// If contextFrameForPresentation is set, this handles what happens when tap outside context frame.
-    let shouldIgnoreTapOutsideContext: Bool
-
     /// A custom background view to be added on top of the regular background view.
     let customBackgroundView: UIView?
 
     fileprivate var conformingPresentedController: PresentrDelegate? {
+		if let navigationController = presentedViewController as? UINavigationController,
+			let visibleViewController = navigationController.visibleViewController as? PresentrDelegate {
+			return visibleViewController
+		}
         return presentedViewController as? PresentrDelegate
     }
 
@@ -54,9 +58,19 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     // MARK: Background Views
 
-    fileprivate var chromeView = UIView()
+	fileprivate lazy var chromeView: PassthroughView = {
+		let view = PassthroughView()
+		view.shouldPassthrough = false
+		view.passthroughViews = []
+		return view
+	}()
 
-    fileprivate var backgroundView = PassthroughBackgroundView()
+	fileprivate lazy var backgroundView: PassthroughView = {
+		let view = PassthroughView()
+		view.shouldPassthrough = false
+		view.passthroughViews = []
+		return view
+	}()
 
     fileprivate var visualEffect: UIVisualEffect?
 
@@ -88,27 +102,27 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
          roundCorners: Bool?,
          cornerRadius: CGFloat,
          dropShadow: PresentrShadow?,
-         dismissOnTap: Bool,
+         backgroundTap: BackgroundTapAction,
          dismissOnSwipe: Bool,
          dismissOnSwipeDirection: DismissSwipeDirection,
          backgroundColor: UIColor,
          backgroundOpacity: Float,
          blurBackground: Bool,
-         blurStyle: UIBlurEffectStyle,
+         blurStyle: UIBlurEffect.Style,
          customBackgroundView: UIView?,
          keyboardTranslationType: KeyboardTranslationType,
          dismissAnimated: Bool,
          contextFrameForPresentation: CGRect?,
-         shouldIgnoreTapOutsideContext: Bool) {
+         outsideContextTap: BackgroundTapAction) {
 
         self.presentationType = presentationType
-        self.dismissOnTap = dismissOnTap
+        self.backgroundTap = backgroundTap
         self.dismissOnSwipe = dismissOnSwipe
         self.dismissOnSwipeDirection = dismissOnSwipeDirection
         self.keyboardTranslationType = keyboardTranslationType
         self.dismissAnimated = dismissAnimated
         self.contextFrameForPresentation = contextFrameForPresentation
-        self.shouldIgnoreTapOutsideContext = shouldIgnoreTapOutsideContext
+        self.outsideContextTap = outsideContextTap
         self.customBackgroundView = customBackgroundView
 
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
@@ -133,14 +147,14 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         presentedViewController.view.addGestureRecognizer(swipe)
     }
     
-    private func setupBackground(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffectStyle) {
+    private func setupBackground(_ backgroundColor: UIColor, backgroundOpacity: Float, blurBackground: Bool, blurStyle: UIBlurEffect.Style) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
         chromeView.addGestureRecognizer(tap)
 
-        if !shouldIgnoreTapOutsideContext {
-            let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
-            backgroundView.addGestureRecognizer(tap)
-        }
+		if outsideContextTap != .passthrough {
+			let tap = UITapGestureRecognizer(target: self, action: #selector(chromeViewTapped))
+			backgroundView.addGestureRecognizer(tap)
+		}
 
         if blurBackground {
             visualEffect = UIBlurEffect(style: blurStyle)
@@ -151,44 +165,65 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
 
     private func setupCornerRadius(roundCorners: Bool?, cornerRadius: CGFloat) {
         let shouldRoundCorners = roundCorners ?? presentationType.shouldRoundCorners
+
         if shouldRoundCorners {
             presentedViewController.view.layer.cornerRadius = cornerRadius
-            presentedViewController.view.layer.masksToBounds = true
         } else {
             presentedViewController.view.layer.cornerRadius = 0
         }
+
+		if let settable = presentedViewController as? CornerRadiusSettable {
+			settable.customContainerViewSetCornerRadius(cornerRadius)
+		}
     }
     
     private func addDropShadow(shadow: PresentrShadow?) {
         guard let shadow = shadow else {
-            presentedViewController.view.layer.masksToBounds = true
             presentedViewController.view.layer.shadowOpacity = 0
             return
         }
 
-        presentedViewController.view.layer.masksToBounds = false
         if let shadowColor = shadow.shadowColor?.cgColor {
             presentedViewController.view.layer.shadowColor = shadowColor
         }
+
         if let shadowOpacity = shadow.shadowOpacity {
             presentedViewController.view.layer.shadowOpacity = shadowOpacity
         }
+
         if let shadowOffset = shadow.shadowOffset {
             presentedViewController.view.layer.shadowOffset = shadowOffset
         }
+
         if let shadowRadius = shadow.shadowRadius {
             presentedViewController.view.layer.shadowRadius = shadowRadius
         }
     }
     
     fileprivate func registerKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+        #if swift(>=4.2)
+        let keyboardWasShownKey = UIResponder.keyboardWillShowNotification
+        let keyboardWillHideKey = UIResponder.keyboardWillHideNotification
+        #else
+        let keyboardWasShownKey = NSNotification.Name.UIKeyboardWillShow
+        let keyboardWillHideKey = NSNotification.Name.UIKeyboardWillHide
+        #endif
+
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWasShown(notification:)), name: keyboardWasShownKey, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PresentrController.keyboardWillHide(notification:)), name: keyboardWillHideKey, object: nil)
     }
     
     fileprivate func removeObservers() {
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        #if swift(>=4.2)
+        let keyboardWasShownKey = UIResponder.keyboardWillShowNotification
+        let keyboardWillHideKey = UIResponder.keyboardWillHideNotification
+        #else
+        let keyboardWasShownKey = NSNotification.Name.UIKeyboardWillShow
+        let keyboardWillHideKey = NSNotification.Name.UIKeyboardWillHide
+        #endif
+
+        NotificationCenter.default.removeObserver(self, name: keyboardWasShownKey, object: nil)
+        NotificationCenter.default.removeObserver(self, name: keyboardWillHideKey, object: nil)
     }
 
 }
@@ -229,6 +264,7 @@ extension PresentrController {
         guard !keyboardIsShowing else {
             return // prevent resetting of presented frame when the frame is being translated
         }
+
         chromeView.frame = containerFrame
         presentedView!.frame = frameOfPresentedViewInContainerView
     }
@@ -240,9 +276,17 @@ extension PresentrController {
             return
         }
 
-        setupBackgroundView()
+		if outsideContextTap == .passthrough {
+			backgroundView.shouldPassthrough = true
+			backgroundView.passthroughViews = presentingViewController.view.subviews
+		}
 
-        backgroundView.frame = containerView.bounds
+		if backgroundTap == .passthrough {
+			chromeView.shouldPassthrough = true
+			chromeView.passthroughViews = presentingViewController.view.subviews
+		}
+
+		backgroundView.frame = containerView.bounds
         chromeView.frame = containerFrame
 
         containerView.insertSubview(backgroundView, at: 0)
@@ -285,18 +329,6 @@ extension PresentrController {
         }, completion: nil)
     }
 
-    // MARK: - Animation Helper's
-
-    func setupBackgroundView() {
-        if shouldIgnoreTapOutsideContext {
-            backgroundView.shouldPassthrough = true
-            backgroundView.passthroughViews = presentingViewController.view.subviews
-        } else {
-            backgroundView.shouldPassthrough = false
-            backgroundView.passthroughViews = []
-        }
-    }
-
 }
 
 // MARK: - Sizing, Position
@@ -306,7 +338,13 @@ fileprivate extension PresentrController {
     func getWidthFromType(_ parentSize: CGSize) -> Float {
         guard let size = presentationType.size() else {
             if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width)
+                #if swift(>=4.2)
+                let sizeKey = UIView.layoutFittingCompressedSize
+                #else
+                let sizeKey = UILayoutFittingCompressedSize
+                #endif
+
+                return Float(presentedViewController.view.systemLayoutSizeFitting(sizeKey).width)
             }
             return 0
         }
@@ -317,7 +355,13 @@ fileprivate extension PresentrController {
     func getHeightFromType(_ parentSize: CGSize) -> Float {
         guard let size = presentationType.size() else {
             if case .dynamic = presentationType {
-                return Float(presentedViewController.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height)
+                #if swift(>=4.2)
+                let sizeKey = UIView.layoutFittingCompressedSize
+                #else
+                let sizeKey = UILayoutFittingCompressedSize
+                #endif
+
+                return Float(presentedViewController.view.systemLayoutSizeFitting(sizeKey).height)
             }
             return 0
         }
@@ -349,9 +393,9 @@ fileprivate extension PresentrController {
 extension PresentrController {
 
     @objc func chromeViewTapped(gesture: UIGestureRecognizer) {
-        guard dismissOnTap else {
-            return
-        }
+		guard backgroundTap == .dismiss else {
+			return
+		}
 
         guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
             return
@@ -384,8 +428,6 @@ extension PresentrController {
             swipeGestureEnded()
         }
     }
-
-
 
     // MARK: Helper's
 
