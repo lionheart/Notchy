@@ -11,6 +11,8 @@ App Store Link: https://itunes.apple.com/us/app/notchy/id1311762771?ls=1&mt=8&uo
 
 Landing page: https://lionheartsw.com/software/notchy/
 
+## Screenshots
+<img src="https://2017.lionheartsw.com/static/images/notchy-3.png" width="335" height="647"/> <img src="https://2017.lionheartsw.com/static/images/notchy-4.png" width="335" height="647"/>
 ## Why Open Source
 
 A few reasons:
