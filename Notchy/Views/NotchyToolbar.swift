@@ -96,7 +96,7 @@ final class CheckmarkView: UIStackView {
 }
 
 final class NotchyToolbar: UIView {
-    @objc private var delegate: NotchyToolbarDelegate!
+    @objc private weak var delegate: NotchyToolbarDelegate?
 
     private var shareButton: PlainButton!
     private var saveButton: ShortPlainButton!
